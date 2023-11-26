@@ -3,7 +3,7 @@
     height: 84px;
     align-items: center;
     justify-content: center;
-    gap: 420px;
+    gap: 300px;
     padding: 10px 30px;
     position: relative;
     background-color: #ffffff;
@@ -12,6 +12,40 @@
     border-bottom: #000000;
   }
   
+  .cities-form {
+    min-width: 100px;
+    max-width: 100px;
+    width: 50%;
+    max-height: 50px;
+    min-height: 30px;
+  }
+  
+  .example-full-width {
+    width: 50%;
+  }
+  #city-input {
+    border: none;
+    outline: none;
+    font-family: "Arial-Bold", Helvetica;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  #guests-input {
+    border: none;
+    outline: none;
+    font-family: "Arial-Bold", Helvetica;
+    font-weight: 700;
+    font-size: 16px;
+    max-width: 50px;
+  }
+
+  #city-input::placeholder{
+    font-family: "Arial-Bold", Helvetica;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
   .navbar .image {
     position: relative;
     width: 162.5px;
