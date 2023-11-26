@@ -5,6 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {MaterialModule} from "../infrastructure/material/material.module";
 import {RouterModule} from "@angular/router";
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -12,11 +13,13 @@ import {RouterModule} from "@angular/router";
   declarations: [
     HomeComponent,
     HeaderComponent,
-    NavBarComponent
+    NavBarComponent,
+    LoginComponent
   ],
   exports: [
     NavBarComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,

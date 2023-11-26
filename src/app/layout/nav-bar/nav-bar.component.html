@@ -1,7 +1,24 @@
-<mat-toolbar>
-  <span [routerLink]="['home']" >Wine Application</span>
-  <div>
-    <button [routerLink]="['wine']" style="float: right" mat-raised-button color="primary">Wines</button>
-    <button [routerLink]="['create']"  style="float: right" mat-raised-button color="accent">Create</button>
+<mat-toolbar class="navbar">
+  <a [routerLink]="['home']">
+  <img class="image" src="..\..\assets\images\logo.png" />
+  </a>
+  <div class="search-frame">
+    <img class="img" src="..\..\assets\images\location_city.png" />
+    <div class="text-wrapper">Novi Sad</div>
+    <img class="line" src="..\..\assets\images\Line 1.png" />
+    <img class="img" src="..\..\assets\images\calendar_month.png" />
+    <div class="text-wrapper">Add dates</div>
+    <img class="line" src="..\..\assets\images\Line 1.png" />
+    <img class="img" src="..\..\assets\images\people_alt.png" />
+    <div class="text-wrapper">Add guests</div>
+    <button>
+    <img class="img" src="..\..\assets\images\SearchButton.png" />
+    </button>
   </div>
+  <button (click)="onAccountButtonClick()">
+  <div class="account-button" >
+    <img class="img" src="..\..\assets\images\menu_24px.png" />
+    <img class="icons-account-circle" src="..\..\assets\images\account_circle_filled_24px.png" />
+  </div>
+</button>
 </mat-toolbar>
