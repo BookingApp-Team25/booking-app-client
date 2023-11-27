@@ -5,8 +5,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent {
-   @Output() accountButtonClick = new EventEmitter<void>();
-   onAccountButtonClick() {
+  @Output() accountButtonClick = new EventEmitter<void>();
+  onAccountButtonClick() {
     this.accountButtonClick.emit();
   }
-    }
+}

@@ -6,6 +6,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {MaterialModule} from "../infrastructure/material/material.module";
 import {RouterModule} from "@angular/router";
 import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 
 
@@ -14,12 +15,13 @@ import { LoginComponent } from './login/login.component';
     HomeComponent,
     HeaderComponent,
     NavBarComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent
   ],
   exports: [
     NavBarComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     CommonModule,
