@@ -6,11 +6,11 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {MaterialModule} from "../infrastructure/material/material.module";
 import {RouterModule} from "@angular/router";
 import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccommodationDetailsComponent } from './accommodation-details/accommodation-details.component';
 import { AccommodationCardComponent } from './accommodation-card/accommodation-card.component';
 import { ReviewCardComponent } from './review-card/review-card.component';
-
 
 
 @NgModule({
@@ -19,6 +19,7 @@ import { ReviewCardComponent } from './review-card/review-card.component';
     HeaderComponent,
     NavBarComponent,
     LoginComponent,
+    RegistrationComponent
     AccommodationDetailsComponent,
     AccommodationCardComponent,
     ReviewCardComponent

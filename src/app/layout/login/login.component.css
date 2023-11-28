@@ -10,6 +10,7 @@
     z-index: 999;
     border-radius: 5%;
   }
+
   .example-form {
     min-width: 150px;
     max-width: 500px;
@@ -19,9 +20,11 @@
   .example-full-width {
     width: 100%;
   }
+
   a {
     cursor: pointer;
   }
+
   .log-in-pop-up .div {
     background-color: #ffffff;
     width: 539px;
@@ -31,7 +34,7 @@
     display: flex;
     flex-direction: column;
   }
-  
+
   button[mat-flat-button] {
     margin-top: 10%;
     align-self: center;
@@ -39,6 +42,7 @@
     background-color: #969000;
     color: #ffffff;
   }
+  
   .log-in-pop-up .text-wrapper {
     position: absolute;
     height: 24px;

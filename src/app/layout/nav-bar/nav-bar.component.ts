@@ -7,6 +7,7 @@ import { map,Observable, startWith } from 'rxjs';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
+
 export class NavBarComponent implements OnInit {
   myControl = new FormControl('');
   options: string[] = ['Ankara','Arad','Belgrade','Bucharest','Budapest','Cologne','Dresden',"Duisburg",'Durres'];
@@ -29,4 +30,4 @@ export class NavBarComponent implements OnInit {
    onAccountButtonClick() {
     this.accountButtonClick.emit();
   }
-    }
+}
