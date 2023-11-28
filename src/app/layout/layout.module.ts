@@ -7,6 +7,9 @@ import {MaterialModule} from "../infrastructure/material/material.module";
 import {RouterModule} from "@angular/router";
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AccommodationDetailsComponent } from './accommodation-details/accommodation-details.component';
+import { AccommodationCardComponent } from './accommodation-card/accommodation-card.component';
+import { ReviewCardComponent } from './review-card/review-card.component';
 
 
 
@@ -15,12 +18,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     HeaderComponent,
     NavBarComponent,
-    LoginComponent
+    LoginComponent,
+    AccommodationDetailsComponent,
+    AccommodationCardComponent,
+    ReviewCardComponent
   ],
   exports: [
     NavBarComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    AccommodationDetailsComponent
   ],
   imports: [
     CommonModule,
