@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "WineApp": {
+    "wineApp": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "WineApp:build:production"
+              "browserTarget": "wineApp:build:production"
             },
             "development": {
-              "browserTarget": "WineApp:build:development"
+              "browserTarget": "wineApp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +72,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "WineApp:build"
+            "browserTarget": "wineApp:build"
           }
         },
         "test": {

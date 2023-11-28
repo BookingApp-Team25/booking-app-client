@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
-
+import { LoginComponent } from './layout/login/login.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title: string = 'WineApp';
+  title: string = 'BookingApp';
+  isLoginVisible = false;
 
+  toggleLogin() {
+    this.isLoginVisible = !this.isLoginVisible;
+  }
 }
