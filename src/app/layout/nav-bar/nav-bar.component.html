@@ -4,13 +4,26 @@
   </a>
   <div class="search-frame">
     <img class="img" src="..\..\assets\images\location_city.png" />
-    <div class="text-wrapper">Novi Sad</div>
+    <form class="cities-form">
+        <input  id="city-input" type="text"
+                placeholder="City"
+               matInput
+               [formControl]="myControl"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async; track option"  [value]="option">{{option}}</mat-option>
+        </mat-autocomplete>
+    </form>
     <img class="line" src="..\..\assets\images\Line 1.png" />
-    <img class="img" src="..\..\assets\images\calendar_month.png" />
-    <div class="text-wrapper">Add dates</div>
+      <mat-date-range-input [rangePicker]="picker" style="min-width: 240px;" >
+        <input matStartDate placeholder="Start date" [readonly]="true" style="font-size: 16px;">
+        <input matEndDate placeholder="End date" [readonly]="true" style="font-size: 16px;">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker" ></mat-datepicker-toggle>
+      <mat-date-range-picker #picker ></mat-date-range-picker>
     <img class="line" src="..\..\assets\images\Line 1.png" />
     <img class="img" src="..\..\assets\images\people_alt.png" />
-    <div class="text-wrapper">Add guests</div>
+    <input id="guests-input" type="number" min="1" max="50">
     <button>
     <img class="img" src="..\..\assets\images\SearchButton.png" />
     </button>
