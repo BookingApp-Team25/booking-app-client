@@ -11,6 +11,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccommodationDetailsComponent } from './accommodation-details/accommodation-details.component';
 import { AccommodationCardComponent } from './accommodation-card/accommodation-card.component';
 import { ReviewCardComponent } from './review-card/review-card.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+
 
 
 @NgModule({
@@ -19,23 +23,27 @@ import { ReviewCardComponent } from './review-card/review-card.component';
     HeaderComponent,
     NavBarComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
     AccommodationDetailsComponent,
     AccommodationCardComponent,
-    ReviewCardComponent
+    ReviewCardComponent,
+    UserProfileComponent,
+    FilterDialogComponent,
   ],
   exports: [
     NavBarComponent,
     HeaderComponent,
     LoginComponent,
-    AccommodationDetailsComponent
+    AccommodationDetailsComponent,
+    UserProfileComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCheckboxModule
   ]
 })
 export class LayoutModule { }

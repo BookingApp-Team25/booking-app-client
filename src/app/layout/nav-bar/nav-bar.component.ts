@@ -2,6 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { map,Observable, startWith } from 'rxjs';
+import {MatDialog} from "@angular/material/dialog";
+import {FilterDialogComponent} from "../filter-dialog/filter-dialog.component";
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -9,6 +11,9 @@ import { map,Observable, startWith } from 'rxjs';
 })
 
 export class NavBarComponent implements OnInit {
+
+  constructor(public dialog : MatDialog) {
+  }
   myControl = new FormControl('');
   options: string[] = ['Ankara','Arad','Belgrade','Bucharest','Budapest','Cologne','Dresden',"Duisburg",'Durres'];
   filteredOptions: Observable<string[]>;
@@ -20,6 +25,24 @@ export class NavBarComponent implements OnInit {
     );
   }
 
+  openDialog(): void {
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    const topPercentage = 8; // adjust as needed
+    const leftPercentage = 50; // adjust as needed
+    const topValue = (viewportHeight * topPercentage) / 100 + 'px';
+    const leftValue = (viewportWidth * leftPercentage) / 100 + 'px';
+
+    let dialogRef = this.dialog.open(FilterDialogComponent, {
+      width: '500px',
+      height:"300px",
+      hasBackdrop: true,
+      disableClose: false
+    });
+    dialogRef.updatePosition({top:topValue,left:leftValue})
+
+  }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
