@@ -46,6 +46,10 @@
     white-space: nowrap;
   }
   
+  .desc {
+    height: 100%;
+  }
+
   .accommodation-frame .description-text {
     position: relative;
     transform: rotate(0.32deg);
@@ -63,7 +67,6 @@
     align-items: center;
     gap: 120px;
     position: relative;
-    margin-top: 15%;
     background-color: #ffffff;
   }
   

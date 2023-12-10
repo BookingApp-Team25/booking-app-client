@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { AccommodationSummary } from '../model/accommodation-summary';
 
 @Component({
   selector: 'accommodation-card',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./accommodation-card.component.css']
 })
 export class AccommodationCardComponent {
-
+  @Input() summary: AccommodationSummary;
 }
