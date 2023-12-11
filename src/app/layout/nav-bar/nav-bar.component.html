@@ -33,10 +33,14 @@
       </button>
     </div>
   </div>
-  <button (click)="onAccountButtonClick()">
+  <button [matMenuTriggerFor]="menu">
   <div class="account-button" >
     <img class="img" src="..\..\assets\images\menu_24px.png" />
     <img class="icons-account-circle" src="..\..\assets\images\account_circle_filled_24px.png" />
   </div>
 </button>
+<mat-menu class="account-menu" #menu="matMenu">
+  <button mat-menu-item (click)="onAccountButtonClick()">Login</button>
+  <button mat-menu-item routerLink="/registration">Register</button>
+</mat-menu>
 </mat-toolbar>

@@ -49,6 +49,12 @@
     font-size: 16px;
   }
 
+  ::ng-deep .account-menu {
+    overflow: hidden !important;
+    border-radius: 20px !important;
+    width: 150px;
+  }
+
   .navbar .image {
     position: relative;
     width: 162.5px;

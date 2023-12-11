@@ -4,11 +4,7 @@
 <hr>
 <a>
   <mat-list>
-<accommodation-card></accommodation-card>
-<accommodation-card></accommodation-card>
-<accommodation-card></accommodation-card>
-<accommodation-card></accommodation-card>
-<accommodation-card></accommodation-card>
+    <accommodation-card *ngFor="let summary of summaries" [summary]="summary"></accommodation-card>
 </mat-list>
 </a>
 </div>
