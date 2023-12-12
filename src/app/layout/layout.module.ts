@@ -5,7 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {MaterialModule} from "../infrastructure/material/material.module";
 import {RouterModule} from "@angular/router";
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from '../infrastructure/auth/login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccommodationDetailsComponent } from '../accommodation/accommodation-details/accommodation-details.component';
