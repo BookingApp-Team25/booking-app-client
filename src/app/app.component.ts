@@ -1,15 +1,18 @@
+// src/app/app.component.ts
 import { Component } from '@angular/core';
-import { LoginComponent } from './layout/login/login.component';
+import { PopupService } from './services/popup/popup.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title: string = 'BookingApp';
-  isLoginVisible = false;
+  title = 'BookingApp';
+
+  constructor(public popupService: PopupService) {}
 
   toggleLogin() {
-    this.isLoginVisible = !this.isLoginVisible;
+    this.popupService.toggleLoginVisibility();
   }
 }

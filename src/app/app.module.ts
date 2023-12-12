@@ -6,6 +6,7 @@ import {LayoutModule} from "./layout/layout.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './layout/home/home.component';
 import { RouterModule,Routes } from '@angular/router';
+import { PopupService } from './services/popup/popup.service';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -24,7 +25,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [PopupService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

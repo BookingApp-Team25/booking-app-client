@@ -19,7 +19,7 @@ import { ReviewCardComponent } from './review-card/review-card.component';
     HeaderComponent,
     NavBarComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
     AccommodationDetailsComponent,
     AccommodationCardComponent,
     ReviewCardComponent
