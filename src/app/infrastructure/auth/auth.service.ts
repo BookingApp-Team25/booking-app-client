@@ -5,6 +5,8 @@ import { LoginRequest } from './model/login-request';
 import { LoginResponse } from './model/login-response';
 import { environment } from 'src/app/env/env';
 import {JwtHelperService} from "@auth0/angular-jwt";
+import { MessageResponse } from './model/message-response';
+import { AccountDetails } from './model/account-details';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +27,16 @@ export class AuthService {
     });
   }
 
+  register(auth:any): Observable<MessageResponse> {
+    return this.http.post<any>(environment.apiHost+'auth/register',auth,{
+      headers: this.headers,
+    });
+  }
+
+  accountDetails():Observable<AccountDetails> {
+    return this.http.get<any>(environment.apiHost+'user/details/'+this.getUsername());
+  }
+
   getRole(): any {
     if(this.isLoggedIn()){
       const accessToken: any=localStorage.getItem('user');
@@ -33,7 +45,13 @@ export class AuthService {
     }
     return null;
   }
-
+  getUsername(): any {
+    if(this.isLoggedIn()){
+      const accessToken: any=localStorage.getItem('user');
+      const jwtHelper=new JwtHelperService();
+      return jwtHelper.decodeToken(accessToken).sub;
+    }
+  }
   isLoggedIn(): boolean {
     return localStorage.getItem('user') != null;
   }

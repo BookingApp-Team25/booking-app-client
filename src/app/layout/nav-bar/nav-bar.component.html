@@ -25,7 +25,7 @@
     <img class="img" src="..\..\assets\images\people_alt.png" />
     <input id="guests-input" type="number" min="1" max="50">
     <div style="display: flex">
-    <button routerLink="userProfile">
+    <button>
     <mat-icon>search</mat-icon>
     </button>
       <button  (click)="openDialog()">
@@ -42,5 +42,6 @@
 <mat-menu class="account-menu" #menu="matMenu">
   <button mat-menu-item (click)="onAccountButtonClick()">Login</button>
   <button mat-menu-item routerLink="/registration">Register</button>
+  <button mat-menu-item routerLink="userProfile">Account</button>
 </mat-menu>
 </mat-toolbar>

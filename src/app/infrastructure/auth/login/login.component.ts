@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
 import { AuthService } from '../auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginRequest } from '../model/login-request';
