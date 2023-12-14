@@ -16,6 +16,9 @@ import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
+import { FormsModule } from '@angular/forms';
+import {ReactiveFormsModule} from "@angular/forms";
+
 
 @NgModule({
   declarations: [],
@@ -36,7 +39,9 @@ import {MatMenuModule} from '@angular/material/menu';
     MatCardModule,
     MatListModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     MatToolbarModule,
@@ -55,7 +60,9 @@ import {MatMenuModule} from '@angular/material/menu';
     MatCardModule,
     MatListModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MaterialModule { }
