@@ -1,0 +1,9 @@
+:host{
+  width: 80%;
+}
+
+#main-div{
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}

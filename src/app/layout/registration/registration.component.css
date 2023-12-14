@@ -1,0 +1,122 @@
+.registration-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1031px;
+    height: 762px;
+    flex-shrink: 0;
+    border-radius: 50px;
+    background: #FFF;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.30), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: space-between;
+    margin-top: 2%;
+}
+
+.title {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.title h1 {
+    margin: 0;
+    color: #000;
+    font-family: 'Arial';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+}
+
+.registration-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+section {
+    margin: 0 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.email,
+.password,
+.repeat-password,
+.phone,
+.first-name,
+.last-name,
+.address {
+    margin-bottom: 35px; 
+    padding: 10px; /* Adjust as needed */
+    display: block;
+}
+
+input {
+    border: none;
+    border-bottom: 1px solid #000;
+    outline: none; /* Remove default input focus outline */
+    width: 369px;
+    padding-top: 15px;
+}
+  
+  /* Optional: Add some spacing between the label and input */
+label {
+    padding: 0 20px;
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px
+}
+
+.radio-buttons p {
+    text-align: center;
+    padding-right: 30px;
+    padding-bottom: 15px;
+}
+
+.radio-buttons input, .radio-buttons label {
+    width: 50px;
+    margin-left: 15px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+}
+
+.bottom {
+    margin-top: auto; /* Push the button to the bottom */
+    margin-bottom: 5%;
+}
+
+.bottom button {
+    height: 45px;
+    width: 150px;
+    align-items: center;
+    color: #FFF;
+    gap: 8px;
+    flex-shrink: 0;
+    border-radius: 100px;
+    border: none;
+    background: var(--Gold, #969000);
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: 0.1px;
+}
+
+.bottom button:hover {
+    background-color: #A3A100;
+}
+
+.bottom button:active {
+    transform: scale(0.95);
+}

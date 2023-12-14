@@ -1,0 +1,118 @@
+#mainDiv{
+
+}
+#accommodation-form {
+  display: flex;
+  flex-direction: column;
+  height: 400vh; /* Set height to 100% of the viewport height */
+
+  align-items: center;
+  width: 100%; /* Set width to 100% */
+}
+.basic-info-wrapper {
+  display: flex;
+  justify-content: space-around;
+  padding-left: 3%;
+  padding-right: 3%;
+  margin-top: 10%;
+  position: relative;
+  width: 65%;
+  max-width: 100%; /* Set a maximum width if needed */
+  height: 10%;
+  align-items: center;
+  border-radius: 30px;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.3),
+  0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+}
+#submitButton{
+  margin-top: 0%;
+  width: 20%;
+  height: 10%;
+}
+#pricelist {
+  display: flex;
+  flex-direction: column;
+}
+
+.basic-info-part {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+#descritpion-form-field{
+  height: 50%;
+}
+.basic-form-field{
+  height: 20%;
+}
+#property-contents-and-map-div{
+  margin-top: 0%;
+  height: 15%;
+  width: 70%;
+  display: flex;
+  justify-content: space-around;
+}
+.block-element-wrapper{
+  display: flex;
+  flex-direction: column;
+  margin-top: 3%;
+  position: relative;
+  align-self: center;
+  width: 40%;
+  height: 75%;
+  align-items: center;
+  border-radius: 30px;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.3),
+  0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+}
+#map-wrapper{
+  padding-bottom: 2%;
+}
+#map-card-title{
+  align-self: center;
+  margin-bottom: 10%;
+  margin-top: 10%;
+  font-size: 35px;
+}
+#schedule-and-price-div{
+  display: flex;
+  margin-top: 3%;
+  position: relative;
+  align-self: center;
+  width: 70%;
+  height: 10%;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 30px;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.3),
+  0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+}
+#price-wrapper{
+  border: 1px solid black;
+  width: 30%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+}
+#calendar-wrapper{
+  width: 30%;
+  height: 80%;
+}
+#dates-div{
+  display: flex;
+  flex-direction: column;
+  margin-top: 3%;
+  position: relative;
+  align-self: center;
+  width: 70%;
+  height: 7%;
+  align-items: center;
+  border-radius: 30px;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.3),
+  0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+}
+#dates-div-title{
+  margin-top: 3%;
+  font-size: 30px;
+}
