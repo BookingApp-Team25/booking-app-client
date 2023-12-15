@@ -5,13 +5,18 @@ import { RegistrationComponent } from "./layout/registration/registration.compon
 import { LoginComponent } from './layout/login/login.component';
 import { AccommodationDetailsComponent } from './accommodation/accommodation-details/accommodation-details.component';
 import { UserProfileComponent } from './layout/user-profile/user-profile.component';
+import {AccommodationCreationComponent} from "./host/accommodation-creation/accommodation-creation.component";
+import {AccommodationRequestsComponent} from "./admin/accommodation-requests/accommodation-requests.component";
 
 const routes: Routes = [
   {component: HomeComponent, path:"home"},
   {component: AccommodationDetailsComponent, path:"home/accommodationView"},
   { component: UserProfileComponent, path: "userProfile" },
-  { component: LoginComponent, path: 'login' },
-  { component: RegistrationComponent, path: "registration" }
+  { component: RegistrationComponent, path: "registration" },
+  { component: AccommodationCreationComponent, path: "accommodation-creation"},
+  { component: AccommodationRequestsComponent, path : "accommodation-requests"},
+  { component: LoginComponent, path: 'login' }
+
 ];
 
 @NgModule({

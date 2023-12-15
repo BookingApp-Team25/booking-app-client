@@ -8,6 +8,9 @@ import { HomeComponent } from './layout/home/home.component';
 import { RouterModule,Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { PopupService } from './services/popup/popup.service';
+import { HostModule} from "./host/host.module";
+import { AdminModule} from "./admin/admin.module";
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -25,7 +28,9 @@ const routes: Routes = [
     LayoutModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
+    HostModule,
+    AdminModule
   ],
   providers: [PopupService],
   bootstrap: [AppComponent]
