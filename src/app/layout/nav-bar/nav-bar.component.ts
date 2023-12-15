@@ -1,5 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
 import { FormControl } from '@angular/forms';
+import { PopupService } from '../../services/popup/popup.service';
 
 import { map,Observable, startWith } from 'rxjs';
 import {MatDialog} from "@angular/material/dialog";
@@ -12,7 +14,7 @@ import {FilterDialogComponent} from "../filter-dialog/filter-dialog.component";
 
 export class NavBarComponent implements OnInit {
 
-  constructor(public dialog : MatDialog) {
+  constructor(public dialog : MatDialog, private popupService: PopupService) {
   }
   myControl = new FormControl('');
   options: string[] = ['Ankara','Arad','Belgrade','Bucharest','Budapest','Cologne','Dresden',"Duisburg",'Durres'];
@@ -49,8 +51,7 @@ export class NavBarComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  @Output() accountButtonClick = new EventEmitter<void>();
-   onAccountButtonClick() {
-    this.accountButtonClick.emit();
+  onAccountButtonClick() {
+    this.popupService.toggleLoginVisibility();
   }
 }
