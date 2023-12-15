@@ -7,17 +7,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
-import {MatIconModule} from '@angular/material/icon';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatCardModule} from '@angular/material/card';
-import {MatListModule} from '@angular/material/list';
-import { MatDialogModule } from '@angular/material/dialog';
-import {MatMenuModule} from '@angular/material/menu';
-import { FormsModule } from '@angular/forms';
-import {ReactiveFormsModule} from "@angular/forms";
+
 
 
 @NgModule({
@@ -31,17 +21,6 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    MatAutocompleteModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatCardModule,
-    MatListModule,
-    MatDialogModule,
-    MatMenuModule,
-    FormsModule,
-    ReactiveFormsModule
   ],
   exports: [
     MatToolbarModule,
@@ -51,18 +30,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    MatLabel,
-    MatAutocompleteModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatCardModule,
-    MatListModule,
-    MatDialogModule,
-    MatMenuModule,
-    FormsModule,
-    ReactiveFormsModule
+    MatLabel
   ]
 })
 export class MaterialModule { }
