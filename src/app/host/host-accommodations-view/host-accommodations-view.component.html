@@ -4,7 +4,7 @@
     <hr>
     <a>
         <mat-list>
-            <accommodation-card *ngFor="let summary of summaries" [summary]="summary"></accommodation-card>
+            <app-accommodation-host-card *ngFor="let summary of summaries" [summary]="summary"></app-accommodation-host-card>
         </mat-list>
         <mat-paginator [length]="totalNumberOfElements"
                        [pageSize]="10"

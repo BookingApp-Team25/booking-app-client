@@ -1,4 +1,4 @@
-<div class="accommodation-frame" [routerLink]="['accommodationView']">
+<div class="accommodation-frame">
     <img class="accommodation-image" src="..\..\assets\images\AccommodationImage.png" />
     <div class="accommodation-info">
         <div class="accommodation-name">{{summary.name}}</div>
@@ -8,7 +8,12 @@
             </p>
         </div>
         <div class="info">
-            <div class="text-wrapper">{{summary.}}$ per night</div>
+            <div class="text-wrapper">{{summary.onHoldStatus}}</div>
         </div>
+    </div>
+    <div id="buttons">
+        <button mat-mini-fab [routerLink]="['accommodationView']" style="background-color: white;color: #969000;margin-top: 50%" aria-label="Example icon button with a menu icon">
+            <mat-icon>edit</mat-icon>
+        </button>
     </div>
 </div>

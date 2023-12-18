@@ -18,6 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from "@angular/forms";
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatDialogModule,
     MatMenuModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSidenavModule
   ],
   exports: [
     MatToolbarModule,
@@ -62,7 +64,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatDialogModule,
     MatMenuModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSidenavModule
   ]
 })
 export class MaterialModule { }

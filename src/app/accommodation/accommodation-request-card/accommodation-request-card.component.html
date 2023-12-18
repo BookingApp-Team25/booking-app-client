@@ -1,16 +1,22 @@
-<div class="accommodation-frame" [routerLink]="['accommodationView']">
+<div class="accommodation-frame">
   <img class="accommodation-image" src="..\..\assets\images\AccommodationImage.png" />
   <div class="accommodation-info">
     <div class="accommodation-name">{{summary.accommodationName}}</div>
     <div class="desc">
       <p class="description-text">
-        {{summary.accommodationDescription}}
+        <b>Description:  </b>{{summary.accommodationDescription}}
       </p>
     </div>
     <div class="info">
-      <div class="text-wrapper">{{summary.type}}</div>
-      <div class="group">
-        <img class="star" src="..\..\assets\images\star.png" />
-      </div>
+      <div class="text-wrapper">Type: {{summary.type}}</div>
     </div>
   </div>
+  <div id="buttons">
+    <button mat-mini-fab style="background-color: green" aria-label="Example icon button with a menu icon" [disabled]="isRequestSolved" (click)="onResolveAccommodationUpdate(summary.id,1)">
+      <mat-icon>done</mat-icon>
+    </button>
+    <button mat-mini-fab style="background-color: red" aria-label="Example icon button with a menu icon" [disabled]="isRequestSolved" (click)="onResolveAccommodationUpdate(summary.id,0)">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
+</div>

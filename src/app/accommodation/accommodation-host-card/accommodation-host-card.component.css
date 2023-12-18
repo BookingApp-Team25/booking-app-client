@@ -108,3 +108,10 @@
     top: 0;
     left: 39px;
 }
+#buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-right: 10%;
+    height: 100%;
+}

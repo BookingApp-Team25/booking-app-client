@@ -6,9 +6,10 @@ import {DatePriceElementModel} from "./model/date-price-element-model";
 import {isValidDate} from "rxjs/internal/util/isDate";
 import {AccommodationService} from "../../accommodation/accommodation.service";
 import {AccommodationRequest} from "../../accommodation/model/accommodation-request";
-import {AccommodationType} from "../../accommodation/model/accommodation-type-enum";
-import {AccommodationReservationPolicy} from "../../accommodation/model/accommodation-reservation-policy-enum";
+import {AccommodationType} from "../../accommodation/enum/accommodation-type-enum";
+import {AccommodationReservationPolicy} from "../../accommodation/enum/accommodation-reservation-policy-enum";
 import {Location} from "../../accommodation/model/location";
+import {AccommodationDatePeriod} from "../../accommodation/model/accommodation-date-period";
 
 @Component({
   selector: 'app-accommodation-creation',
@@ -93,14 +94,13 @@ export class AccommodationCreationComponent implements OnInit{
 
       // Optional: Clear the form controls after adding the date pair
       console.log(this.datesList);
-      console.log(this.accommodationForm.value);
     } else {
       // Handle the case where one or both dates are missing
       console.error('Both start and end dates must be selected.');
     }
   }
   get datesList(){
-    return this.accommodationForm.get('datesList') as FormArray;
+    return this.accommodationForm.get('datesList')?.value as FormArray;
   }
   get propertyList() {
     return this.accommodationForm.get('propertyList') as FormArray;
@@ -110,7 +110,16 @@ export class AccommodationCreationComponent implements OnInit{
     console.log(this.accommodationForm)
   }
   submitForm() {
+    const datePeriods : AccommodationDatePeriod[] = [];
+    for(const datePrice of this.dateElements){
+      const datePeriod : AccommodationDatePeriod = {
+        startDate : datePrice.startDate,
+        endDate : datePrice.endDate
+      };
+      datePeriods.push(datePeriod);
+    }
     const accommodationRequest: AccommodationRequest = {
+      hostId : "5894d69d-fc8d-4f06-bf0c-dc695b40901b",
       name: this.accommodationForm.get("name")?.value,
       description: this.accommodationForm.get("description")?.value,
       location: {
@@ -124,7 +133,6 @@ export class AccommodationCreationComponent implements OnInit{
       minGuests: this.accommodationForm.get("minGuests")?.value,
       maxGuests: this.accommodationForm.get("maxGuests")?.value,
       type: AccommodationType.Studio, // Choose the appropriate type
-      availability: { reservations: [] },
       pricelist: {
         dailyPrice: this.accommodationForm.get("pricelist.dailyPrice")?.value,
         weekendPrice: this.accommodationForm.get("pricelist.weekendPrice")?.value,
@@ -134,7 +142,9 @@ export class AccommodationCreationComponent implements OnInit{
       price: this.accommodationForm.get("pricelist.dailyPrice")?.value + this.accommodationForm.get("pricelist.weekendPrice")?.value + this.accommodationForm.get("pricelist.seasonPrice")?.value + this.accommodationForm.get("pricelist.holidayPrice")?.value,
       daysBefore: this.accommodationForm.get("daysBefore")?.value,
       policy: AccommodationReservationPolicy.Manual, // Choose the appropriate policy
+      availability: datePeriods
     };
+    console.log(accommodationRequest);
     this.service.postAccommodationRequest(accommodationRequest).subscribe(
       (response) => {
         console.log('POST request successful', response);

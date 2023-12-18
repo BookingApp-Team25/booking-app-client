@@ -1,3 +1,5 @@
+import {AccommodationOnHoldStatus} from "../enum/accommodation-on-hold-status";
+
 export interface AccommodationSummary {
     id?: String;
     name?: String;
@@ -5,4 +7,5 @@ export interface AccommodationSummary {
     description?: String;
     price?: number;
     rating?: number;
+    onHoldStatus? : AccommodationOnHoldStatus;
 }

@@ -1,10 +1,11 @@
-import {AccommodationType} from "./accommodation-type-enum";
-import {AccommodationReservedDates} from "./AccommodationReservedDates";
+import {AccommodationType} from "../enum/accommodation-type-enum";
 import {Location} from "./location";
 import {AccommodationPricelist} from "./accommodation-pricelist";
-import {AccommodationReservationPolicy} from "./accommodation-reservation-policy-enum";
+import {AccommodationReservationPolicy} from "../enum/accommodation-reservation-policy-enum";
+import {AccommodationDatePeriod} from "./accommodation-date-period";
 
 export interface AccommodationRequest {
+  hostId : string;
   name: string;
   description: string;
   location: Location;
@@ -13,7 +14,7 @@ export interface AccommodationRequest {
   minGuests: number;
   maxGuests: number;
   type: AccommodationType;
-  availability: AccommodationReservedDates;
+  availability: AccommodationDatePeriod[];
   pricelist: AccommodationPricelist;
   price: number;
   daysBefore: number;
