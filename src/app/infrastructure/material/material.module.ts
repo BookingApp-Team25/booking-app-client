@@ -18,6 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 @NgModule({
   declarations: [],
   imports: [
@@ -39,7 +40,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatDialogModule,
     MatMenuModule,
     MatRadioModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSnackBarModule
   ],
   exports: [
     MatToolbarModule,
@@ -60,7 +62,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatDialogModule,
     MatMenuModule,
     MatRadioModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule { }

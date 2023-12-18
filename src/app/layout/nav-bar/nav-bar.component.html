@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <mat-toolbar class="navbar">
   <a [routerLink]="['home']">
   <img class="image" src="..\..\assets\images\logo.png" />
@@ -40,8 +41,9 @@
   </div>
 </button>
 <mat-menu class="account-menu" #menu="matMenu">
-  <button mat-menu-item (click)="onAccountButtonClick()">Login</button>
-  <button mat-menu-item routerLink="/registration">Register</button>
-  <button mat-menu-item routerLink="userProfile">Account</button>
+  <button mat-menu-item (click)="onAccountButtonClick()" *ngIf="role==''">Login</button>
+  <button mat-menu-item routerLink="/registration" *ngIf="role==''">Register</button>
+  <button mat-menu-item routerLink="user-profile" *ngIf="role!=''">Account</button>
+  <button mat-menu-item (click)="logOut()" *ngIf="role != ''">Logout</button>
 </mat-menu>
 </mat-toolbar>

@@ -4,42 +4,58 @@
     </div>
     <div class="registration-body">
         <section>
-            <mat-form-field class="email" appearance="outline">
-              <mat-label>Email</mat-label>
-              <input matInput formControlName="email" placeholder="Enter your email">
-            </mat-form-field>
-      
-            <mat-form-field class="password" appearance="outline">
-              <mat-label>Password</mat-label>
-              <input matInput type="password" formControlName="password" placeholder="Enter your password">
-            </mat-form-field>
-      
-            <mat-form-field class="repeat-password" appearance="outline">
-              <mat-label>Repeat password</mat-label>
-              <input matInput type="password" formControlName="repeatPassword" placeholder="Repeat your password">
-            </mat-form-field>
-      
-            <mat-form-field class="phone" appearance="outline">
-              <mat-label>Phone number</mat-label>
-              <input matInput formControlName="phone" placeholder="Enter your phone number">
-            </mat-form-field>
-          </section>
-      
-          <section>
-            <mat-form-field class="first-name" appearance="outline">
-              <mat-label>First name</mat-label>
-              <input matInput formControlName="firstName" placeholder="Enter your first name">
-            </mat-form-field>
-      
-            <mat-form-field class="last-name" appearance="outline">
-              <mat-label>Last name</mat-label>
-              <input matInput formControlName="lastName" placeholder="Enter your last name">
-            </mat-form-field>
-      
-            <mat-form-field class="address" appearance="outline">
-              <mat-label>Address</mat-label>
-              <input matInput formControlName="address" placeholder="Enter your address">
-            </mat-form-field>
+            <!-- Email -->
+      <mat-form-field class="email" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="Enter your email">
+        <mat-error *ngIf="registrationForm.get('email')?.hasError('required')">Email is required</mat-error>
+        <mat-error *ngIf="registrationForm.get('email')?.hasError('email')">Please enter a valid email address</mat-error>
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field class="password" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" placeholder="Enter your password">
+        <mat-error *ngIf="registrationForm.get('password')?.hasError('required')">Password is required</mat-error>
+        <mat-error *ngIf="registrationForm.get('password')?.hasError('minlength')">Password must be at least 6 characters long</mat-error>
+      </mat-form-field>
+
+      <!-- Repeat Password -->
+      <mat-form-field class="repeat-password" appearance="outline">
+        <mat-label>Repeat password</mat-label>
+        <input matInput type="password" formControlName="repeatPassword" placeholder="Repeat your password">
+        <mat-error *ngIf="registrationForm.get('repeatPassword')?.hasError('required')">Repeat password is required</mat-error>
+      </mat-form-field>
+
+      <!-- Phone -->
+      <mat-form-field class="phone" appearance="outline">
+        <mat-label>Phone number</mat-label>
+        <input matInput formControlName="phone" type="tel" placeholder="Enter your phone number" pattern="[0-9]*">
+        <mat-error *ngIf="registrationForm.get('phone')?.hasError('pattern')">Phone number is not in valid format</mat-error>
+      </mat-form-field>
+    </section>
+
+    <section>
+      <!-- First Name -->
+      <mat-form-field class="first-name" appearance="outline">
+        <mat-label>First name</mat-label>
+        <input matInput formControlName="firstName" placeholder="Enter your first name">
+        <mat-error *ngIf="registrationForm.get('firstName')?.hasError('required')">First name is required</mat-error>
+      </mat-form-field>
+
+      <!-- Last Name -->
+      <mat-form-field class="last-name" appearance="outline">
+        <mat-label>Last name</mat-label>
+        <input matInput formControlName="lastName" placeholder="Enter your last name">
+        <mat-error *ngIf="registrationForm.get('lastName')?.hasError('required')">Last name is required</mat-error>
+      </mat-form-field>
+
+      <!-- Address -->
+      <mat-form-field class="address" appearance="outline">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="address" placeholder="Enter your address">
+        <mat-error *ngIf="registrationForm.get('address')?.hasError('required')">Address is required</mat-error>
+      </mat-form-field>
       
             <div class="radio-buttons">
               <p><b>Register me as</b></p>

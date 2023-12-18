@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule} from '@angular/common';
+import { ActivationComponent } from './activation/activation.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ActivationComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
   ]
 })
 export class AuthModule { }

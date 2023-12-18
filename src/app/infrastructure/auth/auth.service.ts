@@ -16,9 +16,10 @@ export class AuthService {
     skip: 'true',
   });
 
-  user$=new BehaviorSubject("");
+  private user$=new BehaviorSubject("");
   userState=this.user$.asObservable();
   constructor(private http: HttpClient) { 
+    this.setUser();
   }
 
   login(auth:any): Observable<LoginResponse> {
@@ -35,6 +36,22 @@ export class AuthService {
 
   accountDetails():Observable<AccountDetails> {
     return this.http.get<any>(environment.apiHost+'user/details/'+this.getUsername());
+  }
+
+  deleteAccount():Observable<MessageResponse> {
+    return this.http.delete<any>(environment.apiHost+"user/"+this.getUsername());
+  }
+
+  editAccount(edit:any): Observable<MessageResponse> {
+    return this.http.put<any>(environment.apiHost+"user/"+this.getUsername(),edit);
+  }
+
+  activate(code:string): Observable<MessageResponse> {
+    return this.http.put<any>(environment.apiHost+"auth/activation/"+code,null);
+  }
+
+  logout(): Observable<MessageResponse> {
+    return this.http.get<any>(environment.apiHost + 'auth/logout');
   }
 
   getRole(): any {

@@ -1,33 +1,63 @@
 <div id="mainDiv">
-  <form id="form">
+  <form id="form" [formGroup]="editForm" (ngSubmit)="editAccount()">
     <p id="title">Personal information</p>
-    <mat-form-field appearance="outline">
-      <mat-label>Enter password</mat-label>
-      <input matInput type="password" />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Repeat password</mat-label>
-      <input matInput type="password"/>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
+    <p>{{ account.username }}</p>
+
+    <!-- Change Password Dialog -->
+    <mat-card id="dialog" *ngIf="showDialog">
+      <p style="font-family: Arial, Helvetica, sans-serif; font-size: 20px; margin-bottom: 10%;">Change password</p>
+      <mat-form-field appearance="outline">
+        <mat-label>Enter password</mat-label>
+        <input matInput type="password" name="password" formControlName="password"/>
+        <mat-error *ngIf="editForm.get('password')?.hasError('minlength')">Password must be at least 6 characters long</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="margin-bottom: 3%;">
+        <mat-label>Repeat password</mat-label>
+        <input matInput type="password" name="repeatPassword" formControlName="repeatPassword"/>
+      </mat-form-field>
+      <p>You need to apply changes</p>
+      <div style="display: flex; width: 50%; justify-content: center; gap: 60px;">
+        <button mat-button (click)="toggleDialog()" type="button">Cancel</button>
+        <button mat-button (click)="toggleDialog()" type="button">OK</button>
+      </div>
+    </mat-card>
+
+    <!-- Change Password Button -->
+    <button mat-button id="change-pass" (click)="toggleDialog()" type="button">
+      Change password <mat-icon style="margin-bottom: 3%;">lock</mat-icon>
+    </button>
+
+    <!-- First Name -->
+    <mat-form-field appearance="outline" style="margin-top: 5%;">
       <mat-label>First name</mat-label>
-      <input matInput type="text" value="{{account.firstName}}"/>
+      <input matInput type="text" value="{{ account.firstName }}" name="firstName" formControlName="firstName"/>
+      <mat-error *ngIf="editForm.get('firstName')?.hasError('required')">First name is required</mat-error>
     </mat-form-field>
+
+    <!-- Last Name -->
     <mat-form-field appearance="outline">
       <mat-label>Last name</mat-label>
-      <input matInput type="text" value="{{account.lastName}}"/>
+      <input matInput type="text" value="{{ account.lastName }}" name="lastName" formControlName="lastName"/>
+      <mat-error *ngIf="editForm.get('lastName')?.hasError('required')">Last name is required</mat-error>
     </mat-form-field>
+
+    <!-- Phone Number -->
     <mat-form-field appearance="outline">
       <mat-label>Phone number</mat-label>
-      <input matInput type="tel" value="{{account.phoneNumber}}"/>
+      <input matInput type="tel" value="{{ account.phoneNumber }}" name="phoneNumber" formControlName="phone"/>
+      <mat-error *ngIf="editForm.get('phone')?.hasError('required')">Phone number is required</mat-error>
     </mat-form-field>
+
+    <!-- Address -->
     <mat-form-field appearance="outline">
       <mat-label>Address</mat-label>
-      <input matInput  type="address" value="{{account.address}}"/>
+      <input matInput type="text" value="{{ account.address }}" name="address" formControlName="address"/>
+      <mat-error *ngIf="editForm.get('address')?.hasError('required')">Address is required</mat-error>
     </mat-form-field>
-    <div style="display: flex; width: 50%; justify-content: center; gap: 60px;">
-      <button id="edit-button" mat-button>Edit account</button>
-      <button id="delete-button" mat-button>Delete</button>
+
+    <div style="display: flex; width: 50%; justify-content: center; gap: 60px; margin-top: 5%;">
+      <button id="edit-button" type="submit" mat-button (click)="editAccount()">Apply changes</button>
+      <button id="delete-button" type="button" mat-button (click)="openDialog()">Delete</button>
     </div>
   </form>
 </div>

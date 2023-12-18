@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginRequest } from '../model/login-request';
 import { LoginResponse } from '../model/login-response';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,26 +15,42 @@ export class LoginComponent {
     this.isPopupVisible = false;
   }
 
-  constructor(private authService:AuthService){}
+  constructor(private authService:AuthService,private snackbar:MatSnackBar){}
 
   loginForm=new FormGroup({
-    username: new FormControl("",Validators.email),
-    password: new FormControl("",Validators.minLength(5))
+    username: new FormControl("",[Validators.required,Validators.email]),
+    password: new FormControl("",Validators.required)
   })
 
   login(): void {
-    if(this.loginForm.valid){
-      const LoginRequest: LoginRequest = {
+    if (this.loginForm.valid) {
+      const loginRequest: LoginRequest = {
         username: this.loginForm.value.username || "",
         password: this.loginForm.value.password || ""
-      }
-      this.authService.login(LoginRequest).subscribe({
-        next:(response:LoginResponse) => {
-          localStorage.setItem('user',response.jwt);
-          this.authService.setUser()
-          this.isPopupVisible=false;
+      };
+  
+      this.authService.login(loginRequest).subscribe({
+        next: (response: LoginResponse) => {
+          if (response.jwt === "") {
+            this.snackbar.open("You need to activate your account", 'Dismiss', {
+              duration: 10000,
+              panelClass: ['snackbar'],
+            });
+          } else {
+            localStorage.setItem('user', response.jwt);
+            this.authService.setUser();
+            this.isPopupVisible = false;
+          }
+        },
+        error: (err) => {
+          if (err.status === 403) {
+            this.snackbar.open("Username and password don't match", 'Dismiss', {
+              duration: 5000,
+              panelClass: ['snackbar-error'],
+            });
+          }
         }
-      })
+      });
     }
   }
 }

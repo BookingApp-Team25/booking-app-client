@@ -17,12 +17,9 @@ export class Interceptor implements HttpInterceptor {
     if (req.headers.get('skip')) return next.handle(req);
     
     if (accessToken) {
-      console.log('Interceptor called for token:', req.url);
-      console.log('Token: ',accessToken);
       const cloned = req.clone({
         headers: req.headers.set('Authorization', 'Bearer ' + accessToken),
       });
-      console.log(cloned);
       return next.handle(cloned);
     } else {
       return next.handle(req);
