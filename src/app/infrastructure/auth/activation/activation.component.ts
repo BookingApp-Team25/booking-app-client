@@ -9,7 +9,7 @@ import { MessageResponse } from '../model/message-response';
 })
 export class ActivationComponent implements OnInit {
   activationCode: string;
-  successful=true;
+  successful:boolean;
   message: string;
   constructor(private route: ActivatedRoute, private service:AuthService){}
 

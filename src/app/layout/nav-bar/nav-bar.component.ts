@@ -28,6 +28,8 @@ export class NavBarComponent implements OnInit {
     );
     this.authService.userState.subscribe((result) => {
       this.role = result;
+      console.log("Role is: ",this.role);
+      console.log(localStorage.getItem('user'));
     })
   }
 
@@ -65,7 +67,6 @@ export class NavBarComponent implements OnInit {
       next: (_) => {
         localStorage.removeItem('user');
         this.authService.setUser();
-        this.role='';
         this.router.navigate(['home']);
       }
     })

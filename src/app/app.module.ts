@@ -8,6 +8,8 @@ import { HomeComponent } from './layout/home/home.component';
 import { RouterModule,Routes } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Interceptor } from './infrastructure/auth/interceptor';
+import { ActivationComponent } from './infrastructure/auth/activation/activation.component';
+import { AuthModule } from './infrastructure/auth/auth.module';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -25,7 +27,8 @@ const routes: Routes = [
     LayoutModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
+    AuthModule
   ],
   providers: [
     {

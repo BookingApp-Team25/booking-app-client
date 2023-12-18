@@ -9,8 +9,10 @@
             <h2><i class="material-icons">room_service</i>Zimmerman</h2>
         </div>
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-        <p style="color: green; font-weight: bold; font-size: 30px;">{{message}}</p>
-        <p style="font-size: 20px;">Now you can login to your account</p>
+        <p style="color: green; font-weight: bold; font-size: 30px;" *ngIf="successful">{{message}}</p>
+        <p style="color: red; font-weight: bold; font-size: 30px;" *ngIf="!successful">{{message}}</p>
+        <p style="font-size: 20px;" *ngIf="successful">Now you can login to your account</p>
+        <p style="font-size: 20px;" *ngIf="!successful">You need to repeat the registration process</p>
         </div>
 </div>
 </div>

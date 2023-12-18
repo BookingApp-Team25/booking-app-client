@@ -38,6 +38,8 @@ export class LoginComponent {
             });
           } else {
             localStorage.setItem('user', response.jwt);
+            console.log(localStorage.getItem('user'));
+            console.log("ALO OVDE SAM");
             this.authService.setUser();
             this.isPopupVisible = false;
           }
