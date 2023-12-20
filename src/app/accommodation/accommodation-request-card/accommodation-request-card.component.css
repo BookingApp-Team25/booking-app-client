@@ -54,7 +54,6 @@
   position: relative;
   transform: rotate(0.32deg);
   margin-top: 10%;
-  font-family: "Arial";
   font-weight: 400;
   color: #000000;
   font-size: 16px;
@@ -109,3 +108,11 @@
   top: 0;
   left: 39px;
 }
+#buttons{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-right: 10%;
+  height: 100%;
+}
+

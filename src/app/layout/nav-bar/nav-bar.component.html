@@ -42,7 +42,9 @@
 <mat-menu class="account-menu" #menu="matMenu">
   <button mat-menu-item (click)="onAccountButtonClick()">Login</button>
   <button mat-menu-item routerLink="/registration">Register</button>
-  <button mat-menu-item routerLink="/accommodation-creation">New accommodation</button>
+  <button mat-menu-item [routerLink]="['/accommodation-creation', { pageMode: 'create' }]" >New accommodation</button>
   <button mat-menu-item routerLink="/accommodation-requests">View acc requests</button>
+  <button mat-menu-item routerLink="/host-accommodations">Host accommodations</button>
+
 </mat-menu>
 </mat-toolbar>

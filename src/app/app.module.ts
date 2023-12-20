@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule, ViewChild} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +10,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { PopupService } from './services/popup/popup.service';
 import { HostModule} from "./host/host.module";
 import { AdminModule} from "./admin/admin.module";
+import {MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
 
 
 const routes: Routes = [
@@ -30,9 +33,12 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpClientModule,
     HostModule,
-    AdminModule
+    AdminModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [PopupService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

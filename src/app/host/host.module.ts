@@ -5,6 +5,9 @@ import {MaterialModule} from "../infrastructure/material/material.module";
 import { PropertyContentCardComponent } from './accommodation-creation/property-content-card/property-content-card.component';
 import { SinglePropertyComponent } from './accommodation-creation/property-content-card/single-property/single-property.component';
 import { DatePriceElementComponent } from './accommodation-creation/date-price-element/date-price-element.component';
+import { HostAccommodationsViewComponent } from './host-accommodations-view/host-accommodations-view.component';
+import {LayoutModule} from "../layout/layout.module";
+import {AccommodationModule} from "../accommodation/accommodation.module";
 
 
 
@@ -13,11 +16,14 @@ import { DatePriceElementComponent } from './accommodation-creation/date-price-e
     AccommodationCreationComponent,
     PropertyContentCardComponent,
     SinglePropertyComponent,
-    DatePriceElementComponent
+    DatePriceElementComponent,
+    HostAccommodationsViewComponent,
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    LayoutModule,
+    AccommodationModule
   ]
 })
 export class HostModule { }

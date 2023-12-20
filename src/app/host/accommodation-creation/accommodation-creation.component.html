@@ -4,48 +4,48 @@
     <div class="basic-info-wrapper">
       <div id="basic-info-first-part" class="basic-info-part">
         <mat-label style="font-size: 25px">Osnovni podaci</mat-label>
-        <mat-form-field class = "basic-form-field" appearance="outline">
+        <mat-form-field class = "basic-form-field" appearance="fill">
           <mat-label>Name:</mat-label>
           <input matInput type="text" id="name" formControlName="name" />
         </mat-form-field>
-        <mat-form-field id="descritpion-form-field" class = "basic-form-field" appearance="outline">
+        <mat-form-field id="description-form-field" class = "basic-form-field" appearance="outline">
           <mat-label>Description:</mat-label>
           <input matInput type="text" id="description" formControlName="description" />
         </mat-form-field>
       </div>
       <div id = "basic-info-second-part" class="basic-info-part">
-        <mat-form-field class = "basic-form-field" appearance="outline">
+        <mat-form-field class = "basic-form-field" appearance="fill">
           <mat-label>Minimum guests:</mat-label>
           <input matInput type="number" id="minGuests" formControlName="minGuests" />
         </mat-form-field>
 
-        <mat-form-field class = "basic-form-field " appearance="outline">
+        <mat-form-field class = "basic-form-field " appearance="fill">
             <mat-label>Maximum guests:</mat-label>
             <input matInput type="number" id="maxGuests" formControlName="maxGuests" />
         </mat-form-field>
-        <mat-form-field class = "basic-form-field" appearance="outline">
+        <mat-form-field class = "basic-form-field" appearance="fill">
           <mat-label>Minimum days before reservation:</mat-label>
           <input matInput type="number" id="daysBefore" formControlName="daysBefore" />
         </mat-form-field>
       </div>
-      <div id = "basic-info-third-part" class="basic-info-part">
-        <div formGroupName="pricelist" id="pricelist">
-          <mat-form-field class = "basic-form-field" appearance="outline">
+      <div id = "basic-info-third-part"  class="basic-info-part">
+        <div  id="price-list" formGroupName="pricelist">
+          <mat-form-field class = "basic-form-field" appearance="fill">
             <mat-label >Price per day:</mat-label>
             <input matInput type="number" id="dailyPrice" formControlName="dailyPrice" />
           </mat-form-field>
 
-          <mat-form-field class = "basic-form-field" appearance="outline">
+          <mat-form-field class = "basic-form-field" appearance="fill">
             <mat-label>Summer/Winter extra:</mat-label>
             <input matInput type="number" id="seasonPrice" formControlName="seasonPrice" />
           </mat-form-field>
 
-          <mat-form-field class = "basic-form-field" appearance="outline">
+          <mat-form-field class = "basic-form-field" appearance="fill">
             <mat-label>Weekend extra:</mat-label>
             <input matInput type="number" id="weekendPrice" formControlName="weekendPrice" />
           </mat-form-field>
 
-          <mat-form-field class = "basic-form-field" appearance="outline">
+          <mat-form-field class = "basic-form-field" appearance="fill">
             <mat-label>Holiday extra:</mat-label>
             <input matInput type="number" id="holidayPrice" formControlName="holidayPrice" />
           </mat-form-field>
@@ -62,7 +62,7 @@
     </div>
     <div id="property-contents-and-map-div">
       <div id="property-contents-wrapper" class="block-element-wrapper">
-        <app-property-content-card (onPropertyInserted)="addProperty($event)" style="width: 100%;height: 100%"></app-property-content-card>
+        <app-property-content-card [amenities]="amenities" (onPropertyInserted)="addProperty($event)" style="width: 100%;height: 100%"></app-property-content-card>
       </div>
       <div id="map-wrapper" class="block-element-wrapper">
         <label id="map-card-title">Location</label>
@@ -91,6 +91,7 @@
     </div>
     <div id="schedule-and-price-div">
       <div id="calendar-wrapper">
+        <p style="font-size: 30px">Insert available periods</p>
         <mat-form-field>
           <mat-label>Enter a date range</mat-label>
           <mat-date-range-input [formGroup]="range" [rangePicker]="picker" [min]="today">
@@ -101,9 +102,10 @@
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-date-range-picker #picker [startAt]="today"></mat-date-range-picker>
         </mat-form-field>
-        <button (click)="addDatePair()" [disabled]="range.invalid">Submit</button>
+        <button mat-button style="background-color: #969000;width: 30%;margin-bottom: 10%" (click)="addDatePair()" [disabled]="range.invalid">Add date</button>
       </div>
       <div id="price-wrapper">
+        <p style="font-size: 30px">Choose pricing options</p>
         <label>
           <input type="checkbox" [formControl]="weekendControl" />
           Include Weekends
@@ -124,7 +126,7 @@
     </div>
     <div id="dates-div">
       <p id="dates-div-title">Available dates:</p>
-      <mat-list style="width: 50%;height: 150px; overflow-y: auto;text-align: left;">
+      <mat-list style="width: 70%;height: 150px; overflow-y: auto;text-align: left;" >
         <app-date-price-element *ngFor="let dateElement of dateElements"
                                 [startDate]="dateElement.startDate"
                                 [endDate]="dateElement.endDate"
@@ -135,7 +137,7 @@
         </app-date-price-element>
       </mat-list>
     </div>
-
-    <button (click)="submitForm()" id="submitButton" [disabled]="accommodationForm.invalid">Submit</button>
+    <label>Total price: {{ totalPrice }}</label>
+    <button mat-button (click)="submitForm()" id="submitButton" [disabled]="accommodationForm.invalid">Submit</button>
   </form>
 </div>

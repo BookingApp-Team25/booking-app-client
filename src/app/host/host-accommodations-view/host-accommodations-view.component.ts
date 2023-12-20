@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { AccommodationModule } from 'src/app/accommodation/accommodation.module';
-import { AccommodationService } from 'src/app/accommodation/accommodation.service';
-import { AccommodationSummary } from 'src/app/accommodation/model/accommodation-summary';
+import { Component } from '@angular/core';
+import {AccommodationSummary} from "../../accommodation/model/accommodation-summary";
+import {AccommodationService} from "../../accommodation/accommodation.service";
 import {AccommodationSummaryCollection} from "../../accommodation/model/accommodation-summary-collection";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-host-accommodations-view',
+  templateUrl: './host-accommodations-view.component.html',
+  styleUrls: ['./host-accommodations-view.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HostAccommodationsViewComponent {
   summaries: AccommodationSummary[] = [];
   numberOfElements : number = 10;
   page : number = 0;
@@ -17,7 +16,7 @@ export class HomeComponent implements OnInit {
   constructor(private service: AccommodationService){}
 
   fetchAccommodations(){
-    this.service.getAllApprovedAccommodations(this.page,this.numberOfElements).subscribe({
+    this.service.getAllHostAccommodations("5894d69d-fc8d-4f06-bf0c-dc695b40901b",this.page,this.numberOfElements).subscribe({
       next:(data: AccommodationSummaryCollection)=> {
         this.summaries = []
         console.log(data);
@@ -38,7 +37,4 @@ export class HomeComponent implements OnInit {
     this.numberOfElements = event.pageSize;
     this.fetchAccommodations();
   }
-
-  // Event handler for page size change
-
 }

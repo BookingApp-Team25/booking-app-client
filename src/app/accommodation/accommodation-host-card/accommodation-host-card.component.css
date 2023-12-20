@@ -12,16 +12,16 @@
     margin-top: 2%;
     border-radius: 30px; /* Adjust the value for rounded corners */
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1); /* Elevation shadow */
-  }
+}
 
-  .accommodation-frame .accommodation-image {
+.accommodation-frame .accommodation-image {
     position: relative;
     width: 250px;
     height: 250px;
     object-fit: cover;
-  }
+}
 
-  .accommodation-frame .accommodation-info {
+.accommodation-frame .accommodation-info {
     display: flex;
     flex-direction: column;
     width: 344px;
@@ -31,9 +31,9 @@
     position: relative;
     background-color: #ffffff;
     overflow: hidden;
-  }
+}
 
-  .accommodation-frame .accommodation-name {
+.accommodation-frame .accommodation-name {
     position: relative;
     width: fit-content;
     margin-top: 0;
@@ -44,13 +44,13 @@
     letter-spacing: 0.5px;
     line-height: 24px;
     white-space: nowrap;
-  }
+}
 
-  .desc {
+.desc {
     height: 100%;
-  }
+}
 
-  .accommodation-frame .description-text {
+.accommodation-frame .description-text {
     position: relative;
     transform: rotate(0.32deg);
     margin-top: 10%;
@@ -59,17 +59,17 @@
     font-size: 16px;
     letter-spacing: 0.5px;
     line-height: 24px;
-  }
+}
 
-  .accommodation-frame .info {
+.accommodation-frame .info {
     display: flex;
     align-items: center;
     gap: 120px;
     position: relative;
     background-color: #ffffff;
-  }
+}
 
-  .accommodation-frame .text-wrapper {
+.accommodation-frame .text-wrapper {
     position: relative;
     width: fit-content;
     font-family: "Arial", Helvetica;
@@ -79,15 +79,15 @@
     letter-spacing: 0.5px;
     line-height: 24px;
     white-space: nowrap;
-  }
+}
 
-  .accommodation-frame .group {
+.accommodation-frame .group {
     position: relative;
     width: 70px;
     height: 30px;
-  }
+}
 
-  .accommodation-frame .div {
+.accommodation-frame .div {
     position: absolute;
     height: 24px;
     top: 3px;
@@ -99,12 +99,19 @@
     letter-spacing: 0.5px;
     line-height: 24px;
     white-space: nowrap;
-  }
+}
 
-  .accommodation-frame .star {
+.accommodation-frame .star {
     position: absolute;
     width: 29px;
     height: 27px;
     top: 0;
     left: 39px;
-  }
+}
+#buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-right: 10%;
+    height: 100%;
+}

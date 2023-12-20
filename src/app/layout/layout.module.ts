@@ -14,6 +14,7 @@ import { ReviewCardComponent } from './review-card/review-card.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 
 @NgModule({
@@ -27,17 +28,19 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     AccommodationCardComponent,
     ReviewCardComponent,
     UserProfileComponent,
-    FilterDialogComponent,
+    FilterDialogComponent
   ],
-  exports: [
-    NavBarComponent,
-    HeaderComponent,
-    LoginComponent,
-    AccommodationDetailsComponent,
-    UserProfileComponent
-  ],
+    exports: [
+        NavBarComponent,
+        HeaderComponent,
+        LoginComponent,
+        AccommodationDetailsComponent,
+        UserProfileComponent,
+        AccommodationCardComponent
+    ],
   imports: [
     CommonModule,
+    MatSidenavModule,
     MaterialModule,
     RouterModule,
     FormsModule,

@@ -6,5 +6,12 @@
   <mat-list>
     <accommodation-card *ngFor="let summary of summaries" [summary]="summary"></accommodation-card>
 </mat-list>
+  <mat-paginator [length]="totalNumberOfElements"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[2, 5, 10, 25, 100]"
+                 (page)="onPageChange($event)"
+                 aria-label="Select page">
+
+  </mat-paginator>
 </a>
 </div>

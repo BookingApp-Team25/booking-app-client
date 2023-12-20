@@ -1,0 +1,17 @@
+<app-header></app-header>
+<div class="accommodation-list">
+    <p id="discover">Your appartments</p>
+    <hr>
+    <a>
+        <mat-list>
+            <app-accommodation-host-card *ngFor="let summary of summaries" [summary]="summary"></app-accommodation-host-card>
+        </mat-list>
+        <mat-paginator [length]="totalNumberOfElements"
+                       [pageSize]="10"
+                       [pageSizeOptions]="[2, 5, 10, 25, 100]"
+                       (page)="onPageChange($event)"
+                       aria-label="Select page">
+
+        </mat-paginator>
+    </a>
+</div>

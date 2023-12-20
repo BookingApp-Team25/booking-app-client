@@ -10,7 +10,7 @@ import {AccommodationRequestSummary} from "../../accommodation/model/accommodati
   styleUrls: ['./accommodation-requests.component.css']
 })
 export class AccommodationRequestsComponent {
-  summaries: AccommodationRequestSummary[]
+  summaries: AccommodationRequestSummary[];
   constructor(private service: AccommodationService){}
   ngOnInit(): void {
     this.service.getAllUpdates().subscribe({
