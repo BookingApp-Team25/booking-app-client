@@ -5,15 +5,16 @@ import { HeaderComponent } from './header/header.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {MaterialModule} from "../infrastructure/material/material.module";
 import {RouterModule} from "@angular/router";
-import { LoginComponent } from './login/login.component';
-import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from '../infrastructure/auth/login/login.component';
+import { RegistrationComponent } from '../infrastructure/auth/registration/registration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccommodationDetailsComponent } from '../accommodation/accommodation-details/accommodation-details.component';
 import { AccommodationCardComponent } from '../accommodation/accommodation-card/accommodation-card.component';
 import { ReviewCardComponent } from './review-card/review-card.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserProfileComponent } from '../infrastructure/auth/user-profile/user-profile.component';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { AysDialogComponent } from './ays-dialog/ays-dialog.component';
 import {MatSidenavModule} from "@angular/material/sidenav";
 
 
@@ -28,16 +29,9 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     AccommodationCardComponent,
     ReviewCardComponent,
     UserProfileComponent,
-    FilterDialogComponent
+    FilterDialogComponent,
+    AysDialogComponent,
   ],
-    exports: [
-        NavBarComponent,
-        HeaderComponent,
-        LoginComponent,
-        AccommodationDetailsComponent,
-        UserProfileComponent,
-        AccommodationCardComponent
-    ],
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -46,6 +40,16 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     FormsModule,
     ReactiveFormsModule,
     MatCheckboxModule
+  ],
+  exports: [
+    NavBarComponent,
+    HeaderComponent,
+    LoginComponent,
+    AccommodationDetailsComponent,
+    UserProfileComponent,
+    AysDialogComponent,
+    FilterDialogComponent,
+    AccommodationCardComponent
   ]
 })
 export class LayoutModule { }

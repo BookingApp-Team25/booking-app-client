@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-
 import { FormControl } from '@angular/forms';
 import { PopupService } from '../../services/popup/popup.service';
-
 import { map,Observable, startWith } from 'rxjs';
 import {MatDialog} from "@angular/material/dialog";
 import {FilterDialogComponent} from "../filter-dialog/filter-dialog.component";
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { Router } from '@angular/router';
+import { LoginComponent } from 'src/app/infrastructure/auth/login/login.component';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -14,8 +15,8 @@ import {FilterDialogComponent} from "../filter-dialog/filter-dialog.component";
 
 export class NavBarComponent implements OnInit {
 
-  constructor(public dialog : MatDialog, private popupService: PopupService) {
-  }
+  constructor(public dialog : MatDialog,public authService:AuthService,private router:Router) {}
+  role: string='';
   myControl = new FormControl('');
   options: string[] = ['Ankara','Arad','Belgrade','Bucharest','Budapest','Cologne','Dresden',"Duisburg",'Durres'];
   filteredOptions: Observable<string[]>;
@@ -25,6 +26,9 @@ export class NavBarComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value || '')),
     );
+    this.authService.userState.subscribe((result) => {
+      this.role = result;
+    })
   }
 
   openDialog(): void {
@@ -51,7 +55,21 @@ export class NavBarComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  onAccountButtonClick() {
-    this.popupService.toggleLoginVisibility();
+  openLogin(): void {
+    const dialogRef = this.dialog.open(LoginComponent, {
+      width: '500px',
+      height: '300px',
+      disableClose: true, // Disables closing by clicking outside the dialog
+    });
+  }
+
+  logOut(): void {
+    this.authService.logout().subscribe({
+      next: (_) => {
+        localStorage.removeItem('user');
+        this.authService.setUser();
+        this.router.navigate(['home']);
+      }
+    })
   }
 }

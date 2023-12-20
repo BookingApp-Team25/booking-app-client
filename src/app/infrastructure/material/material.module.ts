@@ -16,10 +16,11 @@ import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatSidenavModule} from '@angular/material/sidenav';
-
 
 @NgModule({
   declarations: [],
@@ -41,9 +42,11 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatListModule,
     MatDialogModule,
     MatMenuModule,
+    MatRadioModule,
+    MatSidenavModule,
+    MatSnackBarModule,
     FormsModule,
-    ReactiveFormsModule,
-    MatSidenavModule
+    ReactiveFormsModule
   ],
   exports: [
     MatToolbarModule,
@@ -63,9 +66,11 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatListModule,
     MatDialogModule,
     MatMenuModule,
+    MatRadioModule,
+    MatSidenavModule,
+    MatSnackBarModule,
     FormsModule,
-    ReactiveFormsModule,
-    MatSidenavModule
+    ReactiveFormsModule
   ]
 })
 export class MaterialModule { }
