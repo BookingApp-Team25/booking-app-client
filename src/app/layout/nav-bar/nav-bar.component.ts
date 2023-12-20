@@ -1,13 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-
-import { FormControl } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { PopupService } from '../../services/popup/popup.service';
-
-import { map,Observable, startWith } from 'rxjs';
-import {MatDialog} from "@angular/material/dialog";
-import {FilterDialogComponent} from "../filter-dialog/filter-dialog.component";
+import { map, startWith, Observable } from 'rxjs';
+import { MatDialog } from "@angular/material/dialog";
+import { FilterDialogComponent } from "../filter-dialog/filter-dialog.component";
 import { SearchCriteria } from 'src/app/accommodation/model/SearchCriteria';
-
 import { AccommodationService } from 'src/app/accommodation/accommodation.service';
 
 @Component({
@@ -15,16 +12,32 @@ import { AccommodationService } from 'src/app/accommodation/accommodation.servic
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-
 export class NavBarComponent implements OnInit {
+  // Add a formGroup property
+  searchForm: FormGroup;
 
-  constructor(public dialog : MatDialog, private popupService: PopupService, private accommodationService: AccommodationService) {
-  }
+  constructor(
+    public dialog: MatDialog,
+    private popupService: PopupService,
+    private accommodationService: AccommodationService,
+    private fb: FormBuilder, // Inject FormBuilder
+  ) {}
+
   myControl = new FormControl('');
-  options: string[] = ['Ankara','Arad','Belgrade','Bucharest','Budapest','Cologne','Dresden',"Duisburg",'Durres'];
+  options: string[] = ['Ankara', 'Arad', 'Belgrade', 'Bucharest', 'Budapest', 'Cologne', 'Dresden', 'Duisburg', 'Durres'];
   filteredOptions: Observable<string[]>;
 
+  filterContents: string[] = [];
+  filterType: string = '';
+  filterMinPrice: number = 0;
+  filterMaxPrice: number = 0;
+
   ngOnInit() {
+    // Create the form group and add the FormControl to it
+    this.searchForm = this.fb.group({
+      myControl: this.myControl, // Add your other form controls here if needed
+    });
+
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '')),
@@ -40,18 +53,28 @@ export class NavBarComponent implements OnInit {
     const topValue = (viewportHeight * topPercentage) / 100 + 'px';
     const leftValue = (viewportWidth * leftPercentage) / 100 + 'px';
 
-    let dialogRef = this.dialog.open(FilterDialogComponent, {
+    const dialogRef = this.dialog.open(FilterDialogComponent, {
       width: '500px',
-      height:"300px",
+      height: '300px',
       hasBackdrop: true,
       disableClose: false
     });
-    dialogRef.updatePosition({top:topValue,left:leftValue})
 
+    dialogRef.componentInstance.filterValues.subscribe((values) => {
+      // Handle the emitted filter values here
+      console.log('Filter Values:', values);
+      // Set the filter values to the corresponding properties in NavBarComponent
+      this.filterContents = values.contents;
+      this.filterType = values.type;
+      this.filterMinPrice = values.minPrice;
+      this.filterMaxPrice = values.maxPrice;
+    });
+
+    dialogRef.updatePosition({ top: topValue, left: leftValue });
   }
+
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
@@ -63,37 +86,63 @@ export class NavBarComponent implements OnInit {
   @ViewChild('startDateInput') startDateInput: ElementRef<HTMLInputElement>;
   @ViewChild('endDateInput') endDateInput: ElementRef<HTMLInputElement>;
 
-  handleSearch() { 
-    // Convert string to Date
+  handleSearch() {
     const startDate = this.startDateInput.nativeElement.value ? new Date(this.startDateInput.nativeElement.value) : null;
     const endDate = this.endDateInput.nativeElement.value ? new Date(this.endDateInput.nativeElement.value) : null;
 
-     // Create a search criteria object based on your form inputs
     const searchCriteria: SearchCriteria = {
       location: this.myControl.value,
       numberOfGuests: +this.guestsInput.nativeElement.value,
       dateStart: startDate,
       dateEnd: endDate,
-      // Add more properties as needed
+      contents: this.filterContents,
+      type: this.filterType,
+      minPrice: this.filterMinPrice,
+      maxPrice: this.filterMaxPrice
     };
 
-    // Implement your search logic here
-    console.log('Search Criteria:', searchCriteria);
-    // You may call a service or perform other actions based on the search criteria
+    const hasFilters =
+      (searchCriteria.contents && searchCriteria.contents.length > 0) ||
+      (searchCriteria.type && searchCriteria.type !== '') ||
+      (searchCriteria.minPrice !== null && searchCriteria.minPrice !== undefined && searchCriteria.minPrice !== 0) ||
+      (searchCriteria.maxPrice !== null && searchCriteria.maxPrice !== undefined && searchCriteria.maxPrice !== 0);
 
-    // Call the backend service to search accommodations
-    this.accommodationService.searchAccommodations(searchCriteria).subscribe({
-      next: (accommodations) => {
-        console.log('Search Results:', accommodations);
-        // Do something with the search results, e.g., update UI
-      },
-      error: (error) => {
-        console.error('Search Error:', error);
-        // Handle the error, show a message
-      },
-      complete: () => {
-        // This block is called when the observable completes (optional)
-      }
-    });
+    if (hasFilters) {
+      // Implement your filter search logic here
+      console.log('Filter Search Criteria:', searchCriteria);
+
+      // Call the backend service to filter accommodations
+      this.accommodationService.filterAccommodations(searchCriteria).subscribe({
+        next: (accommodations) => {
+          console.log('Search Results:', accommodations);
+          // Do something with the search results, e.g., update UI
+        },
+        error: (error) => {
+          console.error('Search Error:', error);
+          // Handle the error, show a message
+        },
+        complete: () => {
+          // This block is called when the observable completes (optional)
+        }
+      });
+    } else {
+      // Implement your regular search logic here
+      console.log('Regular Search Criteria:', searchCriteria);
+
+      // Call the backend service to search accommodations
+      this.accommodationService.searchAccommodations(searchCriteria).subscribe({
+        next: (accommodations) => {
+          console.log('Search Results:', accommodations);
+          // Do something with the search results, e.g., update UI
+        },
+        error: (error) => {
+          console.error('Search Error:', error);
+          // Handle the error, show a message
+        },
+        complete: () => {
+          // This block is called when the observable completes (optional)
+        }
+      });
+    }
   }
 }

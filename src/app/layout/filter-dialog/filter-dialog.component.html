@@ -1,57 +1,39 @@
-<div id="page-div">
-  <div id = "main-div">
-    <div class = "inside-div">
+<form [formGroup]="filterForm">
+  <h2 mat-dialog-title>Filter Options</h2>
+  <div mat-dialog-content id="page-div">
+    <!-- Contents -->
+    <div class="inside-div">
       <p style="margin: 5%"><strong>Contents</strong></p>
-      <div class="flex-div">
-        <mat-checkbox class="inside-flex1"/>
-        <span>Free wifi</span>
-      </div>
-      <div class="flex-div">
-        <mat-checkbox class="inside-flex1"/>
-        <span>Air conditioner</span>
-      </div>
-      <div class="flex-div">
-        <mat-checkbox class="inside-flex1"/>
-        <span>Swimming pool</span>
-      </div>
-      <div class="flex-div">
-        <mat-checkbox class="inside-flex1"/>
-        <span>Kitchen</span>
+      <div class="flex-div" *ngFor="let contentControl of contentsControls; let i = index">
+        <mat-checkbox [formControl]="getFormControl(contentControl)"></mat-checkbox>
+        <span>{{ contentLabels[i] }}</span>
       </div>
     </div>
-    <div class = "inside-div">
+
+    <!-- Type -->
+    <div class="inside-div">
       <p style="margin: 5%"><strong>Type</strong></p>
-      <div>
-        <mat-checkbox class="inside-flex1"/>
-        <span>Apartment</span>
-      </div>
-      <div>
-        <mat-checkbox class="inside-flex1"/>
-        <span>Cabint</span>
-      </div>
-      <div>
-        <mat-checkbox class="inside-flex1"/>
-        <span>Studio</span>
-      </div>
-      <div>
-        <mat-checkbox class="inside-flex1"/>
-        <span>Villa</span>
+      <div class="flex-div" *ngFor="let typeControl of typeControls; let i = index">
+        <mat-checkbox [formControl]="getFormControl(typeControl)"></mat-checkbox>
+        <span>{{ typeLabels[i] }}</span>
       </div>
     </div>
-    <div id="price-div">
-      <p style="margin-top: 10%"><strong>Price</strong></p>
-      <form style="display: flex; flex-direction: column;" >
-        <mat-form-field class="price-form-field" appearance="outline">
-          <mat-label>Min price</mat-label>
-          <input matInput #first>
-        </mat-form-field>
-        <mat-form-field class="price-form-field" appearance="outline">
-          <mat-label>Max price</mat-label>
-          <input matInput #last>
-        </mat-form-field>
-      </form>
+
+    <!-- Price Range -->
+    <div class="inside-div">
+      <p style="margin: 5%"><strong>Price Range</strong></p>
+      <div>
+        <label for="minPrice">Min price</label>
+        <input type="number" id="minPrice" formControlName="minPrice">
+
+        <label for="maxPrice">Max price</label>
+        <input type="number" id="maxPrice" formControlName="maxPrice">
+      </div>
     </div>
   </div>
-  <button id="edit-button" mat-button>Apply filters</button>
 
-</div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button color="primary" (click)="onApplyFilters()">Apply</button>
+  </div>
+</form>

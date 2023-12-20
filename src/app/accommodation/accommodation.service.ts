@@ -30,11 +30,9 @@ export class AccommodationService {
   }
 
   searchAccommodations(searchCriteria: SearchCriteria): Observable<AccommodationSummary[]> {
-    // Handle null values for date properties
     const dateStartParam = searchCriteria.dateStart ? searchCriteria.dateStart.toISOString() : null;
     const dateEndParam = searchCriteria.dateEnd ? searchCriteria.dateEnd.toISOString() : null;
 
-    // Create an HttpParams object to handle query parameters
     let params = new HttpParams();
     
     if (searchCriteria.location) {
@@ -53,7 +51,47 @@ export class AccommodationService {
       params = params.set('guestNumber', searchCriteria.numberOfGuests);  
     }
 
-    // Make the HTTP request with the constructed parameters
-    return this.httpClient.get<AccommodationSummary[]>(environment.apiHost + 'results', { params });
+    return this.httpClient.get<AccommodationSummary[]>(environment.apiHost + 'accommodation/results', { params });
+  }
+
+  filterAccommodations(searchCriteria: SearchCriteria): Observable<AccommodationSummary[]> {
+    const dateStartParam = searchCriteria.dateStart ? searchCriteria.dateStart.toISOString() : null;
+    const dateEndParam = searchCriteria.dateEnd ? searchCriteria.dateEnd.toISOString() : null;
+
+    let params = new HttpParams();
+
+    if (searchCriteria.location) {
+      params = params.set('city', searchCriteria.location);
+    }
+
+    if (dateStartParam) {
+      params = params.set('dateStart', dateStartParam);
+    }
+
+    if (dateEndParam) {
+      params = params.set('dateEnd', dateEndParam);
+    }
+
+    if (searchCriteria.numberOfGuests) {
+      params = params.set('guestNumber', searchCriteria.numberOfGuests);
+    }
+
+    if (searchCriteria.contents && searchCriteria.contents.length > 0) {
+      params = params.set('contents', searchCriteria.contents.join(','));
+    }
+
+    if (searchCriteria.type) {
+      params = params.set('accommodationType', searchCriteria.type);
+    }
+
+    if (searchCriteria.minPrice) {
+      params = params.set('minPrice', searchCriteria.minPrice);
+    }
+
+    if (searchCriteria.maxPrice) {
+      params = params.set('maxPrice', searchCriteria.maxPrice);
+    }
+
+    return this.httpClient.get<AccommodationSummary[]>(environment.apiHost + 'accommodation/filtered', { params });
   }
 }

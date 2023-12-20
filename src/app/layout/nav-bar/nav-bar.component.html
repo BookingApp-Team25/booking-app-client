@@ -4,7 +4,7 @@
   </a>
   <div class="search-frame">
     <img class="img" src="..\..\assets\images\location_city.png" />
-    <form class="cities-form">
+    <form class="cities-form" [formGroup]="searchForm">
         <input  id="city-input" type="text"
                 placeholder="City"
                matInput
@@ -31,7 +31,7 @@
       <button routerLink="userProfile">
         <mat-icon>search</mat-icon>
       </button>
-      <button  (click)="openDialog()">
+      <button (click)="openDialog()">
         <mat-icon>filter_list</mat-icon>
       </button>
     </div>
