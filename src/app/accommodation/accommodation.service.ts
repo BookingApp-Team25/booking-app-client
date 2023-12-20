@@ -7,6 +7,8 @@ import {AccommodationRequest} from "./model/accommodation-request";
 import {MessageResponse} from "./model/message-response";
 import {AccommodationRequestSummary} from "./model/accommodation-request-summary";
 import {AccommodationSummaryCollection} from "./model/accommodation-summary-collection";
+import { SearchCriteria } from './model/SearchCriteria';
+import { ReservationComponent } from '../reservation/reservation.component';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +32,7 @@ export class AccommodationService {
     return this.httpClient.get<AccommodationSummaryCollection>(environment.apiHost + `accommodation/host/${hostId}`,{params});
   }
   getAccommodationById(accommodationId : string){
-    return this.httpClient.get<AccommodationRequest>(environment.apiHost + `accommodation/${accommodationId}`);
+    return this.httpClient.get<AccommodationRequest>(environment.apiHost + `accommodation/details/${accommodationId}`);
   }
   getAllUpdates(): Observable<AccommodationRequestSummary[]>{
     return this.httpClient.get<AccommodationRequestSummary[]>(environment.apiHost + "accommodation-request")
@@ -50,5 +52,81 @@ export class AccommodationService {
         // Handle the error appropriately (throw a custom error or return a default value)
         throw error;
       }));
+  }
+
+  createReservation(reservation: ReservationComponent): Observable<MessageResponse> {
+    const url = `${environment.apiHost}reservations`;
+    return this.httpClient.post<MessageResponse>(url, reservation);
+  }
+
+  cancelReservation(reservationId: string): Observable<MessageResponse> {
+    const url = `${environment.apiHost}reservations/${reservationId}`;
+    return this.httpClient.delete<MessageResponse>(url);
+  }
+
+  searchAccommodations(searchCriteria: SearchCriteria): Observable<AccommodationSummary[]> {
+    const dateStartParam = searchCriteria.dateStart ? searchCriteria.dateStart.toISOString() : null;
+    const dateEndParam = searchCriteria.dateEnd ? searchCriteria.dateEnd.toISOString() : null;
+
+    let params = new HttpParams();
+    
+    if (searchCriteria.location) {
+      params = params.set('city', searchCriteria.location);
+    }
+
+    if (dateStartParam) {
+      params = params.set('dateStart', dateStartParam);
+    }
+
+    if (dateEndParam) {
+      params = params.set('dateEnd', dateEndParam);
+    }
+
+    if (searchCriteria.numberOfGuests) {
+      params = params.set('guestNumber', searchCriteria.numberOfGuests);  
+    }
+
+    return this.httpClient.get<AccommodationSummary[]>(environment.apiHost + 'accommodation/results', { params });
+  }
+
+  filterAccommodations(searchCriteria: SearchCriteria): Observable<AccommodationSummary[]> {
+    const dateStartParam = searchCriteria.dateStart ? searchCriteria.dateStart.toISOString() : null;
+    const dateEndParam = searchCriteria.dateEnd ? searchCriteria.dateEnd.toISOString() : null;
+
+    let params = new HttpParams();
+
+    if (searchCriteria.location) {
+      params = params.set('city', searchCriteria.location);
+    }
+
+    if (dateStartParam) {
+      params = params.set('dateStart', dateStartParam);
+    }
+
+    if (dateEndParam) {
+      params = params.set('dateEnd', dateEndParam);
+    }
+
+    if (searchCriteria.numberOfGuests) {
+      params = params.set('guestNumber', searchCriteria.numberOfGuests);
+    }
+
+    if (searchCriteria.contents && searchCriteria.contents.length > 0) {
+      params = params.set('contents', searchCriteria.contents.join(','));
+    }
+
+    if (searchCriteria.type) {
+      params = params.set('accommodationType', searchCriteria.type);
+    }
+
+    if (searchCriteria.minPrice) {
+      params = params.set('minPrice', searchCriteria.minPrice);
+    }
+
+    if (searchCriteria.maxPrice) {
+      params = params.set('maxPrice', searchCriteria.maxPrice);
+    }
+
+    return this.httpClient.get<AccommodationSummary[]>(environment.apiHost + 'accommodation/filtered', { params });
   }
 }
