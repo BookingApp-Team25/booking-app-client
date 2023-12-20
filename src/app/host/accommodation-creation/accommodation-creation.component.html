@@ -3,7 +3,7 @@
   <form id="accommodation-form" [formGroup]="accommodationForm ">
     <div class="basic-info-wrapper">
       <div id="basic-info-first-part" class="basic-info-part">
-        <mat-label style="font-size: 25px">Osnovni podaci</mat-label>
+        <mat-label style="font-size: 25px">Basic info</mat-label>
         <mat-form-field class = "basic-form-field" appearance="fill">
           <mat-label>Name:</mat-label>
           <input matInput type="text" id="name" formControlName="name" />
@@ -137,7 +137,6 @@
         </app-date-price-element>
       </mat-list>
     </div>
-    <label>Total price: {{ totalPrice }}</label>
     <button mat-button (click)="submitForm()" id="submitButton" [disabled]="accommodationForm.invalid">Submit</button>
   </form>
 </div>
