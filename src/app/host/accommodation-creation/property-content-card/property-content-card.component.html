@@ -1,0 +1,17 @@
+<div id="main-div">
+  <label id="title">Property contents</label>
+  <label style="font-size: 20px; margin-bottom: 5%">Make a list of your property content</label>
+  <mat-list style="width: 50%;height: 150px; overflow-y: auto;text-align: left;">
+    <app-single-property *ngFor="let str of amenities" [name]="str"></app-single-property>
+  </mat-list>
+  <div style="display: flex;justify-content: space-around;width: 100%">
+    <mat-form-field style="width: 80%" class = "basic-form-field" appearance="outline">
+      <mat-label>Insert property name:</mat-label>
+      <input id="propertyInput" matInput type="text" [(ngModel)]="newProperty" placeholder="Insert new property name"/>
+    </mat-form-field>
+    <button mat-mini-fab style="background-color: #969000" aria-label="Example icon button with a menu icon" (click)="addProperty()">
+      <mat-icon>done</mat-icon>
+    </button>
+  </div>
+
+</div>

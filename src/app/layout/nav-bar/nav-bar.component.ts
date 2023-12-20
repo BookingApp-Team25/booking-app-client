@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-
+import { PopupService } from '../../services/popup/popup.service';
 import { map,Observable, startWith } from 'rxjs';
 import {MatDialog} from "@angular/material/dialog";
 import {FilterDialogComponent} from "../filter-dialog/filter-dialog.component";
@@ -15,8 +15,7 @@ import { LoginComponent } from 'src/app/infrastructure/auth/login/login.componen
 
 export class NavBarComponent implements OnInit {
 
-  constructor(public dialog : MatDialog,public authService:AuthService,private router:Router) {
-  }
+  constructor(public dialog : MatDialog,public authService:AuthService,private router:Router) {}
   role: string='';
   myControl = new FormControl('');
   options: string[] = ['Ankara','Arad','Belgrade','Bucharest','Budapest','Cologne','Dresden',"Duisburg",'Durres'];

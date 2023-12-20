@@ -1,0 +1,22 @@
+:host{
+  display: flex;
+  justify-content: center;
+}
+
+#main-div{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 80%;
+  height: 100%;
+}
+#submitButton{
+  width: 20%;
+  height: 20%;
+}
+#title{
+  align-self: center;
+  margin-bottom: 10%;
+  margin-top: 10%;
+  font-size: 35px;
+}

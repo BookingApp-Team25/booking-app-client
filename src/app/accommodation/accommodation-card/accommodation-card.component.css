@@ -13,14 +13,14 @@
     border-radius: 30px; /* Adjust the value for rounded corners */
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1); /* Elevation shadow */
   }
-  
+
   .accommodation-frame .accommodation-image {
     position: relative;
     width: 250px;
     height: 250px;
     object-fit: cover;
   }
-  
+
   .accommodation-frame .accommodation-info {
     display: flex;
     flex-direction: column;
@@ -32,7 +32,7 @@
     background-color: #ffffff;
     overflow: hidden;
   }
-  
+
   .accommodation-frame .accommodation-name {
     position: relative;
     width: fit-content;
@@ -45,7 +45,7 @@
     line-height: 24px;
     white-space: nowrap;
   }
-  
+
   .desc {
     height: 100%;
   }
@@ -54,14 +54,13 @@
     position: relative;
     transform: rotate(0.32deg);
     margin-top: 10%;
-    font-family: "Arial";
     font-weight: 400;
     color: #000000;
     font-size: 16px;
     letter-spacing: 0.5px;
     line-height: 24px;
   }
-  
+
   .accommodation-frame .info {
     display: flex;
     align-items: center;
@@ -69,7 +68,7 @@
     position: relative;
     background-color: #ffffff;
   }
-  
+
   .accommodation-frame .text-wrapper {
     position: relative;
     width: fit-content;
@@ -81,13 +80,13 @@
     line-height: 24px;
     white-space: nowrap;
   }
-  
+
   .accommodation-frame .group {
     position: relative;
     width: 70px;
     height: 30px;
   }
-  
+
   .accommodation-frame .div {
     position: absolute;
     height: 24px;
@@ -101,7 +100,7 @@
     line-height: 24px;
     white-space: nowrap;
   }
-  
+
   .accommodation-frame .star {
     position: absolute;
     width: 29px;
@@ -109,4 +108,3 @@
     top: 0;
     left: 39px;
   }
-  

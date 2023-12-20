@@ -17,8 +17,11 @@ import {MatListModule} from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatRadioModule} from '@angular/material/radio';
-import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatSidenavModule} from '@angular/material/sidenav';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -41,7 +44,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatMenuModule,
     MatRadioModule,
     MatSidenavModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     MatToolbarModule,
@@ -63,7 +68,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatMenuModule,
     MatRadioModule,
     MatSidenavModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MaterialModule { }

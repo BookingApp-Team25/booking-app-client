@@ -15,6 +15,7 @@ import { UserProfileComponent } from '../infrastructure/auth/user-profile/user-p
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { AysDialogComponent } from './ays-dialog/ays-dialog.component';
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 
 @NgModule({
@@ -31,21 +32,24 @@ import { AysDialogComponent } from './ays-dialog/ays-dialog.component';
     FilterDialogComponent,
     AysDialogComponent,
   ],
+  imports: [
+    CommonModule,
+    MatSidenavModule,
+    MaterialModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCheckboxModule
+  ],
   exports: [
     NavBarComponent,
     HeaderComponent,
     LoginComponent,
     AccommodationDetailsComponent,
     UserProfileComponent,
-    AysDialogComponent
-  ],
-  imports: [
-    CommonModule,
-    MaterialModule,
-    RouterModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatCheckboxModule
+    AysDialogComponent,
+    FilterDialogComponent,
+    AccommodationCardComponent
   ]
 })
 export class LayoutModule { }

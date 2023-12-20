@@ -45,5 +45,8 @@
   <button mat-menu-item routerLink="/registration" *ngIf="role==null">Register</button>
   <button mat-menu-item routerLink="user-profile" *ngIf="role!=null">Account</button>
   <button mat-menu-item (click)="logOut()" *ngIf="role != null">Logout</button>
+  <button mat-menu-item [routerLink]="['/accommodation-creation', { pageMode: 'create' }]" >New accommodation</button>
+  <button mat-menu-item routerLink="/accommodation-requests">View acc requests</button>
+  <button mat-menu-item routerLink="/host-accommodations">Host accommodations</button>
 </mat-menu>
 </mat-toolbar>
