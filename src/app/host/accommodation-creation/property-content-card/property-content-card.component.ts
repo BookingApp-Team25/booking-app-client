@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl} from "@angular/forms";
 
 @Component({
@@ -7,18 +7,23 @@ import {FormControl} from "@angular/forms";
   styleUrls: ['./property-content-card.component.css']
 })
 export class PropertyContentCardComponent implements OnInit{
-  properties : string[] = [];
+  @Input() amenities : string[] = [];
   newProperty : string = '';
   @Output() onPropertyInserted = new EventEmitter<string>();
+
   ngOnInit(): void {
-    console.log(this.properties);
+    console.log(this.amenities);
   }
+  ngOnChanges() {
+
+  }
+
   addProperty(): void {
     if(this.newProperty == ''){
       console.log("cant insert empty property!")
     }
     else{
-      this.properties.push(this.newProperty);
+      this.amenities.push(this.newProperty);
       this.onPropertyInserted.emit(this.newProperty);
     }
   }

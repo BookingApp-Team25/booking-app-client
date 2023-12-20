@@ -12,8 +12,9 @@
         </div>
     </div>
     <div id="buttons">
-        <button mat-mini-fab [routerLink]="['accommodationView']" style="background-color: white;color: #969000;margin-top: 50%" aria-label="Example icon button with a menu icon">
-            <mat-icon>edit</mat-icon>
-        </button>
+            <button mat-mini-fab [routerLink]="['/accommodation-creation', { id: summary.accommodationId}]"  style="background-color: white;color: #969000;margin-top: 50%" aria-label="Example icon button with a menu icon">
+                <mat-icon>edit</mat-icon>
+            </button>
+
     </div>
 </div>

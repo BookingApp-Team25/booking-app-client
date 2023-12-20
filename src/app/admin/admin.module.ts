@@ -14,6 +14,9 @@ import {MaterialModule} from "../infrastructure/material/material.module";
     CommonModule,
     AccommodationModule,
     MaterialModule
+  ],
+  exports: [
+      AccommodationRequestsComponent
   ]
 })
 export class AdminModule { }

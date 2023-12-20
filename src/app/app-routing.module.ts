@@ -14,7 +14,7 @@ const routes: Routes = [
   {component: AccommodationDetailsComponent, path:"home/accommodationView"},
   { component: UserProfileComponent, path: "userProfile" },
   { component: RegistrationComponent, path: "registration" },
-  { component: AccommodationCreationComponent, path: "accommodation-creation/:id"},
+  { component: AccommodationCreationComponent, path: "accommodation-creation"},
   { component: AccommodationRequestsComponent, path : "accommodation-requests"},
   { component: LoginComponent, path: 'login' },
   { component: HostAccommodationsViewComponent, path : "host-accommodations"}

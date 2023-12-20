@@ -1,22 +1,24 @@
 import {Component, OnInit} from '@angular/core';
 import {Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {DatePair} from "./model/date-pair";
-import {DatePriceElementComponent} from "./date-price-element/date-price-element.component";
 import {DatePriceElementModel} from "./model/date-price-element-model";
-import {isValidDate} from "rxjs/internal/util/isDate";
 import {AccommodationService} from "../../accommodation/accommodation.service";
 import {AccommodationRequest} from "../../accommodation/model/accommodation-request";
 import {AccommodationType} from "../../accommodation/enum/accommodation-type-enum";
 import {AccommodationReservationPolicy} from "../../accommodation/enum/accommodation-reservation-policy-enum";
-import {Location} from "../../accommodation/model/location";
 import {AccommodationDatePeriod} from "../../accommodation/model/accommodation-date-period";
-
+import { ActivatedRoute } from '@angular/router'
+import {Calendar} from "../../accommodation/model/calendar";
 @Component({
   selector: 'app-accommodation-creation',
   templateUrl: './accommodation-creation.component.html',
   styleUrls: ['./accommodation-creation.component.css']
 })
 export class AccommodationCreationComponent implements OnInit{
+  totalPrice: number;
+  amenities : string[] = [];
+  editedAccommodation : AccommodationRequest;
+  editId : string | null;
   weekendControl: FormControl = new FormControl(false);
   summerControl: FormControl = new FormControl(false);
   holidayControl: FormControl = new FormControl(false);
@@ -29,8 +31,50 @@ export class AccommodationCreationComponent implements OnInit{
     end: new FormControl<Date | null>(null),
   });
   periods : DatePair[] = []
-  constructor(private fb: FormBuilder, private service : AccommodationService) { }
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder, private service : AccommodationService, private activatedroute:ActivatedRoute) { }
+  initializeFormEdit() : void {
+    console.log("Amenities:")
+    console.log(this.editedAccommodation.amenities);
+    this.accommodationForm.patchValue({
+      name: this.editedAccommodation.name,
+      description: this.editedAccommodation.description,
+      minGuests: this.editedAccommodation.minGuests,
+      maxGuests: this.editedAccommodation.maxGuests,
+      daysBefore: this.editedAccommodation.daysBefore,
+      pricelist: {
+        dailyPrice: this.editedAccommodation.pricelist.dailyPrice,
+        weekendPrice: this.editedAccommodation.pricelist.weekendPrice,
+        seasonPrice: this.editedAccommodation.pricelist.seasonPrice,
+        holidayPrice: this.editedAccommodation.pricelist.holidayPrice,
+      },
+      calculationPreference: 'perUnit',
+      country: this.editedAccommodation.location.country,
+      city: this.editedAccommodation.location.city,
+      street: this.editedAccommodation.location.street,
+      streetNumber: this.editedAccommodation.location.streetNumber,
+    });
+    this.editedAccommodation.amenities.forEach((element) => {
+      this.propertyList.push(this.fb.control(element));
+      this.amenities.push(element);
+      console.log(element)
+    });
+
+    for (const dateElement of this.editedAccommodation.availability) {
+      console.log("DATE ELEMENT " + dateElement)
+      const newDateElement: DatePriceElementModel = {
+        startDate: dateElement.startDate,
+        endDate: dateElement.endDate,
+        weekendPrice: false,
+        summerPrice: false,
+        holidayPrice: false,
+        winterPrice: false
+      };
+      this.datesList.push(newDateElement);
+      console.log(newDateElement);
+      this.dateElements.push(newDateElement);
+    }
+  }
+  initializeFormCreate() : void{
     this.accommodationForm = this.fb.group({
       name : ['', Validators.required],
       description : ['', Validators.required],
@@ -50,8 +94,25 @@ export class AccommodationCreationComponent implements OnInit{
       street : [''],
       streetNumber : [''],
       datesList : this.fb.array<DatePriceElementModel>([])
-
     });
+  }
+  ngOnInit(): void {;
+    this.totalPrice = 0;
+    this.initializeFormCreate();
+    this.editId =this.activatedroute.snapshot.paramMap.get("id");
+    if(this.editId != null){ // editovanje, prvo popunjavamo formu
+      this.service.getAccommodationById(this.editId).subscribe(
+          (response) => {
+            console.log('EDITING ACCOMMODATION' + this.editId, response);
+            this.editedAccommodation = response;
+            this.initializeFormEdit();
+          },
+          (error) => {
+            console.error('Error making POST request', error);
+          }
+      );
+    }
+    console.log(this.accommodationForm)
   }
   isPeriodValid(startDate:Date | null, endDate:Date | null) : boolean {
     if(startDate == null || endDate == null){
@@ -73,9 +134,7 @@ export class AccommodationCreationComponent implements OnInit{
       console.error("invalid date period")
       return
     }
-    // Check if both dates are present
     if (startDate && endDate) {
-      // Create a new DatePriceElementModel object and push it to the array
       const newDateElement: DatePriceElementModel = {
         startDate: startDate,
         endDate: endDate,
@@ -85,17 +144,14 @@ export class AccommodationCreationComponent implements OnInit{
         winterPrice: this.winterControl.value
       };
 
-      // Push the newDateElement to the array
-      this.dateElements.push(newDateElement);
 
-      // Assuming that newDatePair is a form group definition, push it to the datesList
-      // Replace this line with the correct form group definition if needed
+      this.dateElements.push(newDateElement);
       this.datesList.push(this.fb.group(newDateElement));
 
-      // Optional: Clear the form controls after adding the date pair
+
       console.log(this.datesList);
     } else {
-      // Handle the case where one or both dates are missing
+
       console.error('Both start and end dates must be selected.');
     }
   }
@@ -139,21 +195,35 @@ export class AccommodationCreationComponent implements OnInit{
         seasonPrice: this.accommodationForm.get("pricelist.seasonPrice")?.value,
         holidayPrice: this.accommodationForm.get("pricelist.holidayPrice")?.value,
       },
-      price: this.accommodationForm.get("pricelist.dailyPrice")?.value + this.accommodationForm.get("pricelist.weekendPrice")?.value + this.accommodationForm.get("pricelist.seasonPrice")?.value + this.accommodationForm.get("pricelist.holidayPrice")?.value,
+      price: 0,
       daysBefore: this.accommodationForm.get("daysBefore")?.value,
       policy: AccommodationReservationPolicy.Manual, // Choose the appropriate policy
       availability: datePeriods
     };
-    console.log(accommodationRequest);
-    this.service.postAccommodationRequest(accommodationRequest).subscribe(
-      (response) => {
-        console.log('POST request successful', response);
-        // Handle the response as needed
-      },
-      (error) => {
-        console.error('Error making POST request', error);
-        // Handle the error
-      }
-    );
+    console.log("Accommodation" + accommodationRequest);
+    if(this.editId != null){
+      this.service.editAccommodationRequest(accommodationRequest, this.editId).subscribe(
+        (response) => {
+          console.log('POST request successful', response);
+          alert("New edit request created, waiting for approval");
+        },
+        (error) => {
+          console.error('Error making POST request', error);
+          // Handle the error
+        }
+      );
+    }
+    else{
+      this.service.createAccommodationRequest(accommodationRequest).subscribe(
+        (response) => {
+          console.log('POST request successful', response);
+          alert("New accommodation request created, waiting for approval");
+        },
+        (error) => {
+          console.error('Error making POST request', error);
+          // Handle the error
+        }
+      );
+    }
   }
 }

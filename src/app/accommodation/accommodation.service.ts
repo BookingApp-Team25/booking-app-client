@@ -29,11 +29,17 @@ export class AccommodationService {
         .set('numberOfElements', numberOfElements.toString());
     return this.httpClient.get<AccommodationSummaryCollection>(environment.apiHost + `accommodation/host/${hostId}`,{params});
   }
+  getAccommodationById(accommodationId : string){
+    return this.httpClient.get<AccommodationRequest>(environment.apiHost + `accommodation/${accommodationId}`);
+  }
   getAllUpdates(): Observable<AccommodationRequestSummary[]>{
     return this.httpClient.get<AccommodationRequestSummary[]>(environment.apiHost + "accommodation-request")
 }
-  postAccommodationRequest(data : AccommodationRequest): Observable<MessageResponse> {
+  createAccommodationRequest(data : AccommodationRequest): Observable<MessageResponse> {
    return this.httpClient.post<MessageResponse>(environment.apiHost + "accommodation-request", data)
+  }
+  editAccommodationRequest(data : AccommodationRequest, accommodationId : string): Observable<MessageResponse> {
+    return this.httpClient.post<MessageResponse>(environment.apiHost + "accommodation-request/" + `${accommodationId}`, data);
   }
   resolveAccommodationRequest(requestID : string,flag : number): Observable<MessageResponse> {
     const params = new HttpParams().set('flag', flag.toString());
