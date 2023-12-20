@@ -41,7 +41,7 @@
   </div>
 </button>
 <mat-menu class="account-menu" #menu="matMenu">
-  <button mat-menu-item (click)="onAccountButtonClick()" *ngIf="role==null">Login</button>
+  <button mat-menu-item (click)="openLogin()" *ngIf="role==null">Login</button>
   <button mat-menu-item routerLink="/registration" *ngIf="role==null">Register</button>
   <button mat-menu-item routerLink="user-profile" *ngIf="role!=null">Account</button>
   <button mat-menu-item (click)="logOut()" *ngIf="role != null">Logout</button>

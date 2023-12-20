@@ -6,6 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {FilterDialogComponent} from "../filter-dialog/filter-dialog.component";
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Router } from '@angular/router';
+import { LoginComponent } from 'src/app/infrastructure/auth/login/login.component';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -28,8 +29,6 @@ export class NavBarComponent implements OnInit {
     );
     this.authService.userState.subscribe((result) => {
       this.role = result;
-      console.log("Role is: ",this.role);
-      console.log(localStorage.getItem('user'));
     })
   }
 
@@ -57,9 +56,12 @@ export class NavBarComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  @Output() accountButtonClick = new EventEmitter<void>();
-   onAccountButtonClick() {
-    this.accountButtonClick.emit();
+  openLogin(): void {
+    const dialogRef = this.dialog.open(LoginComponent, {
+      width: '500px',
+      height: '300px',
+      disableClose: true, // Disables closing by clicking outside the dialog
+    });
   }
 
   logOut(): void {

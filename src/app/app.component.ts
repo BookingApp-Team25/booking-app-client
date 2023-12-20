@@ -7,9 +7,4 @@ import { LoginComponent } from './infrastructure/auth/login/login.component';
 })
 export class AppComponent {
   title: string = 'BookingApp';
-  isLoginVisible = false;
-
-  toggleLogin() {
-    this.isLoginVisible = !this.isLoginVisible;
-  }
 }

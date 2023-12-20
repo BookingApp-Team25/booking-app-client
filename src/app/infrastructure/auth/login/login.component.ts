@@ -4,18 +4,18 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginRequest } from '../model/login-request';
 import { LoginResponse } from '../model/login-response';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  isPopupVisible = true;
   closePopup(): void {
-    this.isPopupVisible = false;
+    this.dialogRef.close();
   }
 
-  constructor(private authService:AuthService,private snackbar:MatSnackBar){}
+  constructor(private authService:AuthService,private snackbar:MatSnackBar,public dialogRef: MatDialogRef<LoginComponent>){}
 
   loginForm=new FormGroup({
     username: new FormControl("",[Validators.required,Validators.email]),
@@ -38,10 +38,8 @@ export class LoginComponent {
             });
           } else {
             localStorage.setItem('user', response.jwt);
-            console.log(localStorage.getItem('user'));
-            console.log("ALO OVDE SAM");
             this.authService.setUser();
-            this.isPopupVisible = false;
+            this.closePopup();
           }
         },
         error: (err) => {

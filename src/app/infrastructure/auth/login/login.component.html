@@ -1,8 +1,8 @@
-<div class="wrapper" *ngIf="isPopupVisible">
+<div class="wrapper">
   <div class="log-in-pop-up">
     <form class="div" [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="upper" style="height: 10%;display: flex; justify-content:end;">
-        <button mat-icon-button (click)="closePopup()">
+        <button mat-icon-button type="button" (click)="closePopup()">
         <mat-icon>close</mat-icon>
       </button>
       </div>
@@ -34,7 +34,7 @@
         </div>
         <button mat-flat-button type="submit">Log in</button>
       </div>
-      <a routerLink="/registration">
+      <a routerLink="/registration" (click)="closePopup()">
       <div class="text-wrapper-2">Don’t have an account?</div>
       </a>
     </form>
