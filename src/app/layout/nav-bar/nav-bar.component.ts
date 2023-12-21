@@ -111,39 +111,29 @@ export class NavBarComponent implements OnInit {
       (searchCriteria.maxPrice !== null && searchCriteria.maxPrice !== undefined && searchCriteria.maxPrice !== 0);
 
     if (hasFilters) {
-      // Implement your filter search logic here
       console.log('Filter Search Criteria:', searchCriteria);
 
-      // Call the backend service to filter accommodations
       this.accommodationService.filterAccommodations(searchCriteria).subscribe({
         next: (accommodations) => {
           console.log('Search Results:', accommodations);
-          // Do something with the search results, e.g., update UI
         },
         error: (error) => {
           console.error('Search Error:', error);
-          // Handle the error, show a message
         },
         complete: () => {
-          // This block is called when the observable completes (optional)
         }
       });
     } else {
-      // Implement your regular search logic here
       console.log('Regular Search Criteria:', searchCriteria);
 
-      // Call the backend service to search accommodations
       this.accommodationService.searchAccommodations(searchCriteria).subscribe({
         next: (accommodations) => {
           console.log('Search Results:', accommodations);
-          // Do something with the search results, e.g., update UI
         },
         error: (error) => {
           console.error('Search Error:', error);
-          // Handle the error, show a message
         },
         complete: () => {
-          // This block is called when the observable completes (optional)
         }
       });
     }
