@@ -1,49 +1,56 @@
 <div id="page">
-<div class="main">
+  <div class="main">
     <div class="details">
-      <div id="accommodation-name">Lux Apartment Stari grad</div>
+      <div id="accommodation-name">{{ accommodationDetails.name }}</div>
       <div class="div-4">
         <mat-icon style="margin-top: 3%;">location_on</mat-icon>
-        <div id="location">Novi Sad, Serbia</div>
+        <div id="location">{{ accommodationDetails.location.city }}, {{ accommodationDetails.location.country }}</div>
       </div>
       <div class="div-6">
-        <p id="owner">Owner: Petar Petrovic</p>
+        <p id="owner">Owner: {{ accommodationDetails.hostId }}</p>
         <p id="rating">4.5</p>
-        <mat-icon style="margin-top: 2%;transform: scale(1.3);">star</mat-icon>
+        <!-- <p id="rating">{{ accommodationDetails.rating }}</p> -->
+        <mat-icon style="margin-top: 2%; transform: scale(1.3);">star</mat-icon>
       </div>
     </div>
     <div class="div-9">
       <div class="div-10">
-        <img class="picture" src="..\..\assets\images\luxapartment.jpg">
+        <img class="picture" [src]="accommodationDetails.photos[0]" alt="Accommodation Image">
       </div>
     </div>
     <div class="res-desc">
       <div class="div-13">
-          <form id="reservation-box">
-            <mat-form-field appearance="outline" class="reservation-field">
-              <mat-label>Check-in</mat-label>
-              <input matInput [matDatepicker]="checkinPicker">
-              <mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
-              <mat-datepicker #checkinPicker></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Check-out</mat-label>
-              <input matInput [matDatepicker]="checkoutPicker">
-              <mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
-              <mat-datepicker #checkoutPicker></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Add guests</mat-label>
-              <input matInput type="number" min="1" value="1">
-            </mat-form-field>
-            <button mat-flat-button id="reserve-button">Reserve</button>
-          </form>
-          <div class="div-22">
-            <div id="description-text">
-              Located in Novi Sad, a 13-minute walk from SPENS Sports Center and one mile from Promenada Shopping Mall,
-              Cosmopolitan Hideaway offers air conditioning.
-            </div>
+        <form id="reservation-box">
+          <div *ngIf="showPopup" class="popup">
+            Reservation created successfully!
           </div>
+          <mat-form-field appearance="outline" class="reservation-field">
+            <mat-label>Check-in</mat-label>
+            <input matInput [matDatepicker]="checkinPicker" #checkinInput>
+            <mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+            <mat-datepicker #checkinPicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Check-out</mat-label>
+            <input matInput [matDatepicker]="checkoutPicker" #checkoutInput>
+            <mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+            <mat-datepicker #checkoutPicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Add guests</mat-label>
+            <input matInput type="number" min="1" value="1" #guestsInput>
+          </mat-form-field>
+          <!-- <app-reservation
+            [reservation]="reservation"
+            (reserveClicked)="onReserveClicked(checkinInput.value, checkoutInput.value, guestsInput.value)"
+          ></app-reservation> -->
+          <div>
+            <button (click)="onReserveClicked(checkinInput.value, checkoutInput.value, guestsInput.value)" id="reserve-button">Reserve</button> <!--ne pravim novu komponentu za rezervacije jer kad sam tako radio izazove mi negde overflow u memoriji a nisamo mogao naci kako da to resim-->
+          </div>
+        </form>
+        <div class="div-22">
+          <div id="description-text">{{ accommodationDetails.description }}</div>
+        </div>
       </div>
     </div>
     <mat-card id="amenities-list">
@@ -52,7 +59,7 @@
         <mat-card-subtitle>This accommodation includes:</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <p>Bathroom<br>Air-conditioning<br>Towels<br>Fridge<br>Hot plate</p>
+        <p>{{ accommodationDetails.amenities }}</p> <!--.join('<br>') mozda mora da se doda nekako-->
       </mat-card-content>
     </mat-card>
     <div id="comments-title">
