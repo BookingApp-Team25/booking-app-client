@@ -69,9 +69,8 @@ export class NavBarComponent implements OnInit {
     });
 
     dialogRef.componentInstance.filterValues.subscribe((values) => {
-      // Handle the emitted filter values here
       console.log('Filter Values:', values);
-      // Set the filter values to the corresponding properties in NavBarComponent
+
       this.filterContents = values.contents;
       this.filterType = values.type;
       this.filterMinPrice = values.minPrice;

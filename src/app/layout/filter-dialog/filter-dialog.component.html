@@ -1,23 +1,24 @@
 <form [formGroup]="filterForm">
   <h2 mat-dialog-title>Filter Options</h2>
   <div mat-dialog-content id="page-div">
-    <!-- Contents -->
-    <div class="inside-div">
-      <p style="margin: 5%"><strong>Contents</strong></p>
-      <div class="flex-div" *ngFor="let contentControl of contentsControls; let i = index">
-        <mat-checkbox [formControl]="getFormControl(contentControl)"></mat-checkbox>
-        <span>{{ contentLabels[i] }}</span>
-      </div>
-    </div>
+ <!-- Contents -->
+ <div class="inside-div">
+  <p style="margin: 5%"><strong>Contents</strong></p>
+  <div class="flex-div" *ngFor="let contentControl of contentsControls; let i = index">
+    <mat-checkbox [formControl]="getFormControl(contentControl)"></mat-checkbox>
+    <span>{{ contentLabels[i] }}</span>
+  </div>
+</div>
 
-    <!-- Type -->
-    <div class="inside-div">
-      <p style="margin: 5%"><strong>Type</strong></p>
-      <div class="flex-div" *ngFor="let typeControl of typeControls; let i = index">
-        <mat-checkbox [formControl]="getFormControl(typeControl)"></mat-checkbox>
-        <span>{{ typeLabels[i] }}</span>
-      </div>
-    </div>
+<!-- Type -->
+<div class="inside-div">
+  <p style="margin: 5%"><strong>Type</strong></p>
+  <div class="flex-div" *ngFor="let typeControl of typeControls; let i = index">
+    <mat-checkbox [formControl]="getFormControl(typeControl)"></mat-checkbox>
+    <span>{{ typeLabels[i] }}</span>
+  </div>
+</div>
+
 
     <!-- Price Range -->
     <div class="inside-div">

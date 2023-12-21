@@ -38,9 +38,8 @@ export class FilterDialogComponent {
   }
 
   onApplyFilters(): void {
-    // Emit the filter values when the Apply button is clicked
-    const selectedContents = this.getFormArrayControls(this.filterForm, 'contents');
-    const selectedTypes = this.getFormArrayControls(this.filterForm, 'type');
+    const selectedContents = this.getCheckedValues(this.filterForm, 'contents', this.contentLabels);
+    const selectedTypes = this.getCheckedValues(this.filterForm, 'type', this.typeLabels);
 
     const filterValues = {
       contents: selectedContents,
@@ -53,20 +52,30 @@ export class FilterDialogComponent {
     this.dialogRef.close();
   }
 
-  getFormArrayControls(form: FormGroup, controlName: string): AbstractControl[] {
+  getCheckedValues(form: FormGroup, controlName: string, labels: string[]): string[] {
     const formArray = form.get(controlName) as FormArray;
-    return formArray.controls;
+    return formArray.controls.reduce((selected, control, index) => {
+      if (control.value === true) {
+        selected.push(labels[index]);
+      }
+      return selected;
+    }, [] as string[]);
   }
   
-  getFormControl(control: AbstractControl): FormControl {
-    return control as FormControl;
-  }
-
   get contentsControls() {
     return this.getFormArrayControls(this.filterForm, 'contents');
   }
 
   get typeControls() {
     return this.getFormArrayControls(this.filterForm, 'type');
+  }
+
+  private getFormArrayControls(form: FormGroup, controlName: string): AbstractControl[] {
+    const formArray = form.get(controlName) as FormArray;
+    return formArray.controls;
+  }
+
+  getFormControl(control: AbstractControl): FormControl {
+    return control as FormControl;
   }
 }
