@@ -20,13 +20,11 @@ export class FilterDialogComponent {
     public dialogRef: MatDialogRef<FilterDialogComponent>,
     private fb: FormBuilder
   ) {
-    // Initialize your form controls here
     this.filterForm = this.fb.group({
       contents: this.createCheckboxes(this.contentLabels),
       type: this.createCheckboxes(this.typeLabels),
       minPrice: [null],
       maxPrice: [null],
-      // Add more form controls as needed
     });
   }
 

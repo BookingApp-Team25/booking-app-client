@@ -8,7 +8,7 @@ import {MessageResponse} from "./model/message-response";
 import {AccommodationRequestSummary} from "./model/accommodation-request-summary";
 import {AccommodationSummaryCollection} from "./model/accommodation-summary-collection";
 import { SearchCriteria } from './model/SearchCriteria';
-import { ReservationComponent } from '../reservation/reservation.component';
+import { Reservation } from './model/accommodation-reservation';
 
 @Injectable({
   providedIn: 'root'
@@ -54,14 +54,16 @@ export class AccommodationService {
       }));
   }
 
-  createReservation(reservation: ReservationComponent): Observable<MessageResponse> {
-    const url = `${environment.apiHost}reservations`;
+  createReservation(reservation: Reservation): Observable<MessageResponse> {
+    const url = `${environment.apiHost}reservation/create`;
+    console.log(url);
     return this.httpClient.post<MessageResponse>(url, reservation);
   }
 
-  cancelReservation(reservationId: string): Observable<MessageResponse> {
-    const url = `${environment.apiHost}reservations/${reservationId}`;
-    return this.httpClient.delete<MessageResponse>(url);
+  cancelReservation(reservationId: string): Observable<boolean> {
+    const url = `${environment.apiHost}reservation/${reservationId}/cancel`;
+    console.log(url);
+    return this.httpClient.delete<boolean>(url);
   }
 
   searchAccommodations(searchCriteria: SearchCriteria): Observable<AccommodationSummary[]> {
