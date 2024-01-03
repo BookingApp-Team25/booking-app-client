@@ -9,6 +9,8 @@ import {AccommodationRequestSummary} from "./model/accommodation-request-summary
 import {AccommodationSummaryCollection} from "./model/accommodation-summary-collection";
 import { SearchCriteria } from './model/SearchCriteria';
 import { Reservation } from './model/accommodation-reservation';
+import { ReviewRequest } from './model/review-request';
+import { ReviewResponse } from './model/review-response';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +56,14 @@ export class AccommodationService {
       }));
   }
 
+  getAllReviews(accommodationId: string): Observable<ReviewResponse[]> {
+    return this.httpClient.get<ReviewResponse[]>(environment.apiHost+'review/'+accommodationId+'?flag=1');
+  }
+
+  checkReviewPermission(username: string,accommodationId:string): Observable <Boolean> {
+    return this.httpClient.get<Boolean>(environment.apiHost+'review/check/'+username+'/'+accommodationId);
+  }
+
   createReservation(reservation: Reservation): Observable<MessageResponse> {
     const url = `${environment.apiHost}reservation/create`;
     console.log(url);
@@ -64,6 +74,10 @@ export class AccommodationService {
     const url = `${environment.apiHost}reservation/${reservationId}/cancel`;
     console.log(url);
     return this.httpClient.delete<boolean>(url);
+  }
+
+  createReview(review:ReviewRequest): Observable<MessageResponse> {
+    return this.httpClient.post<MessageResponse> (environment.apiHost+'review',review);
   }
 
   searchAccommodations(searchCriteria: SearchCriteria): Observable<AccommodationSummary[]> {

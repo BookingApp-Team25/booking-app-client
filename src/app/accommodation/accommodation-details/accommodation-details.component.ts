@@ -1,9 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AccommodationService } from '../accommodation.service';
 import { AccommodationRequest } from '../model/accommodation-request';
 import { Reservation } from '../model/accommodation-reservation';
 import { ReservationStatus } from '../model/reservation-status';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ReviewRequest } from '../model/review-request';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { ReviewType } from '../enum/reviewtype';
+import { MessageResponse } from '../model/message-response';
+import { ReviewResponse } from '../model/review-response';
 //import { ReservationComponent } from 'src/app/reservation/reservation.component';
 
 @Component({
@@ -18,13 +25,50 @@ export class AccommodationDetailsComponent implements OnInit {
   //reservationComponent: ReservationComponent;
   accommodationId: string;
   showPopup: boolean = false;
+  ratingArr: number[] = [];
+  @Input('rating') rating: number = 3;
+  @Input('starCount') private starCount: number = 5;
+  @Output() private ratingUpdated = new EventEmitter();
+  role='';
+  reviewPermission=false;
+  reviews:ReviewResponse[]=[];
 
   constructor(
     private route: ActivatedRoute,
-    private accommodationService: AccommodationService
+    private accommodationService: AccommodationService,
+    private snackBar:MatSnackBar, private authService:AuthService
   ) {}
 
+    reviewForm=new FormGroup ({
+      comment: new FormControl('',Validators.required)
+    })
+
+    createReview(): void {
+      const review: ReviewRequest= {
+        guestUsername: this.authService.getUsername(),
+        reviewedEntity: this.accommodationId,
+        comment: this.reviewForm.value.comment || '',
+        rating: this.rating,
+        type: ReviewType.AccommodationReview
+      }
+      this.accommodationService.createReview(review).subscribe({
+        next:(response: MessageResponse) => {
+          if(response.successful){
+            this.snackBar.open(response.message, 'Dismiss', {
+              duration: 10000,
+              panelClass: ['snackbar'],
+            });
+            this.toggleCommentField();
+        }
+      }
+      })
+    }
+
   ngOnInit() {
+    this.role=this.authService.getRole();
+    for (let index = 0; index < this.starCount; index++) {
+      this.ratingArr.push(index);
+    }
     this.route.params.subscribe(params => {
       this.accommodationId = params['id']; // Retrieve accommodationId from URL parameters
       this.accommodationService.getAccommodationById(this.accommodationId).subscribe(
@@ -37,6 +81,38 @@ export class AccommodationDetailsComponent implements OnInit {
         }
       );
     });
+
+    this.accommodationService.getAllReviews(this.accommodationId).subscribe(
+      (data:ReviewResponse[]) => {
+        console.log(data);
+        this.reviews=data;
+      }
+    );
+
+    if(this.role=='ROLE_GUEST'){
+      const guestUsername= this.authService.getUsername();
+      this.accommodationService.checkReviewPermission(guestUsername,this.accommodationId).subscribe(
+        (response:Boolean) => {
+          if(response){
+            this.reviewPermission=true;
+          }
+        }
+      )
+    }
+  }
+
+  showIcon(index:number) {
+    if (this.rating >= index + 1) {
+      return 'star';
+    } else {
+      return 'star_border';
+    }
+  }
+
+  onClick(rating:number) {
+    this.rating = rating;
+    this.ratingUpdated.emit(rating);
+    return false;
   }
 
   onReserveClicked(checkin: string, checkout: string, guestsCount: string) {

@@ -10,7 +10,7 @@ import { RegistrationComponent } from '../infrastructure/auth/registration/regis
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccommodationDetailsComponent } from '../accommodation/accommodation-details/accommodation-details.component';
 import { AccommodationCardComponent } from '../accommodation/accommodation-card/accommodation-card.component';
-import { ReviewCardComponent } from './review-card/review-card.component';
+import { ReviewCardComponent } from '../accommodation/review-card/review-card.component';
 import { UserProfileComponent } from '../infrastructure/auth/user-profile/user-profile.component';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
