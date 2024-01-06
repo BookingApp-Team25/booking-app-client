@@ -14,7 +14,7 @@ export class FilterDialogComponent {
   @Output() filterValues: EventEmitter<any> = new EventEmitter();
 
   contentLabels: string[] = ['Free wifi', 'Air conditioner', 'Swimming pool', 'Kitchen'];
-  typeLabels: string[] = ['Apartment', 'Cabin', 'Studio', 'Villa'];
+  typeLabels: string[] = ['Studio', 'Room', 'Apartment', 'House'];
 
   constructor(
     public dialogRef: MatDialogRef<FilterDialogComponent>,
