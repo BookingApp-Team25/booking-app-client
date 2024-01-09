@@ -5,6 +5,8 @@ import { AccommodationRequest } from '../model/accommodation-request';
 import { Reservation } from '../model/accommodation-reservation';
 import { ReservationStatus } from '../model/reservation-status';
 //import { ReservationComponent } from 'src/app/reservation/reservation.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-accommodation-details',
@@ -21,7 +23,8 @@ export class AccommodationDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private accommodationService: AccommodationService
+    private accommodationService: AccommodationService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -59,16 +62,22 @@ export class AccommodationDetailsComponent implements OnInit {
     this.accommodationService.createReservation(this.reservation).subscribe(
       (response) => {
         console.log('Reservation created successfully', response);
-        this.showPopup = true;
-
-        setTimeout(() => {
-          this.showPopup = false;
-        }, 3000);
+        this.openSnackBar('Reservation created successfully!');
       },
       (error) => {
         console.error('Error creating reservation', error);
+        this.openSnackBar('Error creating reservation');
       }
     );
+  }
+
+  private openSnackBar(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['custom-snackbar'] //ne radi nz sto
+    });
   }
 
   toggleCommentField() {

@@ -21,9 +21,6 @@
     <div class="res-desc">
       <div class="div-13">
         <form id="reservation-box">
-          <div *ngIf="showPopup" class="popup">
-            Reservation created successfully!
-          </div>
           <mat-form-field appearance="outline" class="reservation-field">
             <mat-label>Check-in</mat-label>
             <input matInput [matDatepicker]="checkinPicker" #checkinInput>
