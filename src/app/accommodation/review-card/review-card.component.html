@@ -11,9 +11,12 @@
     </mat-card-content>
   </div>
   <div class="button">
-    <button>
-      <mat-icon *ngIf="role=='ROLE_Host'" style="color: red; transform: scale(1.5);">report</mat-icon>
-      <mat-icon *ngIf="role=='ROLE_Guest'" style="transform: scale(1.5);">delete_forever</mat-icon>
+    <button (click)="reportReview()">
+      <mat-icon *ngIf="role=='ROLE_Host' && !review.reported && accommodationDetails.hostUsername==username" style="color: red; transform: scale(1.5);">report</mat-icon>
     </button>
+    <button (click)="deleteReview()">
+      <mat-icon *ngIf="role=='ROLE_Guest' && username==review.guestUsername" style="transform: scale(1.5);">remove_circle_outline</mat-icon>
+    </button>
+      <mat-icon *ngIf="review.reported && role=='ROLE_Host' && accommodationDetails.hostUsername==username" style="transform: scale(1.5); color: red;">report_problem</mat-icon>
   </div>
   </mat-card>

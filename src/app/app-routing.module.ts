@@ -8,6 +8,7 @@ import { ActivationComponent } from './infrastructure/auth/activation/activation
 import {AccommodationCreationComponent} from "./host/accommodation-creation/accommodation-creation.component";
 import {AccommodationRequestsComponent} from "./admin/accommodation-requests/accommodation-requests.component";
 import {HostAccommodationsViewComponent} from "./host/host-accommodations-view/host-accommodations-view.component";
+import { HostDetailsComponent } from './host/host-details/host-details.component';
 
 const routes: Routes = [
   {component: HomeComponent, path:"home"},
@@ -17,7 +18,8 @@ const routes: Routes = [
   { component:  ActivationComponent, path: "activation/:code"},
   { component: AccommodationCreationComponent, path: "accommodation-creation"},
   { component: AccommodationRequestsComponent, path : "accommodation-requests"},
-  { component: HostAccommodationsViewComponent, path : "host-accommodations"}
+  { component: HostAccommodationsViewComponent, path : "host-accommodations"},
+  { component: HostDetailsComponent, path: "host-details/:hostId" }
 ];
 
 @NgModule({

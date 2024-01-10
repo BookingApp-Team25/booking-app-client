@@ -80,6 +80,14 @@ export class AccommodationService {
     return this.httpClient.post<MessageResponse> (environment.apiHost+'review',review);
   }
 
+  deleteReview(reviewId: string): Observable<Boolean> {
+    return this.httpClient.delete<Boolean>(environment.apiHost+'review/'+reviewId+'?flag=1');
+  }
+
+  reportReview(reviewId:string): Observable<MessageResponse> {
+    return this.httpClient.post<MessageResponse>(environment.apiHost+'review/report/'+reviewId+'?flag=1',null);
+  }
+
   searchAccommodations(searchCriteria: SearchCriteria): Observable<AccommodationSummary[]> {
     const dateStartParam = searchCriteria.dateStart ? searchCriteria.dateStart.toISOString() : null;
     const dateEndParam = searchCriteria.dateEnd ? searchCriteria.dateEnd.toISOString() : null;

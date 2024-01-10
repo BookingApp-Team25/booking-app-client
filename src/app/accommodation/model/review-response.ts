@@ -7,5 +7,7 @@ export interface ReviewResponse {
     comment: string,
     rating: number,
     type:ReviewType,
-    date: string
+    date: string,
+    guestUsername: string,
+    reported: boolean
 }

@@ -198,7 +198,8 @@ export class AccommodationCreationComponent implements OnInit{
       price: 0,
       daysBefore: this.accommodationForm.get("daysBefore")?.value,
       policy: AccommodationReservationPolicy.Manual, // Choose the appropriate policy
-      availability: datePeriods
+      availability: datePeriods,
+      hostUsername:''
     };
     console.log("Accommodation" + accommodationRequest);
     if(this.editId != null){

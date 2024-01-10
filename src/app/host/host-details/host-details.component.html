@@ -1,0 +1,45 @@
+<div id="main">
+<mat-card id="profile-card">
+    <div id="icon"><mat-icon  style="transform: scale(5);color: #969000;">account_circle</mat-icon></div>
+    <div id="info">
+        <p style="font-size: 25px;"><b>{{hostDetails.firstName}} {{hostDetails.lastName}}</b></p><br>
+        <p>Email: {{hostDetails.username}}</p>
+        <p>Phone number: {{hostDetails.phoneNumber}}</p>
+    </div>
+    <div id="report" *ngIf="role=='ROLE_Guest'" (click)="openDialog()"><mat-icon style="color: red;">report</mat-icon></div>
+    <div id="rating"><b>4.5</b>&nbsp;<mat-icon style="margin-bottom: 3%;">star</mat-icon></div>
+</mat-card>
+<div id="reviews">
+<div id="comments-title">
+    <div class="div-29">
+      <div class="div-30">Guest Reviews</div>
+      <div class="div-31">4.5</div>
+      <mat-icon>star</mat-icon>
+    </div>
+    <div class="div-32">
+        <button id="comment-button" *ngIf="role=='ROLE_Guest'" (click)="toggleCommentField()" mat-flat-button>Comment<mat-icon> add_comment</mat-icon> </button>
+    </div>
+  </div>
+</div>
+<mat-card *ngIf="showCommentField" style="width: 70%;">
+    <form [formGroup]="reviewForm">
+  <mat-form-field id="comment-field">
+    <input matInput placeholder="Write a comment" formControlName="comment">
+      <button matSuffix mat-icon-button aria-label="Clear" type="submit" (click)="createReview()">
+        <mat-icon>send</mat-icon>
+      </button>
+  </mat-form-field>
+  <p style="margin-left: 1%; font-size: 16px; font-weight: bold;">Rating: {{rating}}/5</p>
+  <div style="display: flex;">
+  <button mat-icon-button [color]="'accent'" *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i" (click)="onClick(i+1)">
+    <mat-icon style="color: #969000;">
+      {{showIcon(i)}}
+    </mat-icon>
+  </button>
+  </div>
+  </form>
+  </mat-card>
+  <mat-list id="comment-list" style="width: 70%;">
+    <host-review-card *ngFor="let review of reviews" [hostDetails]="hostDetails" [review]="review" (deleteReviewEvent)="onDeleteReview($event)"></host-review-card>
+  </mat-list>
+</div>

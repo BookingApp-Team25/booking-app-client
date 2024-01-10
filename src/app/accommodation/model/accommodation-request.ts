@@ -5,7 +5,6 @@ import {AccommodationReservationPolicy} from "../enum/accommodation-reservation-
 import {AccommodationDatePeriod} from "./accommodation-date-period";
 
 export interface AccommodationRequest {
-  hostId : string;
   name: string;
   description: string;
   location: Location;
@@ -19,4 +18,6 @@ export interface AccommodationRequest {
   price: number;
   daysBefore: number;
   policy: AccommodationReservationPolicy;
+  hostId : string;
+  hostUsername:string;
 }

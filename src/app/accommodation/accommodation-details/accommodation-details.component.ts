@@ -74,7 +74,6 @@ export class AccommodationDetailsComponent implements OnInit {
       this.accommodationService.getAccommodationById(this.accommodationId).subscribe(
         (data: AccommodationRequest) => {
           this.accommodationDetails = data;
-          console.log('Accommodation details:', this.accommodationDetails);
         },
         (error) => {
           console.error('Error fetching accommodation details', error);
@@ -82,6 +81,7 @@ export class AccommodationDetailsComponent implements OnInit {
       );
     });
 
+    
     this.accommodationService.getAllReviews(this.accommodationId).subscribe(
       (data:ReviewResponse[]) => {
         console.log(data);
@@ -89,7 +89,7 @@ export class AccommodationDetailsComponent implements OnInit {
       }
     );
 
-    if(this.role=='ROLE_GUEST'){
+    if(this.role=='ROLE_GUEST' || this.role=='ROLE_Host'){
       const guestUsername= this.authService.getUsername();
       this.accommodationService.checkReviewPermission(guestUsername,this.accommodationId).subscribe(
         (response:Boolean) => {
@@ -99,6 +99,11 @@ export class AccommodationDetailsComponent implements OnInit {
         }
       )
     }
+  }
+
+  onDeleteReview(reviewId: string) {
+    // Remove the deleted review from the reviews array
+    this.reviews = this.reviews.filter(review => review.id !== reviewId);
   }
 
   showIcon(index:number) {

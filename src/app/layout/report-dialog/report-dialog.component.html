@@ -1,0 +1,13 @@
+<div id="dialog">
+<h1 mat-dialog-title style="color: red;">Report user</h1>
+<div mat-dialog-content>
+  <p>Write a reason for report</p>
+  <mat-form-field style="width: 100%;">
+    <input matInput>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions id="buttons">
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button (click)="onOkClick()">Ok</button>
+</div>
+</div>

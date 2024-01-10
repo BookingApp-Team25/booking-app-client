@@ -1,0 +1,17 @@
+.comment-card {
+    margin-top: 1%;
+    display: flex;
+    flex-direction: row;
+}
+
+.main {
+    width: 95%;
+}
+
+.button {
+    align-items: center;
+    justify-content: center;
+    width: 5%;
+    display: flex;
+    padding: 3%;
+}
