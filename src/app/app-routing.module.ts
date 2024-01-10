@@ -8,6 +8,12 @@ import { ActivationComponent } from './infrastructure/auth/activation/activation
 import {AccommodationCreationComponent} from "./host/accommodation-creation/accommodation-creation.component";
 import {AccommodationRequestsComponent} from "./admin/accommodation-requests/accommodation-requests.component";
 import {HostAccommodationsViewComponent} from "./host/host-accommodations-view/host-accommodations-view.component";
+import {
+  HostReservationRequestViewComponent
+} from "./host/host-reservation-request-view/host-reservation-request-view.component";
+import {
+  HostResolveReservationViewComponent
+} from "./host/host-resolve-reservation-view/host-resolve-reservation-view.component";
 
 const routes: Routes = [
   {component: HomeComponent, path:"home"},
@@ -17,7 +23,9 @@ const routes: Routes = [
   { component:  ActivationComponent, path: "activation/:code"},
   { component: AccommodationCreationComponent, path: "accommodation-creation"},
   { component: AccommodationRequestsComponent, path : "accommodation-requests"},
-  { component: HostAccommodationsViewComponent, path : "host-accommodations"}
+  { component: HostAccommodationsViewComponent, path : "host-accommodations"},
+  {component: HostReservationRequestViewComponent, path: "host-reservation-requests"},
+  {component: HostResolveReservationViewComponent, path: "host-resolve-accommodation-request"}
 ];
 
 @NgModule({

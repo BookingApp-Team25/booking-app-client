@@ -45,7 +45,7 @@ export class AccommodationDetailsComponent implements OnInit {
   onReserveClicked(checkin: string, checkout: string, guestsCount: string) {
     const checkinDate = new Date(checkin);
     const checkoutDate = new Date(checkout);
-    
+
     this.reservation = {
       guestId: '550e8400-e29b-41d4-a716-446655440000',
       hostId: '760e8230-e21b-21d4-a756-123455440002', // this.accommodationDetails.hostId, ne radi
@@ -54,7 +54,10 @@ export class AccommodationDetailsComponent implements OnInit {
       reservedDate: {
         startDate: checkinDate,
         endDate: checkoutDate
-      }
+      },
+      guestName:"",
+      accommodationName:"",
+      price:0
     }
     //this.reservationComponent.reserve();
     console.log("reservation:", this.reservation);
