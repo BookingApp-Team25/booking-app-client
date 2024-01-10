@@ -1,14 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {DatePair} from "./model/date-pair";
 import {DatePriceElementModel} from "./model/date-price-element-model";
 import {AccommodationService} from "../../accommodation/accommodation.service";
 import {AccommodationRequest} from "../../accommodation/model/accommodation-request";
 import {AccommodationType} from "../../accommodation/enum/accommodation-type-enum";
 import {AccommodationReservationPolicy} from "../../accommodation/enum/accommodation-reservation-policy-enum";
-import {AccommodationDatePeriod} from "../../accommodation/model/accommodation-date-period";
-import { ActivatedRoute } from '@angular/router'
-import {Calendar} from "../../accommodation/model/calendar";
+import {DatePeriod} from "../../accommodation/model/date-period";
+import {ActivatedRoute} from '@angular/router'
+import {PriceCalculationMethod} from "../../accommodation/enum/price-calculation-method";
+import {AccommodationImage} from "../../accommodation/model/accommodation-image";
+
 @Component({
   selector: 'app-accommodation-creation',
   templateUrl: './accommodation-creation.component.html',
@@ -17,6 +19,7 @@ import {Calendar} from "../../accommodation/model/calendar";
 export class AccommodationCreationComponent implements OnInit{
   totalPrice: number;
   amenities : string[] = [];
+  images: string[] = [];
   editedAccommodation : AccommodationRequest;
   editId : string | null;
   weekendControl: FormControl = new FormControl(false);
@@ -30,6 +33,18 @@ export class AccommodationCreationComponent implements OnInit{
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
+  onFileSelected(event: any){
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64 = reader.result as string;
+      console.log(base64)
+      this.images.push(base64);
+    }
+    reader.readAsDataURL(event.target.files[0]);
+    console.log(event.target.files[0]);
+
+  }
   periods : DatePair[] = []
   constructor(private fb: FormBuilder, private service : AccommodationService, private activatedroute:ActivatedRoute) { }
   initializeFormEdit() : void {
@@ -47,11 +62,16 @@ export class AccommodationCreationComponent implements OnInit{
         seasonPrice: this.editedAccommodation.pricelist.seasonPrice,
         holidayPrice: this.editedAccommodation.pricelist.holidayPrice,
       },
-      calculationPreference: 'perUnit',
+      calculationPreference: 'PER_UNIT',
+      policyPreference: "AUTO",
       country: this.editedAccommodation.location.country,
       city: this.editedAccommodation.location.city,
       street: this.editedAccommodation.location.street,
       streetNumber: this.editedAccommodation.location.streetNumber,
+    });
+    this.editedAccommodation.photos.forEach((element : string) => {
+      console.log("ELEMENT: " + element);
+      this.images.push(element);
     });
     this.editedAccommodation.amenities.forEach((element) => {
       this.propertyList.push(this.fb.control(element));
@@ -87,7 +107,8 @@ export class AccommodationCreationComponent implements OnInit{
         seasonPrice : [0],
         holidayPrice : [0]
       }),
-      calculationPreference : ['perUnit', Validators.required],
+      calculationPreference : ['PER_UNIT', Validators.required],
+      policyPreference : ['AUTO', Validators.required],
       propertyList : this.fb.array([]),
       country : [''],
       city : [''],
@@ -96,10 +117,12 @@ export class AccommodationCreationComponent implements OnInit{
       datesList : this.fb.array<DatePriceElementModel>([])
     });
   }
-  ngOnInit(): void {;
+  ngOnInit(): void {
+    console.log("ENTERING INITIALIZATION!!!")
     this.totalPrice = 0;
     this.initializeFormCreate();
     this.editId =this.activatedroute.snapshot.paramMap.get("id");
+    console.log(this.editId);
     if(this.editId != null){ // editovanje, prvo popunjavamo formu
       this.service.getAccommodationById(this.editId).subscribe(
           (response) => {
@@ -166,13 +189,23 @@ export class AccommodationCreationComponent implements OnInit{
     console.log(this.accommodationForm)
   }
   submitForm() {
-    const datePeriods : AccommodationDatePeriod[] = [];
+    const datePeriods : DatePeriod[] = [];
     for(const datePrice of this.dateElements){
-      const datePeriod : AccommodationDatePeriod = {
+      const datePeriod : DatePeriod = {
         startDate : datePrice.startDate,
         endDate : datePrice.endDate
       };
       datePeriods.push(datePeriod);
+    }
+    const policyString = this.accommodationForm.get("policyPreference")?.value;
+    let policy = AccommodationReservationPolicy.MANUAL;
+    if(policyString == "AUTO"){
+      policy = AccommodationReservationPolicy.AUTO;
+    }
+    let calculationString = this.accommodationForm.get("calculationPreference")?.value;
+    let calculation = PriceCalculationMethod.PER_UNIT;
+    if(calculationString == "PER_GUEST"){
+      calculation = PriceCalculationMethod.PER_GUEST;
     }
     const accommodationRequest: AccommodationRequest = {
       hostId : "5894d69d-fc8d-4f06-bf0c-dc695b40901b",
@@ -185,10 +218,10 @@ export class AccommodationCreationComponent implements OnInit{
         streetNumber : this.accommodationForm.get("streetNumber")?.value
       },
       amenities: this.accommodationForm.get("propertyList")?.value,
-      photos: ['Photo1.jpg', 'Photo2.jpg'],
+      photos: this.images,
       minGuests: this.accommodationForm.get("minGuests")?.value,
       maxGuests: this.accommodationForm.get("maxGuests")?.value,
-      type: AccommodationType.Studio, // Choose the appropriate type
+      type: AccommodationType.Apartment, // Choose the appropriate type
       pricelist: {
         dailyPrice: this.accommodationForm.get("pricelist.dailyPrice")?.value,
         weekendPrice: this.accommodationForm.get("pricelist.weekendPrice")?.value,
@@ -197,10 +230,11 @@ export class AccommodationCreationComponent implements OnInit{
       },
       price: 0,
       daysBefore: this.accommodationForm.get("daysBefore")?.value,
-      policy: AccommodationReservationPolicy.Manual, // Choose the appropriate policy
+      policy: policy,
+      priceCalculationMethod: calculation,
       availability: datePeriods
     };
-    console.log("Accommodation" + accommodationRequest);
+    console.log(accommodationRequest);
     if(this.editId != null){
       this.service.editAccommodationRequest(accommodationRequest, this.editId).subscribe(
         (response) => {

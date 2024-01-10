@@ -1,5 +1,5 @@
 <div class="accommodation-frame" [routerLink]="['accommodation', { id: summary.accommodationId}] ">
-  <img class="accommodation-image" src="..\..\assets\images\AccommodationImage.png" />
+  <img class="accommodation-image" [src]="summary.photo"  alt="Apartment image" />
   <div class="accommodation-info">
     <div class="accommodation-name">{{summary.name}}</div>
     <div class="desc">

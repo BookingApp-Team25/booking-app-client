@@ -1,0 +1,19 @@
+<div class="accommodation-frame">
+  <img class="accommodation-image" src="..\..\assets\images\AccommodationImage.png" />
+  <div class="accommodation-info">
+    <div class="accommodation-name">{{reservation.accommodationName}}</div>
+    <div class="desc">
+      <p class="description-text">
+        {{reservation.guestName}}
+      </p>
+    </div>
+    <div>{{reservation.reservationStatus}}</div>
+    <div class="info">
+      <div class="text-wrapper">{{reservation.reservedDate.startDate + "  " + reservation.reservedDate.endDate}}</div>
+      <div class="group">
+        <div class="div">{{reservation.price}}</div>
+        <img class="star" src="..\..\assets\images\star.png" />
+      </div>
+    </div>
+  </div>
+</div>

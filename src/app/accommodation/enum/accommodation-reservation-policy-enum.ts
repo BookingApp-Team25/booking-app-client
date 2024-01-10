@@ -1,4 +1,4 @@
 export enum AccommodationReservationPolicy {
-  Manual,
-  Auto
+  MANUAL,
+  AUTO
 }

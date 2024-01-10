@@ -51,11 +51,19 @@
           </mat-form-field>
         </div>
         <label>
-          <input type="radio" formControlName="calculationPreference" value="perUnit" />
+          <input type="radio" formControlName="policyPreference" value="MANUAL" />
+          Manual confirmation policy
+        </label>
+        <label>
+          <input type="radio" formControlName="policyPreference" value="AUTO" />
+          Auto confirmation policy
+        </label>
+        <label>
+          <input type="radio" formControlName="calculationPreference" value="PER_UNIT" />
           Calculate price per whole unit
         </label>
         <label>
-          <input type="radio" formControlName="calculationPreference" value="perGuest" />
+          <input type="radio" formControlName="calculationPreference" value="PER_GUEST" />
           Calculate price per guest
         </label>
       </div>
@@ -136,6 +144,13 @@
                                 [winterPrice]="dateElement.winterPrice">
         </app-date-price-element>
       </mat-list>
+    </div>
+    <div id="photos-div">
+      <p id="photos-div-title">Insert apartment photos:</p>
+      <mat-list id="photos-list">
+        <app-image-window *ngFor="let image of images" [image]="image"></app-image-window>
+      </mat-list>
+      <input type="file" (change)="onFileSelected($event)" id="photo-input">
     </div>
     <button mat-button (click)="submitForm()" id="submitButton" [disabled]="accommodationForm.invalid">Submit</button>
   </form>
