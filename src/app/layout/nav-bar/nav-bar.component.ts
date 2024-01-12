@@ -106,7 +106,7 @@ export class NavBarComponent implements OnInit {
 
     const hasFilters =
       (searchCriteria.contents && searchCriteria.contents.length > 0) ||
-      (searchCriteria.type && searchCriteria.type !== '') ||
+      (searchCriteria.type && searchCriteria.type !== '' && searchCriteria.type.length > 0) ||
       (searchCriteria.minPrice !== null && searchCriteria.minPrice !== undefined && searchCriteria.minPrice !== 0) ||
       (searchCriteria.maxPrice !== null && searchCriteria.maxPrice !== undefined && searchCriteria.maxPrice !== 0);
 

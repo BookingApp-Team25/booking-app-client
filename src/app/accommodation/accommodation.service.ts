@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { AccommodationSummary } from './model/accommodation-summary';
 import { environment } from '../env/env';
-import {catchError, Observable} from 'rxjs';
+import {catchError, Observable, BehaviorSubject, tap } from 'rxjs';
 import {AccommodationRequest} from "./model/accommodation-request";
 import {MessageResponse} from "./model/message-response";
 import {AccommodationRequestSummary} from "./model/accommodation-request-summary";
@@ -11,12 +11,15 @@ import { SearchCriteria } from './model/SearchCriteria';
 import { Reservation } from './model/accommodation-reservation';
 import {ReservationCollection} from "./model/accommodation-reservation-collection";
 import {HostReservationResponseCollection} from "./model/host-reservation-response-collection";
+import { Host } from './model/host-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccommodationService {
   private summaries: AccommodationSummary[]=[];
+  private filteredAccommodationsSubject = new BehaviorSubject<AccommodationSummary[]>([]);
+  filteredAccommodations$ = this.filteredAccommodationsSubject.asObservable();
 
   constructor(private httpClient: HttpClient) { }
 
@@ -119,8 +122,15 @@ export class AccommodationService {
     if (searchCriteria.numberOfGuests) {
       params = params.set('guestNumber', searchCriteria.numberOfGuests);
     }
-
-    return this.httpClient.get<AccommodationSummary[]>(environment.apiHost + 'accommodation/results', { params });
+    
+    return this.httpClient.get<AccommodationSummary[]>(environment.apiHost + 'accommodation/results', { params })
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error:', error);
+          throw error;
+        }),
+        tap(filteredAccommodations => this.filteredAccommodationsSubject.next(filteredAccommodations))
+      );
   }
 
   filterAccommodations(searchCriteria: SearchCriteria): Observable<AccommodationSummary[]> {
@@ -161,6 +171,17 @@ export class AccommodationService {
       params = params.set('maxPrice', searchCriteria.maxPrice);
     }
 
-    return this.httpClient.get<AccommodationSummary[]>(environment.apiHost + 'accommodation/filtered', { params });
+    return this.httpClient.get<AccommodationSummary[]>(environment.apiHost + 'accommodation/filtered', { params })
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error:', error);
+          throw error;
+        }),
+        tap(filteredAccommodations => this.filteredAccommodationsSubject.next(filteredAccommodations))
+      );
+  }
+
+  getHostById(hostId: string): Observable<Host> {
+    return this.httpClient.get<Host>(environment.apiHost + "accommodation/data/" + hostId);
   }
 }

@@ -7,7 +7,7 @@
         <div id="location">{{ accommodationDetails.location.city }}, {{ accommodationDetails.location.country }}</div>
       </div>
       <div class="div-6">
-        <p id="owner">Owner: {{ accommodationDetails.hostId }}</p>
+        <p id="owner">Owner: {{ hostName }}</p>
         <p id="rating">4.5</p>
         <!-- <p id="rating">{{ accommodationDetails.rating }}</p> -->
         <mat-icon style="margin-top: 2%; transform: scale(1.3);">star</mat-icon>
@@ -15,32 +15,40 @@
     </div>
     <div class="div-9">
       <div class="div-10">
-        <img class="picture"  alt="Accommodation Image">
-      </div>
+        <div class="carousel-container">
+          <button (click)="prevImage()" class="arrow-button">&#8249;</button>
+          <img class="picture" [src]="currentPhoto" alt="Accommodation Image">
+          <button (click)="nextImage()" class="arrow-button">&#8250;</button>
+        </div>
     </div>
     <div class="res-desc">
       <div class="div-13">
         <form id="reservation-box">
           <mat-form-field appearance="outline" class="reservation-field">
             <mat-label>Check-in</mat-label>
-            <input matInput [matDatepicker]="checkinPicker" #checkinInput>
-            <mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+            <input matInput [matDatepicker]="checkinPicker" [matDatepickerFilter]="filterDates" #checkinInput>
+            <mat-datepicker-toggle matSuffix [for]="checkinPicker"></mat-datepicker-toggle>
             <mat-datepicker #checkinPicker></mat-datepicker>
           </mat-form-field>
+          
           <mat-form-field appearance="outline">
             <mat-label>Check-out</mat-label>
-            <input matInput [matDatepicker]="checkoutPicker" #checkoutInput>
-            <mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+            <input matInput [matDatepicker]="checkoutPicker" [matDatepickerFilter]="filterDates" #checkoutInput>
+            <mat-datepicker-toggle matSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
             <mat-datepicker #checkoutPicker></mat-datepicker>
           </mat-form-field>
+          
           <mat-form-field appearance="outline">
             <mat-label>Add guests</mat-label>
-            <input matInput type="number" min="1" value="1" #guestsInput>
+            <input matInput type="number" min="1" [max]="maxGuests" value="1" #guestsInput>
           </mat-form-field>
           <!-- <app-reservation
             [reservation]="reservation"
             (reserveClicked)="onReserveClicked(checkinInput.value, checkoutInput.value, guestsInput.value)"
           ></app-reservation> -->
+          <div class="price-field">
+            <p id="total-price">Total Price: {{ calculateTotalPrice(checkinInput.value, checkoutInput.value, guestsInput.value) | currency }}</p>
+          </div>
           <div>
             <button (click)="onReserveClicked(checkinInput.value, checkoutInput.value, guestsInput.value)" id="reserve-button">Reserve</button> <!--ne pravim novu komponentu za rezervacije jer kad sam tako radio izazove mi negde overflow u memoriji a nisamo mogao naci kako da to resim-->
           </div>
