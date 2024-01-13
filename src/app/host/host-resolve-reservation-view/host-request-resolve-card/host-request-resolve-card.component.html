@@ -1,20 +1,11 @@
 <div class="accommodation-frame">
-  <img class="accommodation-image" src="..\..\assets\images\AccommodationImage.png" />
-  <div class="accommodation-info">
-    <div class="accommodation-name">{{reservation.accommodationName}}</div>
-    <div class="desc">
-      <p class="description-text">
-        {{reservation.guestName}}
-      </p>
-    </div>
-    <div>{{reservation.reservationStatus}}</div>
-    <div class="info">
-      <div class="text-wrapper">{{reservation.reservedDate.startDate + "  " + reservation.reservedDate.endDate}}</div>
-      <div class="group">
-        <div class="div">{{reservation.price}}</div>
-        <img class="star" src="..\..\assets\images\star.png" />
-      </div>
-    </div>
+  <img class="accommodation-image" [src]="reservation.accommodationPhoto"  alt="Apartment image" />
+  <div id="accommodation-info">
+    <div id="accommodation-name" style="font-size: 30px; color: #969000">Made by: {{reservation.guestName}}</div>
+    <p style="font-size: 15px;">Accommodation: {{reservation.accommodationName}}</p>
+    <p style="font-size: 20px;">{{reservation.reservedDate.startDate}} : {{reservation.reservedDate.endDate}}</p>
+    <p style="font-size: 20px;">Cost: {{reservation.price}}</p>
+    <div style="font-size: 20px;">Status: {{reservation.reservationStatus}}</div>
   </div>
   <div id="buttons">
     <button mat-mini-fab   style="background-color: green;color: white;margin-top: 50%" aria-label="Example icon button with a menu icon" (click)="acceptReservation()">
@@ -25,3 +16,4 @@
     </button>
   </div>
 </div>
+

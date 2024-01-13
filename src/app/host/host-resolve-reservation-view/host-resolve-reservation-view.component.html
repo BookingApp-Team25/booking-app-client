@@ -4,7 +4,7 @@
   <hr>
   <a>
     <mat-list>
-      <app-host-request-resolve-card *ngFor="let reservation of reservations" [reservation]="reservation"></app-host-request-resolve-card>
+      <app-host-request-resolve-card *ngFor="let reservation of reservations.hostReservationResponses" [reservation]="reservation"></app-host-request-resolve-card>
     </mat-list>
     <mat-paginator [length]="totalNumberOfElements"
                    [pageSize]="10"
