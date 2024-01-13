@@ -11,6 +11,8 @@ import { SearchCriteria } from './model/SearchCriteria';
 import { Reservation } from './model/accommodation-reservation';
 import {ReservationCollection} from "./model/accommodation-reservation-collection";
 import {HostReservationResponseCollection} from "./model/host-reservation-response-collection";
+import {AccommodationLogCollection} from "../host/model/accommodation-log-collection";
+import {AccommodationMonthlyLogCollection} from "../host/model/accommodation-monthly-log-collection";
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,12 @@ export class AccommodationService {
       .set('page', page.toString())
       .set('numberOfElements', numberOfElements.toString());
     return this.httpClient.get<AccommodationSummaryCollection>(environment.apiHost + 'accommodation/approved',{params});
+  }
+  getAllHostLogs(startDate: Date, endDate: Date, hostUsername: string): Observable<AccommodationLogCollection> {
+    let params = new HttpParams()
+      .set('startDateStr', startDate.toISOString())
+      .set('endDateStr', endDate.toISOString());
+    return this.httpClient.get<AccommodationLogCollection>(environment.apiHost + `host/${hostUsername}/log`, {params});
   }
   getAllHostAccommodations(hostId: string, page: number, numberOfElements: number): Observable<AccommodationSummaryCollection>{
     let params = new HttpParams()
@@ -74,6 +82,9 @@ export class AccommodationService {
       }));
   }
 
+  getAnnualReport(accommodationId:string): Observable<AccommodationMonthlyLogCollection> {
+    return this.httpClient.get<AccommodationMonthlyLogCollection>(environment.apiHost +"host/" + `${accommodationId}` + "/annual-log");
+  }
   createReservation(reservation: Reservation): Observable<MessageResponse> {
     const url = `${environment.apiHost}reservation/create`;
     console.log(url);

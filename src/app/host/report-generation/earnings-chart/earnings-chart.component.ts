@@ -16,7 +16,7 @@ export class EarningsChartComponent {
   }
   createChart(){
 
-    this.chart = new Chart("MyChart", {
+    this.chart = new Chart("MyChart2", {
       type: 'bar', //this denotes tha type of chart
 
       data: {// values on X-Axis

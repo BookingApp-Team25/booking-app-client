@@ -1,0 +1,21 @@
+#mainLogDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+}
+#mainDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#chartsDiv{
+  display: flex;
+  justify-content: space-around;
+}
+#menuDiv{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

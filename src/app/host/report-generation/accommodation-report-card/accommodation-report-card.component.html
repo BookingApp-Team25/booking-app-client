@@ -1,1 +1,8 @@
-<p>accommodation-report-card works!</p>
+<div class="accommodation-frame" [routerLink]="['/annual-report', { id: log.accommodationId}]">
+  <img class="accommodation-image" [src]="log.accommodationPhoto"  alt="Apartment image" />
+<div id="accommodation-info">
+  <div id="accommodation-name" style="font-size: 30px; color: #969000">{{log.accommodationName}}</div>
+  <p style="font-size: 20px;">Number of reservations: {{log.reservationNumber}}</p>
+  <div style="font-size: 20px;">Total profit: {{log.totalProfit}}</div>
+</div>
+</div>
