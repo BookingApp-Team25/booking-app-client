@@ -3,5 +3,5 @@ export interface AccomomdationLog{
   accommodationName: string;
   accommodationPhoto: string;
   reservationNumber: number;
-  
+  totalProfit: number;
 }

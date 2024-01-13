@@ -14,6 +14,13 @@ import { HostResolveReservationViewComponent } from './host-resolve-reservation-
 import {RouterLink} from "@angular/router";
 import { HostRequestResolveCardComponent } from './host-resolve-reservation-view/host-request-resolve-card/host-request-resolve-card.component';
 import { ImageWindowComponent } from './accommodation-creation/image-window/image-window.component';
+import { ReportGenerationComponent } from './report-generation/report-generation.component';
+import { AccommodationReportCardComponent } from './report-generation/accommodation-report-card/accommodation-report-card.component';
+import { EarningsChartComponent } from './report-generation/earnings-chart/earnings-chart.component';
+import {NgChartsModule} from "ng2-charts";
+import { ReservationNumberChartComponent } from './report-generation/reservation-number-chart/reservation-number-chart.component';
+import { AccommodationDetailedReportComponent } from './report-generation/accommodation-detailed-report/accommodation-detailed-report.component';
+import { MonthlyReportCardComponent } from './report-generation/accommodation-detailed-report/monthly-report-card/monthly-report-card.component';
 
 
 
@@ -29,13 +36,20 @@ import { ImageWindowComponent } from './accommodation-creation/image-window/imag
     HostResolveReservationViewComponent,
     HostRequestResolveCardComponent,
     ImageWindowComponent,
+    ReportGenerationComponent,
+    AccommodationReportCardComponent,
+    EarningsChartComponent,
+    ReservationNumberChartComponent,
+    AccommodationDetailedReportComponent,
+    MonthlyReportCardComponent,
   ],
     imports: [
         CommonModule,
         MaterialModule,
         LayoutModule,
         AccommodationModule,
-        RouterLink
+        RouterLink,
+        NgChartsModule
     ]
 })
 export class HostModule { }

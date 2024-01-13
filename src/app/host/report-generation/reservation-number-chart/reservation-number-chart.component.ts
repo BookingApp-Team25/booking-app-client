@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input, SimpleChanges} from '@angular/core';
+import {Chart} from "chart.js";
 
 @Component({
   selector: 'app-reservation-number-chart',
@@ -6,5 +7,44 @@ import { Component } from '@angular/core';
   styleUrls: ['./reservation-number-chart.component.css']
 })
 export class ReservationNumberChartComponent {
+  public chart: any;
+  backgroundColor: string[] = [];
+  @Input() data:number[];
+  @Input() labels:string[];
 
+  ngOnInit(): void {
+  }
+  createChart(){
+
+    this.chart = new Chart("MyChart1", {
+      type: 'bar', //this denotes tha type of chart
+
+      data: {// values on X-Axis
+        labels: this.labels,
+        datasets: [{
+          label: 'Reservations comparison:',
+          data: this.data,
+          backgroundColor: this.backgroundColor,
+        }],
+      },
+      options: {
+        aspectRatio:2.5
+      }
+
+    });
+  }
+  generateRandomColor() {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16)
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    for(let item of this.data){
+      this.backgroundColor.push(this.generateRandomColor());
+    }
+    console.log(this.backgroundColor)
+    if (this.chart) {
+      this.chart.destroy();
+    }
+    this.createChart();
+  }
 }

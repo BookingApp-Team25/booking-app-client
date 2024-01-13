@@ -1,4 +1,3 @@
-
 <div id="mainDiv">
   <form id="accommodation-form" [formGroup]="accommodationForm ">
     <div class="basic-info-wrapper">
@@ -152,6 +151,7 @@
       </mat-list>
       <input type="file" (change)="onFileSelected($event)" id="photo-input">
     </div>
+
     <button mat-button (click)="submitForm()" id="submitButton" [disabled]="accommodationForm.invalid">Submit</button>
   </form>
 </div>
