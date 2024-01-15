@@ -53,8 +53,8 @@ width: 100%;height: 400vh;
 }
 #property-contents-and-map-div{
   margin-top: 1%;
-  height: 15%;
-  width: 70%;
+  height: 17%;
+  width: 80%;
   display: flex;
   justify-content: space-around;
 }
@@ -63,7 +63,6 @@ width: 100%;height: 400vh;
   padding-right: 2%;
   display: flex;
   flex-direction: column;
-  margin-top: 3%;
   position: relative;
   align-self: center;
   width: 40%;
