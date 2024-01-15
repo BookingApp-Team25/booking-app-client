@@ -21,7 +21,7 @@ import {NgChartsModule} from "ng2-charts";
 import { ReservationNumberChartComponent } from './report-generation/reservation-number-chart/reservation-number-chart.component';
 import { AccommodationDetailedReportComponent } from './report-generation/accommodation-detailed-report/accommodation-detailed-report.component';
 import { MonthlyReportCardComponent } from './report-generation/accommodation-detailed-report/monthly-report-card/monthly-report-card.component';
-
+import { SharedModule} from "../shared/shared.module";
 
 
 @NgModule({
@@ -43,13 +43,14 @@ import { MonthlyReportCardComponent } from './report-generation/accommodation-de
     AccommodationDetailedReportComponent,
     MonthlyReportCardComponent,
   ],
-    imports: [
-        CommonModule,
-        MaterialModule,
-        LayoutModule,
-        AccommodationModule,
-        RouterLink,
-        NgChartsModule
-    ]
+  imports: [
+    CommonModule,
+    MaterialModule,
+    LayoutModule,
+    AccommodationModule,
+    RouterLink,
+    NgChartsModule,
+    SharedModule
+  ]
 })
 export class HostModule { }
