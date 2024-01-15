@@ -15,7 +15,7 @@ import { AccommodationHostCardComponent } from './accommodation-host-card/accomm
   ],
     exports: [
         AccommodationRequestCardComponent,
-        AccommodationHostCardComponent
+        AccommodationHostCardComponent,
     ],
   imports: [
     CommonModule,

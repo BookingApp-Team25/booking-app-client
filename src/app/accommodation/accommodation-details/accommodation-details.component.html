@@ -26,28 +26,28 @@
         <form id="reservation-box">
           <mat-form-field appearance="outline" class="reservation-field">
             <mat-label>Check-in</mat-label>
-            <input matInput [matDatepicker]="checkinPicker" [matDatepickerFilter]="filterDates" #checkinInput>
+            <input matInput [matDatepicker]="checkinPicker" [matDatepickerFilter]="filterDates" #checkinInput [(ngModel)]="checkinDate" name="checkinDate">
             <mat-datepicker-toggle matSuffix [for]="checkinPicker"></mat-datepicker-toggle>
             <mat-datepicker #checkinPicker></mat-datepicker>
           </mat-form-field>
           
           <mat-form-field appearance="outline">
             <mat-label>Check-out</mat-label>
-            <input matInput [matDatepicker]="checkoutPicker" [matDatepickerFilter]="filterDates" #checkoutInput>
+            <input matInput [matDatepicker]="checkoutPicker" [matDatepickerFilter]="filterDates" #checkoutInput [(ngModel)]="checkoutDate" (ngModelChange)="onCheckoutDateChange()" name="checkoutDate">
             <mat-datepicker-toggle matSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
             <mat-datepicker #checkoutPicker></mat-datepicker>
           </mat-form-field>
           
           <mat-form-field appearance="outline">
             <mat-label>Add guests</mat-label>
-            <input matInput type="number" min="1" [max]="maxGuests" value="1" #guestsInput>
+            <input matInput type="number" min="1" [max]="maxGuests" value="1" #guestsInput [(ngModel)]="guests" (ngModelChange)="onGuestsChange()" name="guests">
           </mat-form-field>
           <!-- <app-reservation
             [reservation]="reservation"
             (reserveClicked)="onReserveClicked(checkinInput.value, checkoutInput.value, guestsInput.value)"
           ></app-reservation> -->
           <div class="price-field">
-            <p id="total-price">Total Price: {{ calculateTotalPrice(checkinInput.value, checkoutInput.value, guestsInput.value) | currency }}</p>
+            <p id="total-price">Total Price: {{ totalPrice | currency }}</p>
           </div>
           <div>
             <button (click)="onReserveClicked(checkinInput.value, checkoutInput.value, guestsInput.value)" id="reserve-button">Reserve</button> <!--ne pravim novu komponentu za rezervacije jer kad sam tako radio izazove mi negde overflow u memoriji a nisamo mogao naci kako da to resim-->

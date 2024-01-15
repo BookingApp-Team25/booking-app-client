@@ -95,12 +95,12 @@ export class AccommodationService {
     );
   }
 
-  cancelReservation(reservationId: string): Observable<boolean> { // jel ovo za gosta??
-    const url = `${environment.apiHost}reservation/${reservationId}/cancel`;
+  cancelReservation(reservationId: string): Observable<Boolean> {
+    const url = environment.apiHost + "reservation/" + "cancel/" + `${reservationId}`;
     console.log(url);
-    return this.httpClient.delete<boolean>(url);
+    return this.httpClient.put<Boolean>(url, null);
   }
-
+  
   searchAccommodations(searchCriteria: SearchCriteria): Observable<AccommodationSummary[]> {
     const dateStartParam = searchCriteria.dateStart ? searchCriteria.dateStart.toISOString() : null;
     const dateEndParam = searchCriteria.dateEnd ? searchCriteria.dateEnd.toISOString() : null;
@@ -184,4 +184,25 @@ export class AccommodationService {
   getHostById(hostId: string): Observable<Host> {
     return this.httpClient.get<Host>(environment.apiHost + "accommodation/data/" + hostId);
   }
+
+  getAllGuestReservations(guestId: string, page: number, numberOfElements: number): Observable<HostReservationResponseCollection> {
+    let params = new HttpParams()
+        .set('page', page.toString())
+        .set('numberOfElements', numberOfElements.toString());
+    return this.httpClient.get<HostReservationResponseCollection>(environment.apiHost + `accommodation/guest/${guestId}`,{params});
+  }
+
+  calculatePrice(startDate: Date, endDate: Date, accommodationId: string): Observable<number> {
+    const formattedStartDate = startDate.toISOString();
+    const formattedEndDate = endDate.toISOString();
+  
+    return this.httpClient.get<number>(environment.apiHost + `reservation/price`, {
+      params: {
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+        accommodationId: accommodationId
+      }
+    });
+  }
+  
 }

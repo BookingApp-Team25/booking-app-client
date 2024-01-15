@@ -8,6 +8,7 @@ import { ReservationStatus } from '../model/reservation-status';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Host } from '../model/host-data';
 import { DatePeriod } from '../model/date-period';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -23,7 +24,12 @@ export class AccommodationDetailsComponent implements OnInit {
   hostName: string;
   showPopup: boolean = false;
   totalPrice: number;
+  calculatedDatePrice: number;
   maxGuests: number;
+
+  checkinDate: Date;
+  checkoutDate: Date;
+  guests: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -99,24 +105,45 @@ export class AccommodationDetailsComponent implements OnInit {
     return true;
   };
   
-  //price calculator
-  calculateTotalPrice(checkin: string, checkout: string, numberOfGuests: string): number {
-    const checkinDate = new Date(checkin);
-    const checkoutDate = new Date(checkout);
-
-    const timeDifference = checkoutDate.getTime() - checkinDate.getTime(); //in ms
-    const daysDifference = timeDifference / (1000 * 60 * 60 * 24); //to get days
-
-    this.totalPrice = daysDifference * this.accommodationDetails.pricelist.dailyPrice * Number(numberOfGuests);
-    return this.totalPrice;
+  onCheckoutDateChange() {
+    console.log('Checkout date changed:', this.checkoutDate);
+    this.calculatePriceForPeriod(this.checkinDate, this.checkoutDate);
   }
 
+  lastNumOfGuests = 0;
+  onGuestsChange() {
+    console.log('Number of guests changed:', this.guests);
+    this.calculateTotalPrice(this.guests);
+    this.lastNumOfGuests = this.guests
+  }
+  
+  //price calculator
+  calculateTotalPrice(numberOfGuests: number): void {
+    this.totalPrice = this.calculatedDatePrice * Number(numberOfGuests);
+  }
+
+  calculatePriceForPeriod(checkin: Date, checkout: Date) {
+    this.accommodationService.calculatePrice(checkin, checkout, this.accommodationId)
+    .subscribe(
+      price => {
+        this.calculatedDatePrice = price;
+        console.log("calculatedDatePrice: ", this.calculatedDatePrice);
+        
+      },
+      error => {
+        console.error('Error calculating price:', error);
+      }
+    );
+    
+    this.calculateTotalPrice(this.guests);
+  }
+  
   onReserveClicked(checkin: string, checkout: string, guestsCount: string) {
     const checkinDate = new Date(checkin);
     const checkoutDate = new Date(checkout);
     
     this.reservation = {
-      guestId: '550e8400-e29b-41d4-a716-446655440000',
+      guestId: '123e4567-e89b-12d3-a456-426614174001',
       hostId: this.accommodationDetails.hostId, //'760e8230-e21b-21d4-a756-123455440002',
       accommodationId: this.accommodationId, //id got from router[routerLink]="['accommodation', { id: summary.accommodationId}] "
       reservationStatus: ReservationStatus.Ongoing,
@@ -124,7 +151,7 @@ export class AccommodationDetailsComponent implements OnInit {
         startDate: checkinDate,
         endDate: checkoutDate
       },
-      guestName:"",
+      guestName:"", // dodati
       accommodationName: this.accommodationDetails.name,
       price: this.totalPrice
     }
@@ -138,7 +165,7 @@ export class AccommodationDetailsComponent implements OnInit {
       },
       (error) => {
         console.error('Error creating reservation', error);
-        this.openSnackBar('Error creating reservation');
+        this.openSnackBar('Error creating reservation.');
       }
     );
   }

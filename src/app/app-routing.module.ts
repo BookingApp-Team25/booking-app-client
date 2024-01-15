@@ -14,18 +14,20 @@ import {
 import {
   HostResolveReservationViewComponent
 } from "./host/host-resolve-reservation-view/host-resolve-reservation-view.component";
+import { GuestReservationsViewComponent } from './guest/guest-reservations-view/guest-reservations-view.component';
 
 const routes: Routes = [
-  {component: HomeComponent, path:"home"},
-  {component: AccommodationDetailsComponent, path:"home/accommodation"},
+  { component: HomeComponent, path:"home" },
+  { component: AccommodationDetailsComponent, path:"home/accommodation" },
   { component: UserProfileComponent, path: "user-profile" },
   { component: RegistrationComponent, path: "registration" },
-  { component:  ActivationComponent, path: "activation/:code"},
-  { component: AccommodationCreationComponent, path: "accommodation-creation"},
-  { component: AccommodationRequestsComponent, path : "accommodation-requests"},
-  { component: HostAccommodationsViewComponent, path : "host-accommodations"},
-  {component: HostReservationRequestViewComponent, path: "host-reservation-requests"},
-  {component: HostResolveReservationViewComponent, path: "host-resolve-accommodation-request"}
+  { component:  ActivationComponent, path: "activation/:code" },
+  { component: AccommodationCreationComponent, path: "accommodation-creation" },
+  { component: AccommodationRequestsComponent, path : "accommodation-requests" },
+  { component: HostAccommodationsViewComponent, path : "host-accommodations" },
+  { component: HostReservationRequestViewComponent, path: "host-reservation-requests" },
+  { component: HostResolveReservationViewComponent, path: "host-resolve-accommodation-request" },
+  { component: GuestReservationsViewComponent, path: "guest-reservations-view" }
 ];
 
 @NgModule({
