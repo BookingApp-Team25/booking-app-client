@@ -168,7 +168,7 @@ export class AccommodationDetailsComponent implements OnInit {
         guestId: guestId,
         hostId: this.accommodationDetails.hostId,
         accommodationId: this.accommodationId,
-        reservationStatus: ReservationStatus.Ongoing,
+        reservationStatus: ReservationStatus.ONGOING,
         reservedDate: {
           startDate: checkinDate,
           endDate: checkoutDate

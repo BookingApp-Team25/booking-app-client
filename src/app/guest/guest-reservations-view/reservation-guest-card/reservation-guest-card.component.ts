@@ -16,6 +16,7 @@ export class ReservationGuestCardComponent {
   hostName: string;
   checkInDate: Date;
   checkOutDate: Date;
+  daysBefore: number;
 
   isButtonDisabled: boolean = false;
 
@@ -29,6 +30,7 @@ export class ReservationGuestCardComponent {
     this.service.getAccommodationById(accommodationId).subscribe({
       next: (data: AccommodationRequest) => {
         this.accommodationName = data.name;
+        this.daysBefore = data.daysBefore;
         console.log('Fetched accommodation name:', this.accommodationName);
       },
       error: (error) => {
@@ -53,6 +55,17 @@ export class ReservationGuestCardComponent {
     if (this.request.reservationStatus.toString() === "CANCELED") {
       console.log("disabling button");
       this.isButtonDisabled = true;
+    }
+
+    // daysbefore check
+    if (this.request.reservationStatus.toString() === "ACCEPTED") {
+      const today = new Date();
+      const timeDifference = this.checkInDate.getTime() - today.getTime();
+      const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+      if (daysDifference < this.daysBefore) {
+        console.log("disabling button");
+        this.isButtonDisabled = true;
+      }
     }
   }
 

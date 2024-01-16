@@ -1,7 +1,8 @@
 export enum ReservationStatus {
-    Ongoing,
-    Accepted,
-    Rejected,
-    Finished,
-    Canceled
+    ONGOING,
+    WAITING_FOR_APPROVAL,
+    ACCEPTED,
+    REJECTED,
+    FINISHED,
+    CANCELED
 }
