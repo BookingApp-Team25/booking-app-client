@@ -16,16 +16,18 @@ import {
 import {
   HostResolveReservationViewComponent
 } from "./host/host-resolve-reservation-view/host-resolve-reservation-view.component";
+import { GuestReservationsViewComponent } from './guest/guest-reservations-view/guest-reservations-view.component';
 import {ReportGenerationComponent} from "./host/report-generation/report-generation.component";
 import {
   AccommodationDetailedReportComponent
 } from "./host/report-generation/accommodation-detailed-report/accommodation-detailed-report.component";
 
 const routes: Routes = [
-  {component: HomeComponent, path:"home"},
-  {component: AccommodationDetailsComponent, path:"home/accommodation"},
+  { component: HomeComponent, path:"home" },
+  { component: AccommodationDetailsComponent, path:"home/accommodation" },
   { component: UserProfileComponent, path: "user-profile" },
   { component: RegistrationComponent, path: "registration" },
+  { component: GuestReservationsViewComponent, path: "guest-reservations-view" },
   { component:  ActivationComponent, path: "activation/:code"},
   { component: AccommodationCreationComponent, path: "accommodation-creation"},
   { component: AccommodationRequestsComponent, path : "accommodation-requests"},

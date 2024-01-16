@@ -5,4 +5,5 @@ export enum ReservationStatus {
     REJECTED,
     FINISHED,
     CANCELED
-}
+  }
+  

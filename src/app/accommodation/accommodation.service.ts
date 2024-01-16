@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { AccommodationSummary } from './model/accommodation-summary';
 import { environment } from '../env/env';
-import {catchError, Observable} from 'rxjs';
+import {catchError, Observable, BehaviorSubject, tap } from 'rxjs';
 import {AccommodationRequest} from "./model/accommodation-request";
 import {MessageResponse} from "./model/message-response";
 import {AccommodationRequestSummary} from "./model/accommodation-request-summary";
@@ -13,6 +13,9 @@ import { ReviewRequest } from './model/review-request';
 import { ReviewResponse } from './model/review-response';
 import {ReservationCollection} from "./model/accommodation-reservation-collection";
 import {HostReservationResponseCollection} from "./model/host-reservation-response-collection";
+import { Host } from './model/host-data';
+import { ReservationStatus } from './model/reservation-status';
+import { Guest } from './model/guest-data';
 import {AccommodationLogCollection} from "../host/model/accommodation-log-collection";
 import {AccommodationMonthlyLogCollection} from "../host/model/accommodation-monthly-log-collection";
 import {HostReservationSummaryCollection} from "../host/model/host-reservation-summary-Collection";
@@ -23,6 +26,8 @@ import {ReservationStatus} from "./model/reservation-status";
 })
 export class AccommodationService {
   private summaries: AccommodationSummary[]=[];
+  private filteredAccommodationsSubject = new BehaviorSubject<AccommodationSummary[]>([]);
+  filteredAccommodations$ = this.filteredAccommodationsSubject.asObservable();
 
   constructor(private httpClient: HttpClient) { }
 
@@ -80,11 +85,9 @@ export class AccommodationService {
     return this.httpClient.get<HostReservationSummaryCollection>(environment.apiHost + `reservation/${hostId}/unresolved`, {params})
   }
   getAccommodationById(accommodationId : string){
-    console.log(environment.apiHost + " " + accommodationId);
     return this.httpClient.post<AccommodationRequest>(environment.apiHost + `accommodation/details/${accommodationId}`,{}).pipe(
       catchError((error: any) => {
         console.error('Error:', error);
-        // Handle the error appropriately (throw a custom error or return a default value)
         throw error;
       }));
   }
@@ -137,10 +140,10 @@ export class AccommodationService {
     );
   }
 
-  cancelReservation(reservationId: string): Observable<boolean> { // jel ovo za gosta??
-    const url = `${environment.apiHost}reservation/${reservationId}/cancel`;
+  cancelReservation(reservationId: string): Observable<Boolean> {
+    const url = environment.apiHost + "reservation/" + "cancel/" + `${reservationId}`;
     console.log(url);
-    return this.httpClient.delete<boolean>(url);
+    return this.httpClient.put<Boolean>(url, null);
   }
 
   createReview(review:ReviewRequest): Observable<MessageResponse> {
@@ -176,8 +179,15 @@ export class AccommodationService {
     if (searchCriteria.numberOfGuests) {
       params = params.set('guestNumber', searchCriteria.numberOfGuests);
     }
-
-    return this.httpClient.get<AccommodationSummary[]>(environment.apiHost + 'accommodation/results', { params });
+    
+    return this.httpClient.get<AccommodationSummary[]>(environment.apiHost + 'accommodation/results', { params })
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error:', error);
+          throw error;
+        }),
+        tap(filteredAccommodations => this.filteredAccommodationsSubject.next(filteredAccommodations))
+      );
   }
 
   filterAccommodations(searchCriteria: SearchCriteria): Observable<AccommodationSummary[]> {
@@ -218,6 +228,68 @@ export class AccommodationService {
       params = params.set('maxPrice', searchCriteria.maxPrice);
     }
 
-    return this.httpClient.get<AccommodationSummary[]>(environment.apiHost + 'accommodation/filtered', { params });
+    return this.httpClient.get<AccommodationSummary[]>(environment.apiHost + 'accommodation/filtered', { params })
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error:', error);
+          throw error;
+        }),
+        tap(filteredAccommodations => this.filteredAccommodationsSubject.next(filteredAccommodations))
+      );
   }
+
+  getHostById(hostId: string): Observable<Host> {
+    return this.httpClient.get<Host>(environment.apiHost + "accommodation/data/" + hostId);
+  }
+
+  getGuestByUsername(guestUsername: string): Observable<Guest> {
+    return this.httpClient.get<Guest>(environment.apiHost + "reservation/guest-id/" + guestUsername);
+  }
+
+  getAllGuestReservations(guestId: string, page: number, numberOfElements: number): Observable<HostReservationResponseCollection> {
+    let params = new HttpParams()
+        .set('page', page.toString())
+        .set('numberOfElements', numberOfElements.toString());
+    return this.httpClient.get<HostReservationResponseCollection>(environment.apiHost + `accommodation/guest/${guestId}`,{params});
+  }
+
+  calculatePrice(startDate: Date, endDate: Date, accommodationId: string): Observable<number> {
+    const formattedStartDate = startDate.toISOString();
+    const formattedEndDate = endDate.toISOString();
+  
+    return this.httpClient.get<number>(environment.apiHost + `reservation/price`, {
+      params: {
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+        accommodationId: accommodationId
+      }
+    });
+  }
+  
+  getAllGuestReservationsFiltered(guestId:string, startDate:Date | null, endDate:Date | null, accommodationName:string | null, reservationStatus:ReservationStatus, page:number, numberOfElements:number): Observable<HostReservationResponseCollection>{
+    let params = new HttpParams();
+    //console.log(startDate);
+    if (startDate) {
+      params = params.set('startDateStr', startDate.toISOString());
+    }
+
+    if (endDate) {
+      params = params.set('endDateStr', endDate.toISOString());
+    }
+
+    if (accommodationName) {
+      params = params.set('reservationName', accommodationName);
+    }
+
+    console.log("startDate:", startDate);
+    console.log("endDate:", endDate);
+    console.log("accommodationName:", accommodationName);
+    console.log("reservationStatus:", reservationStatus);
+
+    params = params
+        .set('reservationStatus', reservationStatus)
+        .set('page', page.toString())
+        .set('numberOfElements', numberOfElements.toString());
+    return this.httpClient.get<HostReservationResponseCollection>(environment.apiHost + `reservation/${guestId}/filtered-guest`, {params})
+  }  
 }

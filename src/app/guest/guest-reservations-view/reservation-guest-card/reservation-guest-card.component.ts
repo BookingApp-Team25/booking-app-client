@@ -1,0 +1,99 @@
+import { Component, Input } from '@angular/core';
+import { AccommodationService } from 'src/app/accommodation/accommodation.service';
+import { HostReservationResponse } from 'src/app/accommodation/model/host-reservation-response';
+import { AccommodationRequest } from 'src/app/accommodation/model/accommodation-request'
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+@Component({
+  selector: 'app-reservation-guest-card',
+  templateUrl: './reservation-guest-card.component.html',
+  styleUrls: ['./reservation-guest-card.component.css']
+})
+export class ReservationGuestCardComponent {
+  @Input() request: HostReservationResponse;
+
+  accommodationName: string;
+  hostName: string;
+  checkInDate: Date;
+  checkOutDate: Date;
+  daysBefore: number;
+
+  isButtonDisabled: boolean = false;
+
+  //dodati stvati da se popuni kartica dobrim informacijama
+  constructor(
+    private service: AccommodationService,
+    private snackBar: MatSnackBar
+    ){}
+
+  getAccommodationName(accommodationId: string) {
+    this.service.getAccommodationById(accommodationId).subscribe({
+      next: (data: AccommodationRequest) => {
+        this.accommodationName = data.name;
+        this.daysBefore = data.daysBefore;
+        console.log('Fetched accommodation name:', this.accommodationName);
+      },
+      error: (error) => {
+        console.error('Error fetching accommodation name:', error);
+      }
+    });
+  }
+
+  formatDate(dateString: string): string {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
+    return formattedDate;
+  }  
+
+  ngOnInit(): void {
+    this.getAccommodationName(this.request.accommodationId);
+    this.checkInDate = this.request.reservedDate.startDate;
+    this.checkOutDate = this.request.reservedDate.endDate;
+
+    console.log(this.request.reservationStatus);
+    
+    if (this.request.reservationStatus.toString() === "CANCELED") {
+      console.log("disabling button");
+      this.isButtonDisabled = true;
+    }
+
+    // daysbefore check
+    if (this.request.reservationStatus.toString() === "ACCEPTED") {
+      const today = new Date();
+      const timeDifference = this.checkInDate.getTime() - today.getTime();
+      const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+      if (daysDifference < this.daysBefore) {
+        console.log("disabling button");
+        this.isButtonDisabled = true;
+      }
+    }
+  }
+
+  cancelReservation() {
+    this.service.cancelReservation(this.request.reservationId).subscribe(
+      (response) => {
+        console.log('Reservation canceled:', response);
+        this.openSnackBar('Reservation canceled.');
+        this.toggleButton();
+      },
+      (error) => {
+        console.error('Error canceling reservation', error);
+        this.openSnackBar('Error canceling reservation.');
+      }
+    );
+  }
+
+  private openSnackBar(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['custom-snackbar'] //ne radi nz sto
+    });
+  }
+
+ toggleButton() {
+  this.isButtonDisabled = !this.isButtonDisabled;
+  console.log('Button disabled:', this.isButtonDisabled);
+  }
+}

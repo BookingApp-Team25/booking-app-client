@@ -1,0 +1,23 @@
+<div class="reservation-frame">
+    <div class="reservation-info">
+        <div class="accommodation-name">{{accommodationName}}</div>
+        <div class="dates">
+          <div>
+            <strong>Check-in:</strong> {{ formatDate(checkInDate.toString()) }}
+          </div>
+          <div>
+            <strong>Check-out:</strong> {{ formatDate(checkOutDate.toString()) }}
+          </div>
+        </div>
+        <div class="price">Price: {{request.price|currency}}</div>
+        <div class="info">
+          <div class="text-wrapper">{{request.reservationStatus}}</div>
+        </div>
+      </div>
+    <div id="buttons">
+        <button mat-mini-fab (click)="cancelReservation()" [disabled]="isButtonDisabled" style="background-color: white; color: #969000; margin-top: 50%" aria-label="Example icon button with a menu icon">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+</div>
+    

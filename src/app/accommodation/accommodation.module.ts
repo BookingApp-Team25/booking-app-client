@@ -10,11 +10,11 @@ import { ReviewCardComponent } from './review-card/review-card.component';
 @NgModule({
   declarations: [
     AccommodationRequestCardComponent,
-    AccommodationHostCardComponent
+    AccommodationHostCardComponent,
   ],
     exports: [
         AccommodationRequestCardComponent,
-        AccommodationHostCardComponent
+        AccommodationHostCardComponent,
     ],
   imports: [
     CommonModule,

@@ -16,6 +16,7 @@ import { AdminModule} from "./admin/admin.module";
 import {MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
+import { GuestModule } from './guest/guest.module';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -25,7 +26,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +40,8 @@ const routes: Routes = [
     AdminModule,
     MatSidenavModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    GuestModule
   ],
   providers: [
     {
