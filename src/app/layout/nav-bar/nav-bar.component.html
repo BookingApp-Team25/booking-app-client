@@ -48,6 +48,9 @@
   <button mat-menu-item routerLink="/accommodation-requests" *ngIf="role == 'ROLE_Admin'">View acc requests</button>
   <button mat-menu-item routerLink="/host-accommodations" *ngIf="role== 'ROLE_Host'">Host accommodations</button>
   <button mat-menu-item routerLink="/home/my-guests" *ngIf="role== 'ROLE_Host'">My guests</button>
+  <button mat-menu-item routerLink="/host-accommodations" *ngIf="role== 'ROLE_Host'">Your accommodations</button>
+  <button mat-menu-item routerLink="/host-reservation-requests" *ngIf="role== 'ROLE_Host'">View requests</button>
+  <button mat-menu-item routerLink="/host-generate-report" *ngIf="role== 'ROLE_Host'">Generate report</button>
   <button mat-menu-item (click)="logOut()" *ngIf="role != null">Logout</button>
 </mat-menu>
 </mat-toolbar>

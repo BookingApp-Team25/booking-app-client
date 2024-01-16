@@ -2,7 +2,8 @@ import {AccommodationType} from "../enum/accommodation-type-enum";
 import {Location} from "./location";
 import {AccommodationPricelist} from "./accommodation-pricelist";
 import {AccommodationReservationPolicy} from "../enum/accommodation-reservation-policy-enum";
-import {AccommodationDatePeriod} from "./accommodation-date-period";
+import {DatePeriod} from "./date-period";
+import {PriceCalculationMethod} from "../enum/price-calculation-method";
 
 export interface AccommodationRequest {
   name: string;
@@ -13,7 +14,7 @@ export interface AccommodationRequest {
   minGuests: number;
   maxGuests: number;
   type: AccommodationType;
-  availability: AccommodationDatePeriod[];
+  availability: DatePeriod[];
   pricelist: AccommodationPricelist;
   price: number;
   daysBefore: number;
@@ -21,4 +22,5 @@ export interface AccommodationRequest {
   hostId : string;
   hostUsername:string;
   rating: number;
+  priceCalculationMethod : PriceCalculationMethod;
 }

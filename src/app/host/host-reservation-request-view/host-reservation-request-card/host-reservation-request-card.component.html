@@ -1,0 +1,10 @@
+<div class="accommodation-frame">
+  <img class="accommodation-image" [src]="reservation.accommodationPhoto"  alt="Apartment image" />
+  <div id="accommodation-info">
+    <div id="accommodation-name" style="font-size: 30px; color: #969000">Made by: {{reservation.guestName}}</div>
+    <p style="font-size: 15px;">Accommodation: {{reservation.accommodationName}}</p>
+    <p style="font-size: 20px;">{{reservation.reservedDate.startDate}} : {{reservation.reservedDate.endDate}}</p>
+    <p style="font-size: 20px;">Cost: {{reservation.price}}</p>
+    <div style="font-size: 20px;">Status: {{reservation.reservationStatus}}</div>
+  </div>
+</div>
