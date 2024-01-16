@@ -12,8 +12,6 @@ import { ReviewType } from '../enum/reviewtype';
 import { MessageResponse } from '../model/message-response';
 import { ReviewResponse } from '../model/review-response';
 //import { ReservationComponent } from 'src/app/reservation/reservation.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
 
 @Component({
   selector: 'app-accommodation-details',

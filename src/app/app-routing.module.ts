@@ -31,7 +31,7 @@ const routes: Routes = [
   { component: AccommodationRequestsComponent, path : "accommodation-requests"},
   { component: HostAccommodationsViewComponent, path : "host-accommodations"},
   { component: HostDetailsComponent, path: "host-details/:hostId" },
-  {component:MyguestsComponent,path: "home/my-guests"}
+  {component:MyguestsComponent,path: "home/my-guests"},
   {component: HostReservationRequestViewComponent, path: "host-reservation-requests"},
   {component: HostResolveReservationViewComponent, path: "host-resolve-accommodation-request"},
   {component: ReportGenerationComponent, path:"host-generate-report"},
