@@ -1,0 +1,99 @@
+#profile-card {
+    width: 70%;
+    height: 20%;
+    margin-top: 7%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: row;
+}
+
+#main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20%;
+}
+
+#icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+}
+
+#info {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    justify-content: center;
+}
+
+#report {
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+    transform: scale(2);
+    cursor: pointer;
+}
+
+#rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+    transform: scale(2);
+}
+
+#reviews {
+    width: 70%;
+  }
+
+#comments-title {
+    align-self: stretch;
+    display: flex;
+    width: 100%;
+    padding-right: 1px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 53px -20px 0 0;
+  }
+
+  #comment-field{
+    width: 100%;
+  }
+
+.div-29 {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin: auto 0;
+  }
+  @media (max-width: 991px) {
+    .div-29 {
+      justify-content: center;
+    }
+  }
+  .div-30 {
+    color: #000;
+    letter-spacing: 0.10000000149011612px;
+    margin: auto 0;
+    font: 700 30px/20px Arial, sans-serif;
+  }
+  .div-31 {
+    color: #000;
+    letter-spacing: 0.5px;
+    align-self: center;
+    margin: auto 0;
+    font: 700 30px/24px Arial, sans-serif;
+  }
+
+  .div-32 {
+    justify-content: center;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  }

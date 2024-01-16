@@ -9,6 +9,8 @@ import {AccommodationRequestSummary} from "./model/accommodation-request-summary
 import {AccommodationSummaryCollection} from "./model/accommodation-summary-collection";
 import { SearchCriteria } from './model/SearchCriteria';
 import { Reservation } from './model/accommodation-reservation';
+import { ReviewRequest } from './model/review-request';
+import { ReviewResponse } from './model/review-response';
 import {ReservationCollection} from "./model/accommodation-reservation-collection";
 import {HostReservationResponseCollection} from "./model/host-reservation-response-collection";
 import {AccommodationLogCollection} from "../host/model/accommodation-log-collection";
@@ -106,6 +108,14 @@ export class AccommodationService {
       }));
   }
 
+  getAllReviews(accommodationId: string): Observable<ReviewResponse[]> {
+    return this.httpClient.get<ReviewResponse[]>(environment.apiHost+'review/'+accommodationId+'?flag=1');
+  }
+
+  checkReviewPermission(username: string,accommodationId:string): Observable <Boolean> {
+    return this.httpClient.get<Boolean>(environment.apiHost+'review/check/'+username+'/'+accommodationId);
+  }
+
   getAnnualReport(accommodationId:string): Observable<AccommodationMonthlyLogCollection> {
     return this.httpClient.get<AccommodationMonthlyLogCollection>(environment.apiHost +"host/" + `${accommodationId}` + "/annual-log");
   }
@@ -131,6 +141,18 @@ export class AccommodationService {
     const url = `${environment.apiHost}reservation/${reservationId}/cancel`;
     console.log(url);
     return this.httpClient.delete<boolean>(url);
+  }
+
+  createReview(review:ReviewRequest): Observable<MessageResponse> {
+    return this.httpClient.post<MessageResponse> (environment.apiHost+'review',review);
+  }
+
+  deleteReview(reviewId: string): Observable<Boolean> {
+    return this.httpClient.delete<Boolean>(environment.apiHost+'review/'+reviewId+'?flag=1');
+  }
+
+  reportReview(reviewId:string): Observable<MessageResponse> {
+    return this.httpClient.post<MessageResponse>(environment.apiHost+'review/report/'+reviewId+'?flag=1',null);
   }
 
   searchAccommodations(searchCriteria: SearchCriteria): Observable<AccommodationSummary[]> {

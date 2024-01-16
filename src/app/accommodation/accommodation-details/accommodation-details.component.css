@@ -62,6 +62,7 @@
     margin-left: 30%;
     justify-content: space-between;
     gap: 16px;
+    width: 20%;
   }
   @media (max-width: 991px) {
     .div-6 {
@@ -191,6 +192,10 @@
   #comment-button {
     align-self: center;
     padding: 10%;
+  }
+
+  #comment-field{
+    width: 100%;
   }
 
 .reservation-field {

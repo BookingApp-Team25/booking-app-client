@@ -1,14 +1,16 @@
 <div id="page">
   <div class="main">
     <div class="details">
-      <div id="accommodation-name">{{ accommodationDetails.name }}</div>
+      <div style="width: 80%; display: flex;">
+      <div id="accommodation-name">{{ accommodationDetails.name }}&nbsp;&nbsp;</div>
       <div class="div-4">
         <mat-icon style="margin-top: 3%;">location_on</mat-icon>
         <div id="location">{{ accommodationDetails.location.city }}, {{ accommodationDetails.location.country }}</div>
       </div>
+      </div>
       <div class="div-6">
-        <p id="owner">Owner: {{ accommodationDetails.hostId }}</p>
-        <p id="rating">4.5</p>
+        <a [routerLink]="['/host-details', accommodationDetails.hostId]"><p id="owner">Owner info</p></a>
+        <p id="rating">{{accommodationDetails.rating.toFixed(1)}}</p>
         <!-- <p id="rating">{{ accommodationDetails.rating }}</p> -->
         <mat-icon style="margin-top: 2%; transform: scale(1.3);">star</mat-icon>
       </div>
@@ -62,25 +64,33 @@
     <div id="comments-title">
       <div class="div-29">
         <div class="div-30">Guest Reviews</div>
-        <div class="div-31">4.5</div>
+        <div class="div-31">{{accommodationDetails.rating.toFixed(1)}}</div>
         <mat-icon>star</mat-icon>
       </div>
       <div class="div-32">
-          <button id="comment-button" (click)="toggleCommentField()" mat-flat-button>Comment<mat-icon> add_comment</mat-icon> </button>
+          <button id="comment-button" *ngIf="role=='ROLE_Guest'" (click)="toggleCommentField()" mat-flat-button>Comment<mat-icon> add_comment</mat-icon> </button>
       </div>
     </div>
-    <mat-form-field class="comment-field" *ngIf="showCommentField">
-      <input matInput placeholder="Write a comment">
-        <button matSuffix mat-icon-button aria-label="Clear">
+    <mat-card *ngIf="showCommentField">
+      <form [formGroup]="reviewForm">
+    <mat-form-field id="comment-field">
+      <input matInput placeholder="Write a comment" formControlName="comment">
+        <button matSuffix mat-icon-button aria-label="Clear" type="submit" (click)="createReview()">
           <mat-icon>send</mat-icon>
         </button>
     </mat-form-field>
+    <p style="margin-left: 1%; font-size: 16px; font-weight: bold;">Rating: {{rating}}/5</p>
+    <div style="display: flex;">
+    <button mat-icon-button [color]="'accent'" *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i" (click)="onClick(i+1)">
+      <mat-icon style="color: #969000;">
+        {{showIcon(i)}}
+      </mat-icon>
+    </button>
+    </div>
+    </form>
+    </mat-card>
     <mat-list id="comment-list">
-      <review-card></review-card>
-      <review-card></review-card>
-      <review-card></review-card>
-      <review-card></review-card>
-      <review-card></review-card>
+      <review-card *ngFor="let review of reviews" [blockPermission]="reviewPermission" [accommodationDetails]="accommodationDetails" [review]="review" (deleteReviewEvent)="onDeleteReview($event)"></review-card>
     </mat-list>
   </div>
 </div>

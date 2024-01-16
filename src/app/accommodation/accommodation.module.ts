@@ -5,8 +5,7 @@ import {RouterLink} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import { AccommodationHostCardComponent } from './accommodation-host-card/accommodation-host-card.component';
-
-
+import { ReviewCardComponent } from './review-card/review-card.component';
 
 @NgModule({
   declarations: [

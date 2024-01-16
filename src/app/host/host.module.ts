@@ -22,35 +22,44 @@ import { ReservationNumberChartComponent } from './report-generation/reservation
 import { AccommodationDetailedReportComponent } from './report-generation/accommodation-detailed-report/accommodation-detailed-report.component';
 import { MonthlyReportCardComponent } from './report-generation/accommodation-detailed-report/monthly-report-card/monthly-report-card.component';
 import { SharedModule} from "../shared/shared.module";
-
+import { HostDetailsComponent } from './host-details/host-details.component';
+import { ReviewCardComponent } from '../accommodation/review-card/review-card.component';
+import { HostReviewCardComponent } from './host-review-card/host-review-card.component';
+import { AccommodationHostCardComponent } from '../accommodation/accommodation-host-card/accommodation-host-card.component';
+import { MyguestsComponent } from './myguests/myguests.component';
+import { GuestCardComponent } from './guest-card/guest-card.component';
 
 @NgModule({
-  declarations: [
-    AccommodationCreationComponent,
-    PropertyContentCardComponent,
-    SinglePropertyComponent,
-    DatePriceElementComponent,
-    HostAccommodationsViewComponent,
-    HostReservationRequestViewComponent,
-    HostReservationRequestCardComponent,
-    HostResolveReservationViewComponent,
-    HostRequestResolveCardComponent,
-    ImageWindowComponent,
-    ReportGenerationComponent,
-    AccommodationReportCardComponent,
-    EarningsChartComponent,
-    ReservationNumberChartComponent,
-    AccommodationDetailedReportComponent,
-    MonthlyReportCardComponent,
-  ],
-  imports: [
-    CommonModule,
-    MaterialModule,
-    LayoutModule,
-    AccommodationModule,
-    RouterLink,
-    NgChartsModule,
-    SharedModule
-  ]
+    declarations: [
+        AccommodationCreationComponent,
+        PropertyContentCardComponent,
+        SinglePropertyComponent,
+        DatePriceElementComponent,
+        HostAccommodationsViewComponent,
+        HostDetailsComponent,
+        HostReviewCardComponent,
+        MyguestsComponent,
+        GuestCardComponent,
+        HostReservationRequestViewComponent,
+        HostReservationRequestCardComponent,
+        HostResolveReservationViewComponent,
+        HostRequestResolveCardComponent,
+        ImageWindowComponent,
+        ReportGenerationComponent,
+        AccommodationReportCardComponent,
+        EarningsChartComponent,
+        ReservationNumberChartComponent,
+        AccommodationDetailedReportComponent,
+        MonthlyReportCardComponent,
+    ],
+    imports: [
+        CommonModule,
+        MaterialModule,
+        LayoutModule,
+        AccommodationModule,
+        RouterLink,
+        NgChartsModule,
+        SharedModule
+    ]
 })
 export class HostModule { }
