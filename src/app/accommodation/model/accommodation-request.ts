@@ -6,7 +6,6 @@ import {DatePeriod} from "./date-period";
 import {PriceCalculationMethod} from "../enum/price-calculation-method";
 
 export interface AccommodationRequest {
-  hostId : string;
   name: string;
   description: string;
   location: Location;
@@ -20,5 +19,8 @@ export interface AccommodationRequest {
   price: number;
   daysBefore: number;
   policy: AccommodationReservationPolicy;
+  hostId : string;
+  hostUsername:string;
+  rating: number;
   priceCalculationMethod : PriceCalculationMethod;
 }

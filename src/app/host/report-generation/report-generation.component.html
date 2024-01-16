@@ -1,0 +1,34 @@
+<app-header></app-header>
+<div id="mainDiv">
+  <div id="menuDiv">
+    <p style="font-size: 30px;">Accommodation statistics</p>
+    <hr>
+    <form id="datePickerForm" [formGroup]="datePickerForm">
+      <mat-form-field>
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker" >
+          <input matStartDate  formControlName="startDate" placeholder="Start date">
+          <input matEndDate formControlName="endDate" placeholder="End date">
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker ></mat-date-range-picker>
+      </mat-form-field>
+    </form>
+    <div style="width: 30%;display: flex;justify-content: space-around;">
+      <button mat-button style="background-color: #969000;width: 30%;margin-bottom: 10%" (click)="fetchLogs()">Add date</button>
+      <button mat-button style="background-color: #969000;width: 30%;margin-bottom: 10%" (click)="exportToPdf()">Export to pdf</button>
+    </div>
+  </div>
+ <div #pdfContent id="mainLogDiv">
+   <p style="font-size: 20px;">Report by apartment:</p>
+     <mat-list style="width: 100%">
+       <app-accommodation-report-card  *ngFor="let log of listOfLogs" [log]="log"></app-accommodation-report-card>
+     </mat-list>
+   <p style="font-size: 20px;">Report summary:</p>
+   <div id="chartsDiv">
+     <app-earnings-chart [data]=(accommodationEarnings) [labels]=(accommodationNames)></app-earnings-chart>
+     <app-reservation-number-chart [data]=(accommodationReservations) [labels]=(accommodationNames) ></app-reservation-number-chart>
+   </div>
+ </div>
+</div>

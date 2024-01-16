@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Reservation} from "../../../accommodation/model/accommodation-reservation";
 import {AccommodationService} from "../../../accommodation/accommodation.service";
 import {HostReservationResponse} from "../../../accommodation/model/host-reservation-response";
+import {HostReservationSummary} from "../../model/host-reservation-summary";
 
 @Component({
   selector: 'app-host-request-resolve-card',
@@ -9,7 +10,7 @@ import {HostReservationResponse} from "../../../accommodation/model/host-reserva
   styleUrls: ['./host-request-resolve-card.component.css']
 })
 export class HostRequestResolveCardComponent {
-  @Input() reservation : HostReservationResponse;
+  @Input() reservation : HostReservationSummary;
   constructor(private service: AccommodationService){}
   acceptReservation(){
     this.service.resolveReservationRequest(this.reservation.reservationId,true).subscribe(

@@ -1,14 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AccommodationService } from '../accommodation.service';
 import { AccommodationRequest } from '../model/accommodation-request';
 import { Reservation } from '../model/accommodation-reservation';
 import { ReservationStatus } from '../model/reservation-status';
-//import { ReservationComponent } from 'src/app/reservation/reservation.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Host } from '../model/host-data';
 import { DatePeriod } from '../model/date-period';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { ReviewRequest } from '../model/review-request';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { ReviewType } from '../enum/reviewtype';
+import { MessageResponse } from '../model/message-response';
+import { ReviewResponse } from '../model/review-response';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -32,6 +37,13 @@ export class AccommodationDetailsComponent implements OnInit {
   guests: number;
 
   mapLocation: string;
+  ratingArr: number[] = [];
+  @Input('rating') rating: number = 3;
+  @Input('starCount') private starCount: number = 5;
+  @Output() private ratingUpdated = new EventEmitter();
+  role='';
+  reviewPermission=false;
+  reviews:ReviewResponse[]=[];
 
   constructor(
     private route: ActivatedRoute,
@@ -40,7 +52,36 @@ export class AccommodationDetailsComponent implements OnInit {
     private authService: AuthService
   ) {}
 
+    reviewForm=new FormGroup ({
+      comment: new FormControl('',Validators.required)
+    })
+
+    createReview(): void {
+      const review: ReviewRequest= {
+        guestUsername: this.authService.getUsername(),
+        reviewedEntity: this.accommodationId,
+        comment: this.reviewForm.value.comment || '',
+        rating: this.rating,
+        type: ReviewType.AccommodationReview
+      }
+      this.accommodationService.createReview(review).subscribe({
+        next:(response: MessageResponse) => {
+          if(response.successful){
+            this.snackBar.open(response.message, 'Dismiss', {
+              duration: 10000,
+              panelClass: ['snackbar'],
+            });
+            this.toggleCommentField();
+        }
+      }
+      })
+    }
+
   ngOnInit() {
+    this.role=this.authService.getRole();
+    for (let index = 0; index < this.starCount; index++) {
+      this.ratingArr.push(index);
+    }
     this.route.params.subscribe(params => {
       this.accommodationId = params['id']; // Retrieve accommodationId from URL parameters
       this.accommodationService.getAccommodationById(this.accommodationId).subscribe(
@@ -68,6 +109,44 @@ export class AccommodationDetailsComponent implements OnInit {
         }
       );
     });
+
+    
+    this.accommodationService.getAllReviews(this.accommodationId).subscribe(
+      (data:ReviewResponse[]) => {
+        console.log(data);
+        this.reviews=data;
+      }
+    );
+
+    if(this.role=='ROLE_GUEST' || this.role=='ROLE_Host'){
+      const guestUsername= this.authService.getUsername();
+      this.accommodationService.checkReviewPermission(guestUsername,this.accommodationId).subscribe(
+        (response:Boolean) => {
+          if(response){
+            this.reviewPermission=true;
+          }
+        }
+      )
+    }
+  }
+
+  onDeleteReview(reviewId: string) {
+    // Remove the deleted review from the reviews array
+    this.reviews = this.reviews.filter(review => review.id !== reviewId);
+  }
+
+  showIcon(index:number) {
+    if (this.rating >= index + 1) {
+      return 'star';
+    } else {
+      return 'star_border';
+    }
+  }
+
+  onClick(rating:number) {
+    this.rating = rating;
+    this.ratingUpdated.emit(rating);
+    return false;
   }
 
   //pictures part

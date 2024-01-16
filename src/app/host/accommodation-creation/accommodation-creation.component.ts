@@ -20,6 +20,7 @@ export class AccommodationCreationComponent implements OnInit{
   totalPrice: number;
   amenities : string[] = [];
   images: string[] = [];
+  mapSearchInput : string;
   editedAccommodation : AccommodationRequest;
   editId : string | null;
   weekendControl: FormControl = new FormControl(false);
@@ -45,6 +46,23 @@ export class AccommodationCreationComponent implements OnInit{
     console.log(event.target.files[0]);
 
   }
+
+  getLocationFromMap(location:string){
+    const locationSplit: string[] = location.split(';');
+    console.log("locationSplit: " +locationSplit[0]);
+    if(locationSplit[0]){
+      this.accommodationForm.controls["streetNumber"].setValue(locationSplit[0]);
+      this.accommodationForm.controls["street"].setValue(locationSplit[1]);
+      this.accommodationForm.controls["city"].setValue(locationSplit[2]);
+      this.accommodationForm.controls["country"].setValue(locationSplit[3]);
+    }
+    else{
+      console.log("ERROR: INVALID ADDRESS");
+    }
+
+  }
+
+
   periods : DatePair[] = []
   constructor(private fb: FormBuilder, private service : AccommodationService, private activatedroute:ActivatedRoute) { }
   initializeFormEdit() : void {
@@ -230,9 +248,11 @@ export class AccommodationCreationComponent implements OnInit{
       },
       price: 0,
       daysBefore: this.accommodationForm.get("daysBefore")?.value,
-      policy: policy,
-      priceCalculationMethod: calculation,
-      availability: datePeriods
+      policy: AccommodationReservationPolicy.MANUAL, // Choose the appropriate policy
+      availability: datePeriods,
+      hostUsername:'',
+      rating: 0,
+      priceCalculationMethod: calculation
     };
     console.log(accommodationRequest);
     if(this.editId != null){

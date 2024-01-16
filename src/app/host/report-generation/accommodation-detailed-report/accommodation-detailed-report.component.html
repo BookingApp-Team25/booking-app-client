@@ -1,0 +1,13 @@
+<app-header></app-header>
+
+<div id="content">
+  <div style="display: flex;flex-direction:column;align-items: center;width: 50%">
+    <button mat-button style="background-color: #969000;width: 30%;margin-bottom: 10%" (click)="exportToPdf()">Export to pdf</button>
+    <p style="font-size: 30px;">Annual report for {{annualReport.accommodationName}}:</p>
+  </div>
+   <div #pdfContent style="width: 50%;">
+     <mat-list style="width: 100%">
+       <app-monthly-report-card *ngFor="let monthlyLog of annualReport.months" [monthlyLog]= "monthlyLog" ></app-monthly-report-card>
+     </mat-list>
+   </div>
+</div>

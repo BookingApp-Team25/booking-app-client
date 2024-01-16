@@ -9,11 +9,17 @@ import {AccommodationRequestSummary} from "./model/accommodation-request-summary
 import {AccommodationSummaryCollection} from "./model/accommodation-summary-collection";
 import { SearchCriteria } from './model/SearchCriteria';
 import { Reservation } from './model/accommodation-reservation';
+import { ReviewRequest } from './model/review-request';
+import { ReviewResponse } from './model/review-response';
 import {ReservationCollection} from "./model/accommodation-reservation-collection";
 import {HostReservationResponseCollection} from "./model/host-reservation-response-collection";
 import { Host } from './model/host-data';
 import { ReservationStatus } from './model/reservation-status';
 import { Guest } from './model/guest-data';
+import {AccommodationLogCollection} from "../host/model/accommodation-log-collection";
+import {AccommodationMonthlyLogCollection} from "../host/model/accommodation-monthly-log-collection";
+import {HostReservationSummaryCollection} from "../host/model/host-reservation-summary-Collection";
+import {ReservationStatus} from "./model/reservation-status";
 
 @Injectable({
   providedIn: 'root'
@@ -32,23 +38,51 @@ export class AccommodationService {
       .set('numberOfElements', numberOfElements.toString());
     return this.httpClient.get<AccommodationSummaryCollection>(environment.apiHost + 'accommodation/approved',{params});
   }
+  getAllHostLogs(startDate: Date, endDate: Date, hostUsername: string): Observable<AccommodationLogCollection> {
+    let params = new HttpParams()
+      .set('startDateStr', startDate.toISOString())
+      .set('endDateStr', endDate.toISOString());
+    return this.httpClient.get<AccommodationLogCollection>(environment.apiHost + `host/${hostUsername}/log`, {params});
+  }
   getAllHostAccommodations(hostId: string, page: number, numberOfElements: number): Observable<AccommodationSummaryCollection>{
     let params = new HttpParams()
         .set('page', page.toString())
         .set('numberOfElements', numberOfElements.toString());
     return this.httpClient.get<AccommodationSummaryCollection>(environment.apiHost + `accommodation/host/${hostId}`,{params});
   }
-  getAllHostReservations(hostId: string, page: number, numberOfElements: number): Observable<ReservationCollection>{
-    let params = new HttpParams()
-      .set('page', page.toString())
-      .set('numberOfElements', numberOfElements.toString());
-    return this.httpClient.get<ReservationCollection>(environment.apiHost + `reservation/${hostId}/results`, {params})
+  getAllHostReservationsFiltered(hostId:string,startDate:Date | null,endDate:Date | null,accommodationName:string | null,reservationStatus:ReservationStatus,page:number,numberOfElements:number): Observable<HostReservationSummaryCollection>{
+    let params = new HttpParams();
+    console.log(startDate);
+    // Add non-null parameters to the HttpParams
+    if (startDate) {
+      params = params.set('startDateStr', startDate.toISOString());
+    }
+
+    if (endDate) {
+      params = params.set('endDateStr', endDate.toISOString());
+    }
+
+    if (accommodationName) {
+      params = params.set('reservationName', accommodationName);
+    }
+
+    params = params
+        .set('reservationStatus', reservationStatus)
+        .set('page', page.toString())
+        .set('numberOfElements', numberOfElements.toString());
+    return this.httpClient.get<HostReservationSummaryCollection>(environment.apiHost + `reservation/${hostId}/filtered`, {params})
   }
-  getAllUnresolvedHostReservations(hostId: string, page: number, numberOfElements: number): Observable<HostReservationResponseCollection>{
+  getAllHostReservations(hostId: string, page: number, numberOfElements: number): Observable<HostReservationSummaryCollection>{
     let params = new HttpParams()
       .set('page', page.toString())
       .set('numberOfElements', numberOfElements.toString());
-    return this.httpClient.get<HostReservationResponseCollection>(environment.apiHost + `reservation/${hostId}/unresolved`, {params})
+    return this.httpClient.get<HostReservationSummaryCollection>(environment.apiHost + `reservation/${hostId}/results`, {params})
+  }
+  getAllUnresolvedHostReservations(hostId: string, page: number, numberOfElements: number): Observable<HostReservationSummaryCollection>{
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('numberOfElements', numberOfElements.toString());
+    return this.httpClient.get<HostReservationSummaryCollection>(environment.apiHost + `reservation/${hostId}/unresolved`, {params})
   }
   getAccommodationById(accommodationId : string){
     return this.httpClient.post<AccommodationRequest>(environment.apiHost + `accommodation/details/${accommodationId}`,{}).pipe(
@@ -77,6 +111,17 @@ export class AccommodationService {
       }));
   }
 
+  getAllReviews(accommodationId: string): Observable<ReviewResponse[]> {
+    return this.httpClient.get<ReviewResponse[]>(environment.apiHost+'review/'+accommodationId+'?flag=1');
+  }
+
+  checkReviewPermission(username: string,accommodationId:string): Observable <Boolean> {
+    return this.httpClient.get<Boolean>(environment.apiHost+'review/check/'+username+'/'+accommodationId);
+  }
+
+  getAnnualReport(accommodationId:string): Observable<AccommodationMonthlyLogCollection> {
+    return this.httpClient.get<AccommodationMonthlyLogCollection>(environment.apiHost +"host/" + `${accommodationId}` + "/annual-log");
+  }
   createReservation(reservation: Reservation): Observable<MessageResponse> {
     const url = `${environment.apiHost}reservation/create`;
     console.log(url);
@@ -100,7 +145,19 @@ export class AccommodationService {
     console.log(url);
     return this.httpClient.put<Boolean>(url, null);
   }
-  
+
+  createReview(review:ReviewRequest): Observable<MessageResponse> {
+    return this.httpClient.post<MessageResponse> (environment.apiHost+'review',review);
+  }
+
+  deleteReview(reviewId: string): Observable<Boolean> {
+    return this.httpClient.delete<Boolean>(environment.apiHost+'review/'+reviewId+'?flag=1');
+  }
+
+  reportReview(reviewId:string): Observable<MessageResponse> {
+    return this.httpClient.post<MessageResponse>(environment.apiHost+'review/report/'+reviewId+'?flag=1',null);
+  }
+
   searchAccommodations(searchCriteria: SearchCriteria): Observable<AccommodationSummary[]> {
     const dateStartParam = searchCriteria.dateStart ? searchCriteria.dateStart.toISOString() : null;
     const dateEndParam = searchCriteria.dateEnd ? searchCriteria.dateEnd.toISOString() : null;

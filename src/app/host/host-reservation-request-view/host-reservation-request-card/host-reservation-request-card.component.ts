@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Reservation} from "../../../accommodation/model/accommodation-reservation";
+import {HostReservationSummary} from "../../model/host-reservation-summary";
 
 @Component({
   selector: 'app-host-reservation-request-card',
@@ -7,5 +8,5 @@ import {Reservation} from "../../../accommodation/model/accommodation-reservatio
   styleUrls: ['./host-reservation-request-card.component.css']
 })
 export class HostReservationRequestCardComponent {
-  @Input() reservation : Reservation;
+  @Input() reservation : HostReservationSummary;
 }

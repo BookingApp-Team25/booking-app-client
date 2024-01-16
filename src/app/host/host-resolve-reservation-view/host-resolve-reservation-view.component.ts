@@ -4,6 +4,8 @@ import {AccommodationService} from "../../accommodation/accommodation.service";
 import {ReservationCollection} from "../../accommodation/model/accommodation-reservation-collection";
 import {HostReservationResponse} from "../../accommodation/model/host-reservation-response";
 import {HostReservationResponseCollection} from "../../accommodation/model/host-reservation-response-collection";
+import {AuthService} from "../../infrastructure/auth/auth.service";
+import {HostReservationSummaryCollection} from "../model/host-reservation-summary-Collection";
 
 @Component({
   selector: 'app-host-resolve-reservation-view',
@@ -11,15 +13,15 @@ import {HostReservationResponseCollection} from "../../accommodation/model/host-
   styleUrls: ['./host-resolve-reservation-view.component.css']
 })
 export class HostResolveReservationViewComponent {
-  reservations: HostReservationResponse[] = [];
+  reservations: HostReservationSummaryCollection;
   numberOfElements : number = 10;
   page : number = 0;
   totalNumberOfElements = 0;
-  constructor(private service: AccommodationService){}
+  constructor(private service: AccommodationService, private authService : AuthService){}
   fetchReservations(){
     this.service.getAllUnresolvedHostReservations("5894d69d-fc8d-4f06-bf0c-dc695b40901b",this.page,this.numberOfElements).subscribe({
-      next:(data: HostReservationResponseCollection)=> {
-        this.reservations = []
+      next:(data: HostReservationSummaryCollection)=> {
+        this.reservations = data;
         console.log(data);
         data.summaries.forEach(obj => {
           console.log(obj);
