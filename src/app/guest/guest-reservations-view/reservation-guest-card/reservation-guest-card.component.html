@@ -15,7 +15,7 @@
         </div>
       </div>
     <div id="buttons">
-        <button mat-mini-fab (click)="cancelReservation()" style="background-color: white; color: #969000; margin-top: 50%" aria-label="Example icon button with a menu icon">
+        <button mat-mini-fab (click)="cancelReservation()" [disabled]="isButtonDisabled" style="background-color: white; color: #969000; margin-top: 50%" aria-label="Example icon button with a menu icon">
             <mat-icon>cancel</mat-icon>
         </button>
     </div>

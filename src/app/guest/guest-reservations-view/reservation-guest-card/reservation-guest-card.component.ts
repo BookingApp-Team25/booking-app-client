@@ -17,6 +17,8 @@ export class ReservationGuestCardComponent {
   checkInDate: Date;
   checkOutDate: Date;
 
+  isButtonDisabled: boolean = false;
+
   //dodati stvati da se popuni kartica dobrim informacijama
   constructor(
     private service: AccommodationService,
@@ -45,6 +47,13 @@ export class ReservationGuestCardComponent {
     this.getAccommodationName(this.request.accommodationId);
     this.checkInDate = this.request.reservedDate.startDate;
     this.checkOutDate = this.request.reservedDate.endDate;
+
+    console.log(this.request.reservationStatus);
+    
+    if (this.request.reservationStatus.toString() === "CANCELED") {
+      console.log("disabling button");
+      this.isButtonDisabled = true;
+    }
   }
 
   cancelReservation() {
@@ -52,6 +61,7 @@ export class ReservationGuestCardComponent {
       (response) => {
         console.log('Reservation canceled:', response);
         this.openSnackBar('Reservation canceled.');
+        this.toggleButton();
       },
       (error) => {
         console.error('Error canceling reservation', error);
@@ -67,5 +77,10 @@ export class ReservationGuestCardComponent {
       verticalPosition: 'top',
       panelClass: ['custom-snackbar'] //ne radi nz sto
     });
+  }
+
+ toggleButton() {
+  this.isButtonDisabled = !this.isButtonDisabled;
+  console.log('Button disabled:', this.isButtonDisabled);
   }
 }
