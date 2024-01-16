@@ -12,6 +12,8 @@ import { HostDetailsComponent } from './host-details/host-details.component';
 import { ReviewCardComponent } from '../accommodation/review-card/review-card.component';
 import { HostReviewCardComponent } from './host-review-card/host-review-card.component';
 import { AccommodationHostCardComponent } from '../accommodation/accommodation-host-card/accommodation-host-card.component';
+import { MyguestsComponent } from './myguests/myguests.component';
+import { GuestCardComponent } from './guest-card/guest-card.component';
 
 @NgModule({
     declarations: [
@@ -22,6 +24,8 @@ import { AccommodationHostCardComponent } from '../accommodation/accommodation-h
         HostAccommodationsViewComponent,
         HostDetailsComponent,
         HostReviewCardComponent,
+        MyguestsComponent,
+        GuestCardComponent,
     ],
     imports: [
         CommonModule,

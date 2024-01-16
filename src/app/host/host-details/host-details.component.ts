@@ -11,7 +11,7 @@ import { ReviewResponse } from 'src/app/accommodation/model/review-response';
 import { ActivatedRoute } from '@angular/router';
 import { ReportDialogComponent } from 'src/app/layout/report-dialog/report-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { switchMap } from 'rxjs';
+import { of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-host-details',
@@ -47,9 +47,12 @@ export class HostDetailsComponent implements OnInit {
       this.service.getHostDetails(this.hostId).pipe(
         switchMap((response: AccountDetails) => {
           this.hostDetails = response;
-    
-          // Return the result of checkReportPermission observable
-          return this.service.checkReportPermission(this.authService.getUsername(), this.hostDetails.username);
+          console.log(response);
+          if (this.role == "ROLE_Guest") {
+            return this.service.checkReportPermission(this.authService.getUsername(), this.hostDetails.username);
+          } else {
+            return of(false);
+          }
         })
       ).subscribe({
         next: (response: Boolean) => {
@@ -75,8 +78,8 @@ export class HostDetailsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.report();
+      if (result.result) {
+        this.report(result.reportReason);
       }
     });
   }
@@ -85,8 +88,8 @@ export class HostDetailsComponent implements OnInit {
     comment: new FormControl('',Validators.required)
   })
 
-  report(): void {
-    this.service.reportHost(this.hostDetails.username).subscribe({
+  report(reason:string): void {
+    this.service.report(this.hostDetails.username, reason).subscribe({
       next:(response:MessageResponse) => {
         this.snackBar.open(response.message, 'Dismiss', {
           duration: 10000,

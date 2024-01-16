@@ -7,13 +7,13 @@
         <p>Phone number: {{hostDetails.phoneNumber}}</p>
     </div>
     <div id="report" *ngIf="role=='ROLE_Guest'" (click)="openDialog()"><mat-icon style="color: red;">report</mat-icon></div>
-    <div id="rating"><b>4.5</b>&nbsp;<mat-icon style="margin-bottom: 3%;">star</mat-icon></div>
+    <div id="rating"><b>{{hostDetails.rating.toFixed(1)}}</b>&nbsp;<mat-icon style="margin-bottom: 3%;">star</mat-icon></div>
 </mat-card>
 <div id="reviews">
 <div id="comments-title">
     <div class="div-29">
       <div class="div-30">Guest Reviews</div>
-      <div class="div-31">4.5</div>
+      <div class="div-31">{{hostDetails.rating.toFixed(1)}}</div>
       <mat-icon>star</mat-icon>
     </div>
     <div class="div-32">

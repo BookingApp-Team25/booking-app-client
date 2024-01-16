@@ -43,10 +43,6 @@ export class RegistrationComponent {
         address: this.registrationForm.value.address || '',
         role: this.registrationForm.value.role || Role.Guest
       }
-      this.snackbar.open("Please wait", 'Dismiss', {
-        duration: 5000,
-        panelClass: ['snackbar'],
-      });
       this.authService.register(registrationRequest).subscribe({
         next:(response:MessageResponse) => {
           if(response.successful){

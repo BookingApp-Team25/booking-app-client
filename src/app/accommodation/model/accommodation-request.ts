@@ -20,4 +20,5 @@ export interface AccommodationRequest {
   policy: AccommodationReservationPolicy;
   hostId : string;
   hostUsername:string;
+  rating: number;
 }

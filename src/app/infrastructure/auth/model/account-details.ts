@@ -5,4 +5,5 @@ export interface AccountDetails {
     lastName: string,
     address: string,
     phoneNumber: string
+    rating: number;
 }

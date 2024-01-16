@@ -34,11 +34,15 @@ export class HostService {
     return this.httpClient.delete<Boolean>(environment.apiHost+'review/'+reviewId+'?flag=0');
   }
 
-  reportHost(username:string): Observable<MessageResponse> {
-    return this.httpClient.put<MessageResponse>(environment.apiHost+'user/report/'+username,null);
+  report(username:string,reason:string): Observable<MessageResponse> {
+    return this.httpClient.put<MessageResponse>(environment.apiHost+'user/report/'+username+"?reason="+reason,null);
   }
 
   checkReportPermission(guestUsername:string,hostUsername:string): Observable<Boolean> {
     return this.httpClient.get <Boolean>(environment.apiHost+'user/check/'+guestUsername+'/'+hostUsername);
+  }
+
+  getMyGuests(username: string): Observable<AccountDetails[]>{
+    return this.httpClient.get <AccountDetails[]> (environment.apiHost+'host/myguests/'+username);
   }
 }
