@@ -27,7 +27,7 @@ export class ReservationGuestCardComponent {
     this.service.getAccommodationById(accommodationId).subscribe({
       next: (data: AccommodationRequest) => {
         this.accommodationName = data.name;
-        console.log('Accommodation name:', this.accommodationName);
+        console.log('Fetched accommodation name:', this.accommodationName);
       },
       error: (error) => {
         console.error('Error fetching accommodation name:', error);

@@ -8,7 +8,7 @@ import { ReservationStatus } from '../model/reservation-status';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Host } from '../model/host-data';
 import { DatePeriod } from '../model/date-period';
-import { FormsModule } from '@angular/forms';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -34,7 +34,8 @@ export class AccommodationDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private accommodationService: AccommodationService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -137,37 +138,57 @@ export class AccommodationDetailsComponent implements OnInit {
     
     this.calculateTotalPrice(this.guests);
   }
-  
-  onReserveClicked(checkin: string, checkout: string, guestsCount: string) {
-    const checkinDate = new Date(checkin);
-    const checkoutDate = new Date(checkout);
-    
-    this.reservation = {
-      guestId: '123e4567-e89b-12d3-a456-426614174001',
-      hostId: this.accommodationDetails.hostId, //'760e8230-e21b-21d4-a756-123455440002',
-      accommodationId: this.accommodationId, //id got from router[routerLink]="['accommodation', { id: summary.accommodationId}] "
-      reservationStatus: ReservationStatus.Ongoing,
-      reservedDate: {
-        startDate: checkinDate,
-        endDate: checkoutDate
-      },
-      guestName:"", // dodati
-      accommodationName: this.accommodationDetails.name,
-      price: this.totalPrice
-    }
-    //this.reservationComponent.reserve();
-    console.log("reservation:", this.reservation);
 
-    this.accommodationService.createReservation(this.reservation).subscribe(
-      (response) => {
-        console.log('Reservation created successfully', response);
-        this.openSnackBar('Reservation created successfully!');
-      },
-      (error) => {
-        console.error('Error creating reservation', error);
-        this.openSnackBar('Error creating reservation.');
-      }
-    );
+  async getGuestId(): Promise<string> {
+    try {
+      const result = await this.accommodationService.getGuestByUsername(this.authService.getUsername()).toPromise();
+  
+      // Use nullish coalescing operator to provide a default value
+      return result?.id ?? "defaultGuestId";
+    } catch (error) {
+      // Throw the error or log it, depending on your error handling strategy
+      console.error('Error fetching guest id:', error);
+      // Rethrow the error or return a default value
+      throw error;
+    }
+  }
+   
+  async onReserveClicked(checkin: string, checkout: string, guestsCount: string) {
+    try {
+      const guestId = await this.getGuestId();
+  
+      const checkinDate = new Date(checkin);
+      const checkoutDate = new Date(checkout);
+  
+      this.reservation = {
+        guestId: guestId,
+        hostId: this.accommodationDetails.hostId,
+        accommodationId: this.accommodationId,
+        reservationStatus: ReservationStatus.Ongoing,
+        reservedDate: {
+          startDate: checkinDate,
+          endDate: checkoutDate
+        },
+        guestName: this.authService.getUsername(), // Add guest name if available
+        accommodationName: this.accommodationDetails.name,
+        price: this.totalPrice
+      };
+  
+      console.log("reservation:", this.reservation);
+  
+      this.accommodationService.createReservation(this.reservation).subscribe(
+        (response) => {
+          console.log('Reservation created successfully', response);
+          this.openSnackBar('Reservation created successfully!');
+        },
+        (error) => {
+          console.error('Error creating reservation', error);
+          this.openSnackBar('Error creating reservation.');
+        }
+      );
+    } catch (error) {
+      console.error('Error fetching guest id:', error);
+    }
   }
 
   private openSnackBar(message: string): void {

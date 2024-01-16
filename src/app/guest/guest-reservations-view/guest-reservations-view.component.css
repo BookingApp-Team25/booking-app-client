@@ -131,3 +131,15 @@
     margin-left: 40%;
   }
   
+  #filter-options{
+    width: 100%;
+  }
+  #datePickerForm{
+    display: flex;
+    justify-content: space-around;
+  }
+  #radioButtonDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }

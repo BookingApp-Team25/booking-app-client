@@ -12,6 +12,8 @@ import { Reservation } from './model/accommodation-reservation';
 import {ReservationCollection} from "./model/accommodation-reservation-collection";
 import {HostReservationResponseCollection} from "./model/host-reservation-response-collection";
 import { Host } from './model/host-data';
+import { ReservationStatus } from './model/reservation-status';
+import { Guest } from './model/guest-data';
 
 @Injectable({
   providedIn: 'root'
@@ -49,11 +51,9 @@ export class AccommodationService {
     return this.httpClient.get<HostReservationResponseCollection>(environment.apiHost + `reservation/${hostId}/unresolved`, {params})
   }
   getAccommodationById(accommodationId : string){
-    console.log(environment.apiHost + " " + accommodationId);
     return this.httpClient.post<AccommodationRequest>(environment.apiHost + `accommodation/details/${accommodationId}`,{}).pipe(
       catchError((error: any) => {
         console.error('Error:', error);
-        // Handle the error appropriately (throw a custom error or return a default value)
         throw error;
       }));
   }
@@ -185,6 +185,10 @@ export class AccommodationService {
     return this.httpClient.get<Host>(environment.apiHost + "accommodation/data/" + hostId);
   }
 
+  getGuestByUsername(guestUsername: string): Observable<Guest> {
+    return this.httpClient.get<Guest>(environment.apiHost + "reservation/guest-id/" + guestUsername);
+  }
+
   getAllGuestReservations(guestId: string, page: number, numberOfElements: number): Observable<HostReservationResponseCollection> {
     let params = new HttpParams()
         .set('page', page.toString())
@@ -205,4 +209,30 @@ export class AccommodationService {
     });
   }
   
+  getAllGuestReservationsFiltered(guestId:string, startDate:Date | null, endDate:Date | null, accommodationName:string | null, reservationStatus:ReservationStatus, page:number, numberOfElements:number): Observable<HostReservationResponseCollection>{
+    let params = new HttpParams();
+    //console.log(startDate);
+    if (startDate) {
+      params = params.set('startDateStr', startDate.toISOString());
+    }
+
+    if (endDate) {
+      params = params.set('endDateStr', endDate.toISOString());
+    }
+
+    if (accommodationName) {
+      params = params.set('reservationName', accommodationName);
+    }
+
+    console.log("startDate:", startDate);
+    console.log("endDate:", endDate);
+    console.log("accommodationName:", accommodationName);
+    console.log("reservationStatus:", reservationStatus);
+
+    params = params
+        .set('reservationStatus', reservationStatus)
+        .set('page', page.toString())
+        .set('numberOfElements', numberOfElements.toString());
+    return this.httpClient.get<HostReservationResponseCollection>(environment.apiHost + `reservation/${guestId}/filtered-guest`, {params})
+  }  
 }

@@ -1,6 +1,37 @@
 <app-header></app-header>
 <div class="reservation-list">
     <p id="discover">Your reservations</p>
+    <div id="filter-options">
+        <form id="datePickerForm" [formGroup]="filterForm">
+          <mat-form-field class = "basic-form-field" appearance="outline">
+            <mat-label>Accommodation name:</mat-label>
+            <input matInput type="text" id="country" formControlName="accommodationName" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker" >
+              <input matStartDate  formControlName="startDate" placeholder="Start date">
+              <input matEndDate formControlName="endDate" placeholder="End date">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker ></mat-date-range-picker>
+          </mat-form-field>
+          <div id="radioButtonDiv">
+            <label>
+              <input type="radio" formControlName="reservationStatus" value="ACCEPTED" />
+              Accepted
+            </label>
+            <label>
+              <input type="radio" formControlName="reservationStatus" value="REJECTED" />
+              Rejected
+            </label>
+          </div>
+        </form>
+    </div>
+    <div style="width: 100%;display: flex;align-items: center;justify-content: space-around">
+        <button mat-button  class="submitButton" (click)="fetchReservationsFiltered()">Apply search</button>
+    </div>
     <hr>
     <!-- <a> -->
         <mat-list>
