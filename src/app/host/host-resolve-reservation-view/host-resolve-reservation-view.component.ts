@@ -23,11 +23,7 @@ export class HostResolveReservationViewComponent {
       next:(data: HostReservationSummaryCollection)=> {
         this.reservations = data;
         console.log(data);
-        data.summaries.forEach(obj => {
-          console.log(obj);
-          this.reservations.push(obj);
-        });
-        this.totalNumberOfElements = data.totalNumberOfSummaries;
+        this.totalNumberOfElements = data.totalNumberOfElements;
       },
       error: (_) => {console.log("Error loading summaries")}
     })

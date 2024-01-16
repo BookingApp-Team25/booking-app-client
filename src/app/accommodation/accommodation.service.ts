@@ -19,7 +19,6 @@ import { Guest } from './model/guest-data';
 import {AccommodationLogCollection} from "../host/model/accommodation-log-collection";
 import {AccommodationMonthlyLogCollection} from "../host/model/accommodation-monthly-log-collection";
 import {HostReservationSummaryCollection} from "../host/model/host-reservation-summary-Collection";
-import {ReservationStatus} from "./model/reservation-status";
 
 @Injectable({
   providedIn: 'root'

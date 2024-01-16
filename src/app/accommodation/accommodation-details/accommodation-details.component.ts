@@ -7,13 +7,12 @@ import { ReservationStatus } from '../model/reservation-status';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Host } from '../model/host-data';
 import { DatePeriod } from '../model/date-period';
-import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { ReviewRequest } from '../model/review-request';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { ReviewType } from '../enum/reviewtype';
 import { MessageResponse } from '../model/message-response';
 import { ReviewResponse } from '../model/review-response';
+import { AuthService } from '../../infrastructure/auth/auth.service';
 
 @Component({
   selector: 'app-accommodation-details',
