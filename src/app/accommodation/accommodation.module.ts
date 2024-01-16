@@ -6,12 +6,10 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import { AccommodationHostCardComponent } from './accommodation-host-card/accommodation-host-card.component';
 
-
-
 @NgModule({
   declarations: [
     AccommodationRequestCardComponent,
-    AccommodationHostCardComponent
+    AccommodationHostCardComponent,
   ],
     exports: [
         AccommodationRequestCardComponent,

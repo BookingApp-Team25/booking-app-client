@@ -31,6 +31,8 @@ export class AccommodationDetailsComponent implements OnInit {
   checkoutDate: Date;
   guests: number;
 
+  mapLocation: string;
+
   constructor(
     private route: ActivatedRoute,
     private accommodationService: AccommodationService,
@@ -57,7 +59,9 @@ export class AccommodationDetailsComponent implements OnInit {
               console.error('Error fetching host details', error);
             }
           );
-  
+            
+          const initialLocation = `${this.accommodationDetails.location.streetNumber}, ${this.accommodationDetails.location.street}, ${this.accommodationDetails.location.city}, ${this.accommodationDetails.location.country}`;
+          this.mapLocation = initialLocation;
         },
         (error) => {
           console.error('Error fetching accommodation details', error);

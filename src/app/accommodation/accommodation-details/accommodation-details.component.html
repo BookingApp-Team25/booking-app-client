@@ -67,6 +67,11 @@
         <p>{{ accommodationDetails.amenities }}</p> <!--.join('<br>') mozda mora da se doda nekako-->
       </mat-card-content>
     </mat-card>
+
+    <div id="map-container">
+      <app-map-insertion [searchInput]="mapLocation"></app-map-insertion>
+    </div>
+
     <div id="comments-title">
       <div class="div-29">
         <div class="div-30">Guest Reviews</div>

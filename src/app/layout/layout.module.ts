@@ -16,7 +16,7 @@ import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { AysDialogComponent } from './ays-dialog/ays-dialog.component';
 import {MatSidenavModule} from "@angular/material/sidenav";
-
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,8 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    SharedModule
   ],
   exports: [
     NavBarComponent,
