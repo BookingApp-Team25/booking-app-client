@@ -113,6 +113,11 @@ export class AccommodationService {
   getAllReviews(accommodationId: string): Observable<ReviewResponse[]> {
     return this.httpClient.get<ReviewResponse[]>(environment.apiHost+'review/'+accommodationId+'?flag=1');
   }
+  
+  getAllReportedReviews(): Observable<ReviewResponse[]> {
+    console.log(environment.apiHost+'review/reported-reviews');
+    return this.httpClient.get<ReviewResponse[]>(environment.apiHost+'review/reported-reviews');
+  }
 
   checkReviewPermission(username: string,accommodationId:string): Observable <Boolean> {
     return this.httpClient.get<Boolean>(environment.apiHost+'review/check/'+username+'/'+accommodationId);
@@ -149,9 +154,10 @@ export class AccommodationService {
     return this.httpClient.post<MessageResponse> (environment.apiHost+'review',review);
   }
 
-  deleteReview(reviewId: string): Observable<Boolean> {
-    return this.httpClient.delete<Boolean>(environment.apiHost+'review/'+reviewId+'?flag=1');
-  }
+  deleteReview(reviewId: string, flag: boolean): Observable<Boolean> {
+    const params = new HttpParams().set('flag', flag.toString());
+    return this.httpClient.delete<Boolean>(environment.apiHost + 'review/' + reviewId, { params });
+  }  
 
   reportReview(reviewId:string): Observable<MessageResponse> {
     return this.httpClient.post<MessageResponse>(environment.apiHost+'review/report/'+reviewId+'?flag=1',null);

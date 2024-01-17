@@ -21,6 +21,7 @@ import {ReportGenerationComponent} from "./host/report-generation/report-generat
 import {
   AccommodationDetailedReportComponent
 } from "./host/report-generation/accommodation-detailed-report/accommodation-detailed-report.component";
+import { CommentRatingReviewComponent } from './admin/comment-rating-review/comment-rating-review.component';
 
 const routes: Routes = [
   { component: HomeComponent, path:"home" },
@@ -37,7 +38,8 @@ const routes: Routes = [
   {component: HostReservationRequestViewComponent, path: "host-reservation-requests"},
   {component: HostResolveReservationViewComponent, path: "host-resolve-accommodation-request"},
   {component: ReportGenerationComponent, path:"host-generate-report"},
-  {component: AccommodationDetailedReportComponent, path:"annual-report"}
+  {component: AccommodationDetailedReportComponent, path:"annual-report"},
+  {component: CommentRatingReviewComponent, path:"comment-review"},
 ];
 
 @NgModule({
