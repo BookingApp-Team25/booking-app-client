@@ -1,0 +1,5 @@
+<div id="main-div">
+    <mat-list *ngIf="summaries">
+      <app-user-card  *ngFor="let summary of summaries" [summary]="summary"></app-user-card>
+    </mat-list>
+</div>

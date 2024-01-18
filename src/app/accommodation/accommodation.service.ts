@@ -19,6 +19,8 @@ import { Guest } from './model/guest-data';
 import {AccommodationLogCollection} from "../host/model/accommodation-log-collection";
 import {AccommodationMonthlyLogCollection} from "../host/model/accommodation-monthly-log-collection";
 import {HostReservationSummaryCollection} from "../host/model/host-reservation-summary-Collection";
+import { UserReportData } from '../admin/user-blocking/user-report-data';
+import { UserData } from '../admin/user-blocking/user-data';
 
 @Injectable({
   providedIn: 'root'
@@ -119,8 +121,21 @@ export class AccommodationService {
     return this.httpClient.get<ReviewResponse[]>(environment.apiHost+'review/reported-reviews');
   }
 
+  getAllUserReports(): Observable<UserReportData[]> {
+    console.log(environment.apiHost+'user/reported');
+    return this.httpClient.get<UserReportData[]>(environment.apiHost+'user/reported');
+  }
+
+  blockUser(userId:string): Observable <Boolean> {
+    return this.httpClient.put<Boolean>(environment.apiHost+'user/blockUser/' + `${userId}`, null);
+  }
+
   checkReviewPermission(username: string,accommodationId:string): Observable <Boolean> {
     return this.httpClient.get<Boolean>(environment.apiHost+'review/check/'+username+'/'+accommodationId);
+  }
+
+  getUserById(userId: string): Observable<UserData> {
+    return this.httpClient.get<UserData>(environment.apiHost+'user/user-by-id/' + `${userId}`);
   }
 
   getAnnualReport(accommodationId:string): Observable<AccommodationMonthlyLogCollection> {

@@ -5,12 +5,16 @@ import {AccommodationModule} from "../accommodation/accommodation.module";
 import {MaterialModule} from "../infrastructure/material/material.module";
 import { CommentRatingReviewComponent } from './comment-rating-review/comment-rating-review.component';
 import { CommentCardComponent } from './comment-rating-review/comment-card/comment-card.component';
+import { UserBlockingComponent } from './user-blocking/user-blocking.component';
+import { UserCardComponent } from './user-blocking/user-card/user-card.component';
 
 @NgModule({
   declarations: [
     AccommodationRequestsComponent,
     CommentRatingReviewComponent,
-    CommentCardComponent
+    CommentCardComponent,
+    UserBlockingComponent,
+    UserCardComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +24,9 @@ import { CommentCardComponent } from './comment-rating-review/comment-card/comme
   exports: [
       AccommodationRequestsComponent,
       CommentRatingReviewComponent,
-      CommentCardComponent
+      CommentCardComponent,
+      UserBlockingComponent,
+      UserCardComponent
   ]
 })
 export class AdminModule { }
