@@ -92,6 +92,23 @@ export class AccommodationService {
         throw error;
       }));
   }
+
+  addFavoriteAccommodation(guestId: string, accommodationId: String): Observable<Boolean> {
+    return this.httpClient.put<Boolean>(environment.apiHost + `accommodation/add-favourite/${guestId}/${accommodationId}`, null);
+  }
+
+  removeFavoriteAccommodation(guestId: string, accommodationId: String): Observable<Boolean> {
+    return this.httpClient.put<Boolean>(environment.apiHost + `accommodation/remove-favourite/${guestId}/${accommodationId}`, null);
+  }
+
+  isFavoriteAccommodation(guestId: string, accommodationId: String): Observable<Boolean> {
+    return this.httpClient.get<Boolean>(environment.apiHost + `accommodation/is-favourite/${guestId}/${accommodationId}`);
+  }
+
+  getFavouriteAccommodations(guestId: string): Observable<AccommodationSummary[]> {
+    return this.httpClient.get<AccommodationSummary[]>(environment.apiHost + `accommodation/get-favourite/${guestId}`);
+  }
+
   getAllUpdates(): Observable<AccommodationRequestSummary[]>{
     return this.httpClient.get<AccommodationRequestSummary[]>(environment.apiHost + "accommodation-request")
 }

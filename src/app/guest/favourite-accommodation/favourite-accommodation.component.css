@@ -1,11 +1,22 @@
-.accommodation-button-frame {
-  position: relative;
-  width: 25%;
-  min-width: 765px;
-  border-radius: 30px; /* Adjust the value for rounded corners */
+.accommodation-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1%;
+    background-color: #ffffff;
+    align-items: center;
+    justify-content: center;
 }
-
-
+hr {
+  width: 5%;
+  border-top: 1px solid #000000;
+}
+a {
+  cursor: pointer;
+}
+#discover {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
+}
 .accommodation-frame {
     display: flex;
     height: 300px;
@@ -21,14 +32,14 @@
     border-radius: 30px; /* Adjust the value for rounded corners */
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1); /* Elevation shadow */
   }
-
+  
   .accommodation-frame .accommodation-image {
     position: relative;
     width: 250px;
     height: 250px;
     object-fit: cover;
   }
-
+  
   .accommodation-frame .accommodation-info {
     display: flex;
     flex-direction: column;
@@ -40,7 +51,7 @@
     background-color: #ffffff;
     overflow: hidden;
   }
-
+  
   .accommodation-frame .accommodation-name {
     position: relative;
     width: fit-content;
@@ -53,30 +64,28 @@
     line-height: 24px;
     white-space: nowrap;
   }
-
-  .desc {
-    height: 100%;
-  }
-
+  
   .accommodation-frame .description-text {
     position: relative;
     transform: rotate(0.32deg);
     margin-top: 10%;
+    font-family: "Arial";
     font-weight: 400;
     color: #000000;
     font-size: 16px;
     letter-spacing: 0.5px;
     line-height: 24px;
   }
-
+  
   .accommodation-frame .info {
     display: flex;
     align-items: center;
     gap: 120px;
     position: relative;
+    margin-top: 15%;
     background-color: #ffffff;
   }
-
+  
   .accommodation-frame .text-wrapper {
     position: relative;
     width: fit-content;
@@ -88,13 +97,13 @@
     line-height: 24px;
     white-space: nowrap;
   }
-
+  
   .accommodation-frame .group {
     position: relative;
     width: 70px;
     height: 30px;
   }
-
+  
   .accommodation-frame .div {
     position: absolute;
     height: 24px;
@@ -108,7 +117,7 @@
     line-height: 24px;
     white-space: nowrap;
   }
-
+  
   .accommodation-frame .star {
     position: absolute;
     width: 29px;
@@ -116,14 +125,4 @@
     top: 0;
     left: 39px;
   }
-
-  button {
-    position: absolute;
-    top: 10px; /* Adjust this value to set the distance from the top */
-    right: 10px; /* Adjust this value to set the distance from the right */
-    background-color: green;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-  }
+  

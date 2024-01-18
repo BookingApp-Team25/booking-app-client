@@ -6,12 +6,14 @@ import { MaterialModule } from "../infrastructure/material/material.module";
 import { RouterLink } from '@angular/router';
 import { AccommodationModule } from '../accommodation/accommodation.module';
 import { ReservationGuestCardComponent } from './guest-reservations-view/reservation-guest-card/reservation-guest-card.component';
+import { FavouriteAccommodationComponent } from './favourite-accommodation/favourite-accommodation.component';
 
 
 @NgModule({
   declarations: [
     GuestReservationsViewComponent,
-    ReservationGuestCardComponent
+    ReservationGuestCardComponent,
+    FavouriteAccommodationComponent
   ],
   imports: [
     CommonModule,
