@@ -25,7 +25,7 @@
     </div>
     <div class="res-desc">
       <div class="div-13">
-        <form id="reservation-box">
+        <form id="reservation-box" *ngIf="role=='ROLE_Guest'">
           <mat-form-field appearance="outline" class="reservation-field">
             <mat-label>Check-in</mat-label>
             <input matInput [matDatepicker]="checkinPicker" [matDatepickerFilter]="filterDates" #checkinInput [(ngModel)]="checkinDate" name="checkinDate">

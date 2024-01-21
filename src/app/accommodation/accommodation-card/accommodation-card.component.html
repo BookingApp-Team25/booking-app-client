@@ -17,7 +17,7 @@
       </div>
     </div>
   </div>
-  <button mat-flat-button color="primary" (click)="toggleFavorite()">
+  <button *ngIf="guest!=null" mat-flat-button color="primary" (click)="toggleFavorite()">
     <mat-icon>{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
   </button>
 </div>

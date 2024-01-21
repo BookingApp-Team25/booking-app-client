@@ -134,7 +134,9 @@
   }
 
   .picture {
-    width: 60%;
+    width: 800px;
+    height: 500px;
+    object-fit: contain;
     border-radius: 30px;
   }
 

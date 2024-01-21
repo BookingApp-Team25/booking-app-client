@@ -10,7 +10,8 @@ import {DatePeriod} from "../../accommodation/model/date-period";
 import {ActivatedRoute} from '@angular/router'
 import {PriceCalculationMethod} from "../../accommodation/enum/price-calculation-method";
 import {AccommodationImage} from "../../accommodation/model/accommodation-image";
-
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { Guest } from 'src/app/accommodation/model/guest-data';
 @Component({
   selector: 'app-accommodation-creation',
   templateUrl: './accommodation-creation.component.html',
@@ -27,6 +28,7 @@ export class AccommodationCreationComponent implements OnInit{
   summerControl: FormControl = new FormControl(false);
   holidayControl: FormControl = new FormControl(false);
   winterControl: FormControl = new FormControl(false);
+  hostId='';
   today = new Date()
   accommodationForm: FormGroup;
   dateElements : DatePriceElementModel[] = [];
@@ -64,7 +66,7 @@ export class AccommodationCreationComponent implements OnInit{
 
 
   periods : DatePair[] = []
-  constructor(private fb: FormBuilder, private service : AccommodationService, private activatedroute:ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private service : AccommodationService, private activatedroute:ActivatedRoute,private authService:AuthService) { }
   initializeFormEdit() : void {
     console.log("Amenities:")
     console.log(this.editedAccommodation.amenities);
@@ -140,7 +142,12 @@ export class AccommodationCreationComponent implements OnInit{
     this.totalPrice = 0;
     this.initializeFormCreate();
     this.editId =this.activatedroute.snapshot.paramMap.get("id");
-    console.log(this.editId);
+    this.service.getGuestByUsername(this.authService.getUsername())
+    .subscribe(
+      (host: Guest) => {
+        this.hostId=host.id;
+      }
+    );
     if(this.editId != null){ // editovanje, prvo popunjavamo formu
       this.service.getAccommodationById(this.editId).subscribe(
           (response) => {
@@ -226,7 +233,7 @@ export class AccommodationCreationComponent implements OnInit{
       calculation = PriceCalculationMethod.PER_GUEST;
     }
     const accommodationRequest: AccommodationRequest = {
-      hostId : "5894d69d-fc8d-4f06-bf0c-dc695b40901b",
+      hostId : this.hostId,
       name: this.accommodationForm.get("name")?.value,
       description: this.accommodationForm.get("description")?.value,
       location: {

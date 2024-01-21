@@ -15,7 +15,7 @@ export class AccommodationCardComponent implements OnInit {
 
   isFavorite: Boolean = false;
   guest: Guest;
-
+  role='';
   constructor(
     private service: AccommodationService,
     private snackBar: MatSnackBar,
@@ -23,11 +23,13 @@ export class AccommodationCardComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
+    this.role=this.authService.getRole();
+    if(this.role=='ROLE_Guest'){
     await this.getGuestData(this.authService.getUsername());
     console.log("Accommodaiton data:", this.summary);
     console.log("Guest data:", this.guest);
-  
     this.checkIfFavorite();
+    }
   }
   
   async getGuestData(username: string): Promise<void> {

@@ -1,6 +1,6 @@
-<app-header></app-header>
 <div class="reservation-list">
     <p id="discover">Your reservations</p>
+    <hr>
     <div id="filter-options">
         <form id="datePickerForm" [formGroup]="filterForm">
           <mat-form-field class = "basic-form-field" appearance="outline">
@@ -29,10 +29,9 @@
           </div>
         </form>
     </div>
-    <div style="width: 100%;display: flex;align-items: center;justify-content: space-around">
+    <div style="width: 100%;display: flex;align-items: center;justify-content: space-around; margin-top: 1%;">
         <button mat-button  class="submitButton" (click)="fetchReservationsFiltered()">Apply search</button>
     </div>
-    <hr>
     <!-- <a> -->
         <mat-list>
             <app-reservation-guest-card *ngFor="let request of requests" [request]="request"></app-reservation-guest-card>
