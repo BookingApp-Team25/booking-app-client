@@ -35,7 +35,7 @@ export class ReviewCardComponent implements OnInit {
     }
 
   deleteReview(){
-    this.accommodationService.deleteReview(this.review.id).subscribe({
+    this.accommodationService.deleteReview(this.review.id, true).subscribe({
       next:(response:Boolean) => {
         if(response==true){
           this.deleteReviewEvent.emit(this.review.id);

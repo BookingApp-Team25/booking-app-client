@@ -1,0 +1,33 @@
+<!-- <mat-card>
+    <form [formGroup]="reviewForm">
+        <mat-form-field id="comment-field">
+            <input matInput placeholder="Write a comment" formControlName="comment">
+            <button matSuffix mat-icon-button aria-label="Clear" type="submit" (click)="createReview()">
+                <mat-icon>send</mat-icon>
+            </button>
+        </mat-form-field>
+        <p style="margin-left: 1%; font-size: 16px; font-weight: bold;">Rating: {{rating}}/5</p> -->
+        <!-- <div style="display: flex;">
+        <button mat-icon-button [color]="'accent'" *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i" (click)="onClick(i+1)">
+            <mat-icon style="color: #969000;">
+            {{showIcon(i)}}
+            </mat-icon>
+        </button>
+        </div> -->
+    <!-- </form>
+</mat-card> -->
+
+<mat-card>
+    <div class="review-header">
+      <div class="guest-name">comments author: {{ summary.guestName }}</div>
+      <div class="reviewed-entity">comment was directed towards: {{ summary.reviewedEntityName }}</div>
+      <div class="date">comment was issued on: {{ summary.date }}</div>
+    </div>
+    <hr>
+    <div class="comment"><b>Comment:</b> {{ summary.comment }}</div>
+    <div class="rating">Rating: {{ summary.rating }}/5</div>
+    <button mat-icon-button class="right-button" aria-label="Your Button Label" (click)="deleteComment()">
+        <mat-icon>delete</mat-icon>
+    </button>
+</mat-card>
+  

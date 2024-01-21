@@ -19,6 +19,8 @@ import { Guest } from './model/guest-data';
 import {AccommodationLogCollection} from "../host/model/accommodation-log-collection";
 import {AccommodationMonthlyLogCollection} from "../host/model/accommodation-monthly-log-collection";
 import {HostReservationSummaryCollection} from "../host/model/host-reservation-summary-Collection";
+import { UserReportData } from '../admin/user-blocking/user-report-data';
+import { UserData } from '../admin/user-blocking/user-data';
 
 @Injectable({
   providedIn: 'root'
@@ -90,6 +92,23 @@ export class AccommodationService {
         throw error;
       }));
   }
+
+  addFavoriteAccommodation(guestId: string, accommodationId: String): Observable<Boolean> {
+    return this.httpClient.put<Boolean>(environment.apiHost + `accommodation/add-favourite/${guestId}/${accommodationId}`, null);
+  }
+
+  removeFavoriteAccommodation(guestId: string, accommodationId: String): Observable<Boolean> {
+    return this.httpClient.put<Boolean>(environment.apiHost + `accommodation/remove-favourite/${guestId}/${accommodationId}`, null);
+  }
+
+  isFavoriteAccommodation(guestId: string, accommodationId: String): Observable<Boolean> {
+    return this.httpClient.get<Boolean>(environment.apiHost + `accommodation/is-favourite/${guestId}/${accommodationId}`);
+  }
+
+  getFavouriteAccommodations(guestId: string): Observable<AccommodationSummary[]> {
+    return this.httpClient.get<AccommodationSummary[]>(environment.apiHost + `accommodation/get-favourite/${guestId}`);
+  }
+
   getAllUpdates(): Observable<AccommodationRequestSummary[]>{
     return this.httpClient.get<AccommodationRequestSummary[]>(environment.apiHost + "accommodation-request")
 }
@@ -113,9 +132,27 @@ export class AccommodationService {
   getAllReviews(accommodationId: string): Observable<ReviewResponse[]> {
     return this.httpClient.get<ReviewResponse[]>(environment.apiHost+'review/'+accommodationId+'?flag=1');
   }
+  
+  getAllReportedReviews(): Observable<ReviewResponse[]> {
+    console.log(environment.apiHost+'review/reported-reviews');
+    return this.httpClient.get<ReviewResponse[]>(environment.apiHost+'review/reported-reviews');
+  }
+
+  getAllUserReports(): Observable<UserReportData[]> {
+    console.log(environment.apiHost+'user/reported');
+    return this.httpClient.get<UserReportData[]>(environment.apiHost+'user/reported');
+  }
+
+  blockUser(userId:string): Observable <Boolean> {
+    return this.httpClient.put<Boolean>(environment.apiHost+'user/blockUser/' + `${userId}`, null);
+  }
 
   checkReviewPermission(username: string,accommodationId:string): Observable <Boolean> {
     return this.httpClient.get<Boolean>(environment.apiHost+'review/check/'+username+'/'+accommodationId);
+  }
+
+  getUserById(userId: string): Observable<UserData> {
+    return this.httpClient.get<UserData>(environment.apiHost+'user/user-by-id/' + `${userId}`);
   }
 
   getAnnualReport(accommodationId:string): Observable<AccommodationMonthlyLogCollection> {
@@ -149,9 +186,10 @@ export class AccommodationService {
     return this.httpClient.post<MessageResponse> (environment.apiHost+'review',review);
   }
 
-  deleteReview(reviewId: string): Observable<Boolean> {
-    return this.httpClient.delete<Boolean>(environment.apiHost+'review/'+reviewId+'?flag=1');
-  }
+  deleteReview(reviewId: string, flag: boolean): Observable<Boolean> {
+    const params = new HttpParams().set('flag', flag.toString());
+    return this.httpClient.delete<Boolean>(environment.apiHost + 'review/' + reviewId, { params });
+  }  
 
   reportReview(reviewId:string): Observable<MessageResponse> {
     return this.httpClient.post<MessageResponse>(environment.apiHost+'review/report/'+reviewId+'?flag=1',null);

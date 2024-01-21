@@ -37,6 +37,7 @@ export class AccommodationDetailsComponent implements OnInit {
 
   mapLocation: string;
   ratingArr: number[] = [];
+  
   @Input('rating') rating: number = 3;
   @Input('starCount') private starCount: number = 5;
   @Output() private ratingUpdated = new EventEmitter();

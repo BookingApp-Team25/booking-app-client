@@ -1,0 +1,53 @@
+.user-card {
+    display: block;
+    height: 100px;
+    width: 600px;
+    gap: 30px;
+    padding: 10px 0px;
+    position: relative;
+    background-color: #ffffff;
+    margin-top: 2%;
+    border-radius: 30px; /* Adjust the value for rounded corners */
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1); /* Elevation shadow */
+  }
+  
+  .user-card .user-info {
+    display: flex;
+    flex-direction: column;
+    width: 344px;
+    height: 90%;
+    align-items: flex-start;
+    padding: 0px 10px;
+    position: relative;
+    background-color: #ffffff;
+    overflow: hidden;
+    font-family: "Arial", Helvetica;
+    font-weight: 200;
+    color: #969000;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    line-height: 24px;
+    white-space: nowrap;
+    transform: translateX(10%);
+  }
+  
+  .user-card .comment {
+    font-weight: 400;
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    line-height: 24px;
+    transform: translateX(10%)
+  } 
+ 
+  #buttons {
+    flex-direction: column;
+    justify-content: space-around;
+    margin-right: 10%;
+    height: 100%;
+    position: absolute;
+    right: -7%;
+    top: 40px;
+  }
+  
+  
