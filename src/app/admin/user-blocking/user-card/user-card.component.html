@@ -1,0 +1,14 @@
+<div class="user-card">
+    <div class="user-info">
+      <h3>Username: {{ user.username }}</h3>
+      <p>First name: {{ user.firstName }}  Last name: {{ user.lastName }}</p>
+    </div>
+    <div class="comment">
+      <p>Reason for report: {{ summary.reason }}</p>
+    </div>
+    <div id="buttons">
+        <button mat-mini-fab style="background-color: red" aria-label="Example icon button with a menu icon" (click)="blockUser()">
+          <mat-icon>block</mat-icon>
+        </button>
+    </div>
+</div>

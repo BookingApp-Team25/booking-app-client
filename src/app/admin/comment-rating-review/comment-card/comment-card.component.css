@@ -1,0 +1,42 @@
+mat-card {
+    margin-bottom: 20px;
+    justify-content: center;
+    position: relative;
+    border-radius: 15px; /* Adjust the value for rounded corners */
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1); /* Elevation shadow */
+    width: 300%;
+    transform: translateX(-35%);
+  }
+  
+  hr {
+    width: 200px;
+  }
+
+  .review-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .guest-name {
+    font-weight: bold;
+  }
+  
+  .comment {
+    transform: translate(5%);
+  }
+
+  .rating {
+    transform: translate(5%);
+    color: #ff9900; /* Assuming a star rating, you can use appropriate styling */
+    margin-bottom: 10px;
+  }
+  
+  .right-button {
+    position: absolute;
+    top: 16px; /* Adjust top position as needed */
+    right: 16px; /* Adjust right position as needed */
+    transform: translateY(40%);
+}

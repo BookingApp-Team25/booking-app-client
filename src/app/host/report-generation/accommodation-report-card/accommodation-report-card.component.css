@@ -1,0 +1,26 @@
+.accommodation-frame {
+  display: flex;
+  height: 300px;
+  align-items: center;
+  gap: 30px;
+  padding: 10px 0px;
+  position: relative;
+  background-color: #ffffff;
+  width: 100%;
+  min-width: 765px;
+  margin-top: 2%;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+.accommodation-frame .accommodation-image {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+#accommodation-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}

@@ -1,0 +1,9 @@
+#main-div{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+    background-color: #ffffff;
+    align-items: center;
+    justify-content: center;
+  }
+  

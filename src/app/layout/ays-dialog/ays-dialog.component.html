@@ -1,0 +1,8 @@
+<h1 mat-dialog-title style="color: red;">{{option}}</h1>
+<div mat-dialog-content>
+  Are you sure?
+</div>
+<div mat-dialog-actions style="display: flex; justify-content: center; gap: 15%;">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="onYesClick()">Yes</button>
+</div>

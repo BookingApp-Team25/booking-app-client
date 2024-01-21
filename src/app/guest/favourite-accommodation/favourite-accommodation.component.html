@@ -1,0 +1,7 @@
+<div class="accommodation-list">
+    <p id="discover">Your favourites</p>
+    <hr>
+    <mat-list>
+        <accommodation-card *ngFor="let summary of summaries" [summary]="summary"></accommodation-card>
+    </mat-list>
+</div>

@@ -1,0 +1,17 @@
+<app-header></app-header>
+<div class="accommodation-list">
+  <p id="discover">Waiting for approval reservations</p>
+  <hr>
+  <a>
+    <mat-list>
+      <app-host-request-resolve-card *ngFor="let reservation of reservations.hostReservationResponses" [reservation]="reservation"></app-host-request-resolve-card>
+    </mat-list>
+    <mat-paginator [length]="totalNumberOfElements"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[2, 5, 10, 25, 100]"
+                   (page)="onPageChange($event)"
+                   aria-label="Select page">
+
+    </mat-paginator>
+  </a>
+</div>

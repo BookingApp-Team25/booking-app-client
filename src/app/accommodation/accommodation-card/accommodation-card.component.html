@@ -1,0 +1,23 @@
+<div class="accommodation-button-frame">
+  <div class="accommodation-frame" [routerLink]="['accommodation', { id: summary.accommodationId}] ">
+    <img class="accommodation-image" [src]="summary.photo"  alt="Apartment image" />
+    <div class="accommodation-info">
+      <div class="accommodation-name">{{summary.name}}</div>
+      <div class="desc">
+      <p class="description-text">
+        {{summary.description}}
+      </p>
+      </div>
+      <div class="info">
+        <div class="text-wrapper">{{summary.price}}$ per night</div>
+        <div class="group">
+          <div class="div">{{summary.rating}}</div>
+          <img class="star" src="..\..\assets\images\star.png" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button *ngIf="guest!=null" mat-flat-button color="primary" (click)="toggleFavorite()">
+    <mat-icon>{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
+  </button>
+</div>
