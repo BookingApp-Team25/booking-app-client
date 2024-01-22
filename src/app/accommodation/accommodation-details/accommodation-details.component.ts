@@ -46,10 +46,10 @@ export class AccommodationDetailsComponent implements OnInit {
   reviews:ReviewResponse[]=[];
 
   constructor(
-    private route: ActivatedRoute,
-    private accommodationService: AccommodationService,
-    private snackBar: MatSnackBar,
-    private authService: AuthService
+    public route: ActivatedRoute,
+    public accommodationService: AccommodationService,
+    public snackBar: MatSnackBar,
+    public authService: AuthService
   ) {}
 
     reviewForm=new FormGroup ({
