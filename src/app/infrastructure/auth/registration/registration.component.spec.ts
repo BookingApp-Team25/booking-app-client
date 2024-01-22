@@ -14,18 +14,19 @@ import { AuthService } from '../auth.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 describe('RegistrationComponent', () => {
   let component: RegistrationComponent;
   let fixture: ComponentFixture<RegistrationComponent>;
   let snackBar: MatSnackBar;
   let authService: jasmine.SpyObj<AuthService>;
-
+  let router: Router;
   beforeEach(() => {
     authService = jasmine.createSpyObj('AuthService', ['register']);
     TestBed.configureTestingModule({
       declarations: [RegistrationComponent],
-      imports: [MatRadioModule, MatInputModule, MatFormFieldModule, 
+      imports: [AppRoutingModule,MatRadioModule, MatInputModule, MatFormFieldModule, 
         MatButtonModule, HttpClientTestingModule,MatSnackBarModule, 
         ReactiveFormsModule, NoopAnimationsModule,RouterTestingModule],
       providers: [MatSnackBar,{ provide: AuthService, useValue: authService }]
@@ -33,6 +34,7 @@ describe('RegistrationComponent', () => {
     fixture = TestBed.createComponent(RegistrationComponent);
     component = fixture.componentInstance;
     snackBar = TestBed.inject(MatSnackBar);
+    router=TestBed.inject(Router);
     fixture.detectChanges();
   });
 
@@ -40,7 +42,7 @@ describe('RegistrationComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display error message when passwords do not match', fakeAsync(() => {
+  it('should display error message when passwords do not match',() => {
     const successfulResponse = { successful: true, message: 'Registration successful' };
     authService.register.and.returnValue(of(successfulResponse));
     component.registrationForm.patchValue({
@@ -51,15 +53,15 @@ describe('RegistrationComponent', () => {
 
     let button = fixture.debugElement.nativeElement.querySelector('button');
     button.click();
-    tick();
+    fixture.detectChanges();
 
     expect(snackBar.open).toHaveBeenCalledWith("Entered passwords don't match", 'Dismiss', {
         duration: 5000,
         panelClass: ['snackbar-error'],
       });
-  }));
+  });
 
-  it('should call AuthService.register when form is valid', fakeAsync(() => {
+  it('should call AuthService.register when form is valid', () => {
     const successfulResponse = { successful: true, message: 'Registration successful' };
     authService.register.and.returnValue(of(successfulResponse));
   
@@ -75,18 +77,20 @@ describe('RegistrationComponent', () => {
     });
     
     spyOn(snackBar, 'open');
+    spyOn(router,"navigate");
 
     let button = fixture.debugElement.nativeElement.querySelector('button');
     button.click();
-    tick();
+    fixture.detectChanges();
 
     expect(snackBar.open).toHaveBeenCalledWith(successfulResponse.message, 'Dismiss', {
       duration: 10000,
       panelClass: ['snackbar'],
     });
-  }));
+    expect(router.navigate).toHaveBeenCalled();
+  });
 
-  it('should do nothing if form is not valid', fakeAsync(() => {
+  it('should do nothing if form is not valid', () => {
     const successfulResponse = { successful: true, message: 'Registration successful' };
     authService.register.and.returnValue(of(successfulResponse));
     component.registrationForm.patchValue({
@@ -96,10 +100,10 @@ describe('RegistrationComponent', () => {
     spyOn(snackBar, 'open');
     let button = fixture.debugElement.nativeElement.querySelector('button');
     button.click();
-    tick();
+    fixture.detectChanges();
 
     expect(authService.register).not.toHaveBeenCalled();
     expect(snackBar.open).not.toHaveBeenCalled();
-  }));
+  });
 
 });

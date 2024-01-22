@@ -49,7 +49,7 @@ export class RegistrationComponent {
               duration: 10000,
               panelClass: ['snackbar'],
             });
-            //this.router.navigate(['home']);
+            this.router.navigate(['home']);
           } else {
             this.snackbar.open(response.message, 'Dismiss', {
               duration: 5000,
