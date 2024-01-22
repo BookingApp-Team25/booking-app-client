@@ -23,13 +23,11 @@ describe('AccommodationDetailsComponent', () => {
   let accommodationService: AccommodationService;
   let snackBar: MatSnackBar;
 
-  // Mock AuthService
   const authServiceMock = {
     getRole: () => 'mockRole',
     getUsername: () => 'mockUsername',
   };
 
-  // Mock HttpClient
   class HttpClientMock {}
 
   beforeEach(() => {
