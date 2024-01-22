@@ -50,7 +50,7 @@ describe('AccommodationDetailsComponent', () => {
     spyOn(component, 'calculateTotalPrice').and.callThrough(); // Spy on the method to check if it's called
 
     component.onCheckoutDateChange();
-    tick(); // Ensure all asynchronous operations are completed
+    tick(); // ensure all asynchronous operations are completed
     component.onGuestsChange();
     tick();
 
