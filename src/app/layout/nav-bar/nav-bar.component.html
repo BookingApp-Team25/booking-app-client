@@ -55,8 +55,10 @@
   <button mat-menu-item routerLink="/guest-reservations-view" *ngIf="role == 'ROLE_Guest'">View reservations</button>
   <button mat-menu-item routerLink="/guest-favourite-accommodations" *ngIf="role == 'ROLE_Guest'">Favourite accommodaitons</button>
   <button mat-menu-item routerLink="/host-generate-report" *ngIf="role== 'ROLE_Host'">Generate report</button>
+  <button mat-menu-item (click)="createCertificateRequest()" *ngIf="role== 'ROLE_Host'" style="color: red">REQUEST CERTIFICATE</button>
   <!-- PROMENITI NA ROLE_Admin -->
   <button mat-menu-item routerLink="/admin-certificate-tree" *ngIf="role== 'ROLE_Admin'">Certificate tree</button>
+  <button mat-menu-item routerLink="/admin-certificate-requests" *ngIf="role== 'ROLE_Admin'">Certificate requests</button>
   <button mat-menu-item (click)="logOut()" *ngIf="role != null">Logout</button>
 </mat-menu>
 </mat-toolbar>

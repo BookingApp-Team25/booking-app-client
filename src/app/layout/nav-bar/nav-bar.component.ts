@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { LoginComponent } from 'src/app/infrastructure/auth/login/login.component';
 import { AccommodationService } from 'src/app/accommodation/accommodation.service';
 import { SearchCriteria } from 'src/app/accommodation/model/SearchCriteria';
+import { CertificateService } from 'src/app/shared/certificateService';
+import { CertRequestDTO } from 'src/app/shared/CertRequestDTO';
 
 @Component({
   selector: 'app-nav-bar',
@@ -24,6 +26,7 @@ export class NavBarComponent implements OnInit {
     private router:Router,
     private accommodationService: AccommodationService,
     private fb: FormBuilder,
+    private certificateService: CertificateService
   ) {}
   
   role: string='';
@@ -155,5 +158,17 @@ export class NavBarComponent implements OnInit {
         this.router.navigate(['home']);
       }
     })
+  }
+
+  createCertificateRequest(): void {
+    const data: CertRequestDTO = {
+      csr: 'CSR value',
+      description: 'description value'
+    };
+
+    this.certificateService.createCertificateRequest(data)
+      .subscribe(all_ok => {
+        console.log(all_ok);
+      });
   }
 }
