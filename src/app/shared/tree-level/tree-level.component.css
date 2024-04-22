@@ -1,0 +1,11 @@
+.tree-level {
+    padding-left: 20px; /* Adjust indentation as needed */
+}
+
+.tree-node {
+    list-style-type: none;
+}
+
+.tree-node button {
+    margin-right: 5px; /* Add spacing between button and children */
+}

@@ -1,0 +1,14 @@
+<div class="tree-level">
+    <ul>
+        <li *ngFor="let node of nodes" info class="tree-node">
+            <button (click)="buttonClick(node.serialNumber)">{{ node.serialNumber }}</button>
+            <button (click)="buttonClick(node.serialNumber)" style="padding-left: 20px; font-weight: 5px; ">
+                [+]
+                    <!-- <img class="icons-account-circle" src="..\..\assets\images\add_button.png" style="size: 20px;"/> -->
+            </button>
+            <div *ngIf="node.children && node.children.length > 0" class="tree-children">
+                <app-tree-level [nodes]="node.children" [level]="level + 1"></app-tree-level>
+            </div>
+        </li>
+    </ul>
+</div>

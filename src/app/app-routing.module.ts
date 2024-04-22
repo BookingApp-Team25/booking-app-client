@@ -24,6 +24,7 @@ import {
 import { CommentRatingReviewComponent } from './admin/comment-rating-review/comment-rating-review.component';
 import { UserBlockingComponent } from './admin/user-blocking/user-blocking.component';
 import { FavouriteAccommodationComponent } from './guest/favourite-accommodation/favourite-accommodation.component';
+import { CertificateTreeComponent } from './shared/certificate-tree/certificate-tree.component';
 
 const routes: Routes = [
   { component: HomeComponent, path:"home" },
@@ -44,6 +45,7 @@ const routes: Routes = [
   {component: CommentRatingReviewComponent, path:"comment-review"},
   {component: UserBlockingComponent, path:"user-blocking"},
   {component: FavouriteAccommodationComponent, path:"guest-favourite-accommodations"},
+  {component: CertificateTreeComponent, path:"admin-certificate-tree"}
 ];
 
 @NgModule({
