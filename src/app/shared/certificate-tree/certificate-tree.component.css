@@ -1,0 +1,46 @@
+.wrapper {
+    margin: 0 auto;
+    width: 70%;
+    margin-top: 130px;
+    padding-bottom: 50px;
+}
+
+.tree {
+    margin-top: 50px;;
+    padding-top: 20px;
+    padding-left: 50px;
+    padding-right: 10px;
+    border: solid 2px rgba(0, 0, 0, 0.2);
+    border-bottom: dotted 2px;
+    border-radius: 10px;
+    background-color: #f0f0f0; /* Darker color */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.root-node {
+    display: inline;
+}
+
+h1 {
+    display: inline;
+    padding-left: 20px;
+    font-weight: 5px;
+}
+
+button {
+    padding-top: 7px;
+    margin-left: 10px;
+    position: absolute;
+    background-color: #f0f0f0;
+}
+
+img {
+    margin: 0;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+}
+
+img:hover {
+    transform:scale(1.2);
+}

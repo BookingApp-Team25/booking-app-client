@@ -1,10 +1,13 @@
-<ng-container *ngFor="let rootNode of separatedTrees">
-    <div class="tree" style="margin-top: 150px; padding-left: 50px;">
-        <button (click)="buttonClick(rootNode[0].serialNumber)" style="padding-left: 20px;">{{ rootNode[0].serialNumber }}</button>
-        <button (click)="buttonClick(rootNode[0].serialNumber)" style="padding-left: 20px; font-weight: 5px; ">
-            [+]
-                <!-- <img class="icons-account-circle" src="..\..\assets\images\add_button.png" style="size: 20px;"/> -->
-        </button>
-        <app-tree-level [nodes]="rootNode[0].children" [level]="0"></app-tree-level>
-    </div>
-</ng-container>
+<div class="wrapper">
+    <ng-container *ngFor="let rootNode of separatedTrees">
+        <div class="tree">
+            <h1>{{ rootNode[0].serialNumber }}</h1>
+            <!-- <button (click)="buttonClick(rootNode[0].serialNumber)" style="padding-left: 20px;"><h1>{{ rootNode[0].serialNumber }}</h1></button> -->
+            <button (click)="buttonClickAddNode(rootNode[0])">
+                <!-- <a href="https://www.flaticon.com/free-icons/add" title="add icons">Add icons created by reussy - Flaticon</a> -->
+                <img src="..\..\assets\images\more.png" alt="Add icons created by reussy - Flaticon" title="Add Button - Created by reussy from Flaticon">    
+            </button>
+            <app-tree-level [nodes]="rootNode[0].children" [level]="0"></app-tree-level>
+        </div>
+    </ng-container>
+</div>

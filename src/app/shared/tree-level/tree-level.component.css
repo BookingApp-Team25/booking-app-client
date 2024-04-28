@@ -1,11 +1,49 @@
 .tree-level {
-    padding-left: 20px; /* Adjust indentation as needed */
+    margin-left: 20px; /* Adjust indentation as needed */
+    margin-right: 60px; /* Adjust indentation as needed */
+    margin-bottom: 20px; /* Adjust indentation as needed */
+    border: solid 2px rgba(0, 0, 0, 0.2);
+    border-bottom: dotted 2px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .tree-node {
+    padding: 10px;
     list-style-type: none;
 }
 
 .tree-node button {
     margin-right: 5px; /* Add spacing between button and children */
+    position: absolute;
+    padding-top: 7px;
+}
+
+h2 {
+    margin: 10px;
+    display: inline;  
+}
+
+img {
+    width: 20px;
+    height: 20px;
+}
+
+img:hover {
+    transform:scale(1.2);
+}
+
+.tree-level {
+    /* Define your default background color here */
+    background-color: #e0e0e0; /* Lighter color */
+}
+
+.even-level {
+    /* Define the background color for even levels */
+    background-color: #e0e0e0; /* Lighter color */
+}
+
+.odd-level {
+    /* Define the background color for odd levels */
+    background-color: #f0f0f0; /* Darker color */
 }

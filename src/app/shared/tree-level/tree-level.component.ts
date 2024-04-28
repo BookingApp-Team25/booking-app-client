@@ -14,7 +14,10 @@ export class TreeLevelComponent {
 
   constructor() { }
 
-  buttonClick(serialNumber: String): void {
-    console.log(serialNumber);
+  buttonClickAddNode(node: CertificateNodeDummy): void {
+    const newNode = new CertificateNodeDummy('New Dummy Node');
+    console.log("New node created.");
+
+    node.children.push(newNode);
   }
 }

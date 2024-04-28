@@ -1,1 +1,9 @@
-<p style="margin-top: 200px;">certificate-requests works!</p>
+<div class="certificate-request-list">
+    <p id="certificate-requests">Certificate requests</p>
+    <hr>
+    <a>
+        <mat-list>
+            <app-certificate-request-card *ngFor="let summary of summaries" [summary]="summary"></app-certificate-request-card>
+        </mat-list>
+    </a>
+</div>

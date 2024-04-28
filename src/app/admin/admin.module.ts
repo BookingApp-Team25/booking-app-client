@@ -8,6 +8,7 @@ import { CommentCardComponent } from './comment-rating-review/comment-card/comme
 import { UserBlockingComponent } from './user-blocking/user-blocking.component';
 import { UserCardComponent } from './user-blocking/user-card/user-card.component';
 import { CertificateRequestsComponent } from './certificate-requests/certificate-requests.component';
+import { CertificateRequestCardComponent } from './certificate-requests/certificate-request-card/certificate-request-card.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { CertificateRequestsComponent } from './certificate-requests/certificate
     CommentCardComponent,
     UserBlockingComponent,
     UserCardComponent,
-    CertificateRequestsComponent
+    CertificateRequestsComponent,
+    CertificateRequestCardComponent
   ],
   imports: [
     CommonModule,

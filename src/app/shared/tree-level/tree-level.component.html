@@ -1,10 +1,10 @@
-<div class="tree-level">
+<div class="tree-level" [ngClass]="{'even-level': level % 2 === 0, 'odd-level': level % 2 !== 0}">
     <ul>
         <li *ngFor="let node of nodes" info class="tree-node">
-            <button (click)="buttonClick(node.serialNumber)">{{ node.serialNumber }}</button>
-            <button (click)="buttonClick(node.serialNumber)" style="padding-left: 20px; font-weight: 5px; ">
-                [+]
-                    <!-- <img class="icons-account-circle" src="..\..\assets\images\add_button.png" style="size: 20px;"/> -->
+            <h2>{{ node.serialNumber }}</h2>
+            <!-- <button (click)="buttonClick(node.serialNumber)"><h2>{{ node.serialNumber }}</h2></button> -->
+            <button (click)="buttonClickAddNode(node)" [ngClass]="{'even-level': level % 2 === 0, 'odd-level': level % 2 !== 0}">
+                    <img class="icons-account-circle" src="..\..\assets\images\more.png" style="size: 20px;"/>
             </button>
             <div *ngIf="node.children && node.children.length > 0" class="tree-children">
                 <app-tree-level [nodes]="node.children" [level]="level + 1"></app-tree-level>

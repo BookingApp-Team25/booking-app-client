@@ -18,19 +18,30 @@ export class CertificateTreeComponent {
     //this.getCertificateHierarchy();
 
     // Generate dummy data
-    const root = new CertificateNodeDummy('Root');
-    const child1 = new CertificateNodeDummy('Child 1', root);
-    const child2 = new CertificateNodeDummy('Child 2', root);
+    const root1 = new CertificateNodeDummy('Root 1');
+    const child1 = new CertificateNodeDummy('Child 1', root1);
+    const child2 = new CertificateNodeDummy('Child 2', root1);
     const grandchild1 = new CertificateNodeDummy('Grandchild 1', child1);
     const grandchild2 = new CertificateNodeDummy('Grandchild 2', child1);
     const grandchild3 = new CertificateNodeDummy('Grandchild 3', child2);
 
-    root.children.push(child1, child2);
+    const root2 = new CertificateNodeDummy('Root 2');
+    const child3 = new CertificateNodeDummy('Child 3', root2);
+    const child4 = new CertificateNodeDummy('Child 4', root2);
+    const grandchild4 = new CertificateNodeDummy('Grandchild 4', child1);
+    const grandchild5 = new CertificateNodeDummy('Grandchild 5', child1);
+    const grandchild6 = new CertificateNodeDummy('Grandchild 6', child2);
+
+    root1.children.push(child1, child2);
     child1.children.push(grandchild1, grandchild2);
     child2.children.push(grandchild3);
 
+    root2.children.push(child3, child4);
+    child3.children.push(grandchild4);
+    child4.children.push(grandchild5, grandchild6);
+
     // Assign dummy data to certificateData property
-    this.certificateData = [root, child1, child2, grandchild1, grandchild2, grandchild3];
+    this.certificateData = [root1, child1, child2, grandchild1, grandchild2, grandchild3, root2, child3, child4, grandchild4, grandchild5, grandchild6];
     this.separatedTrees = this.separateTrees(this.certificateData);
     console.log(this.separatedTrees);    
   }
@@ -107,7 +118,10 @@ export class CertificateTreeComponent {
     return visited;
   }
   
-  buttonClick(serialNumber: String): void {
-    console.log(serialNumber);
+  buttonClickAddNode(node: CertificateNodeDummy): void {
+    const newNode = new CertificateNodeDummy('New Dummy Node');
+    console.log("New node created.");
+
+    node.children.push(newNode);
   }
 }
