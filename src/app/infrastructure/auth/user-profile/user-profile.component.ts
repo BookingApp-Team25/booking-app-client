@@ -24,9 +24,21 @@ export class UserProfileComponent implements OnInit {
     password: new FormControl('',Validators.minLength(6)),
     repeatPassword: new FormControl(''),
     phone: new FormControl('', [Validators.required]),
-    firstName: new FormControl('', [Validators.required]),
-    lastName: new FormControl('', [Validators.required]),
-    address: new FormControl('', [Validators.required])
+    firstName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(30)
+    ]),
+    lastName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(30)
+    ]),
+    address: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(100)
+    ]),
 })
 
   toggleInputState() {
@@ -36,6 +48,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.service.accountDetails().subscribe({
       next: (response: AccountDetails) => {
+        console.log("Response:", response)
         this.account = response;
         this.initializeForm();
       }
@@ -71,20 +84,20 @@ export class UserProfileComponent implements OnInit {
       })
     }
   }
-  
+
   openDialog(): void {
     const dialogRef = this.dialog.open(AysDialogComponent,  {
       width: '300px',
       data: { option: 'Delete account' }
     });
-  
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.deleteAccount();
       }
     });
   }
-  
+
   deleteAccount(): void {
     this.service.deleteAccount().subscribe({
       next:(response: MessageResponse) => {

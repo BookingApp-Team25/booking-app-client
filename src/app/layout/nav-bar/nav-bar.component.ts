@@ -25,7 +25,7 @@ export class NavBarComponent implements OnInit {
     private accommodationService: AccommodationService,
     private fb: FormBuilder,
   ) {}
-  
+
   role: string='';
   myControl = new FormControl('');
   options: string[] = ['Ankara','Arad','Belgrade','Bucharest','Budapest','Cologne','Dresden',"Duisburg",'Durres'];
@@ -148,12 +148,6 @@ export class NavBarComponent implements OnInit {
   }
 
   logOut(): void {
-    this.authService.logout().subscribe({
-      next: (_) => {
-        localStorage.removeItem('user');
-        this.authService.setUser();
-        this.router.navigate(['home']);
-      }
-    })
+    this.authService.logout();
   }
 }

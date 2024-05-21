@@ -34,7 +34,7 @@
     </div>
     <hr>
     <!-- <a> -->
-        <mat-list>
+        <mat-list id="reservation-mat-list">
             <app-reservation-guest-card *ngFor="let request of requests" [request]="request"></app-reservation-guest-card>
         </mat-list>
         <mat-paginator [length]="totalNumberOfElements"

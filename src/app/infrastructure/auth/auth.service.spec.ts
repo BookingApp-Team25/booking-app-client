@@ -4,10 +4,12 @@ import { AuthService } from './auth.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RegistrationRequest, Role } from './model/registration-request';
 import { MessageResponse } from './model/message-response';
+import {EditAccountRequest} from "./model/edit-account";
 describe('AuthService', () => {
   let service: AuthService;
   let httpController: HttpTestingController;
   let url = 'http://localhost:8080/api';
+  let username;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,29 +27,27 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should register user and return successful message response', () => {
-    const registrationRequest: RegistrationRequest={
-      username: 'petarp@gmail.com',
+  it("should call edit account and return a succesful message response", () => {
+    const editRequest: EditAccountRequest={
       password: 'password',
       passwordRepeat: 'password',
-      phoneNumber: '1234567890',
       firstName: 'Petar',
       lastName: 'Petrovic',
       address: 'Bulevar Oslobodjenja 12',
-      role: Role.Guest
+      phoneNumber: '1234567890'
     }
     const messageResponse: MessageResponse={
       successful:true,
       message: "Activation link is sent to your email"
     }
-
-    service.register(registrationRequest).subscribe((res) => {
+     username = service.getUsername();
+    service.editAccount(editRequest).subscribe((res) => {
       expect(res).toEqual(messageResponse);
     });
 
     const req = httpController.expectOne({
-      method: 'POST',
-      url: `${url}/auth/register`
+      method: 'PUT',
+      url: `${url}/user/${username}`
     })
 
     req.flush(messageResponse);

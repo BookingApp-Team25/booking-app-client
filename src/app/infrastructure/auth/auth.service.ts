@@ -7,10 +7,12 @@ import { environment } from 'src/app/env/env';
 import {JwtHelperService} from "@auth0/angular-jwt";
 import { MessageResponse } from './model/message-response';
 import { AccountDetails } from './model/account-details';
+import {KeycloakService} from "../../services/keycloak/keycloak.service";
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
     skip: 'true',
@@ -18,7 +20,7 @@ export class AuthService {
 
   private user$=new BehaviorSubject("");
   userState=this.user$.asObservable();
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private keycloakService: KeycloakService) {
     this.setUser();
   }
 
@@ -35,6 +37,7 @@ export class AuthService {
   }
 
   accountDetails():Observable<AccountDetails> {
+    console.log("Username for request:", this.getUsername());
     return this.http.get<any>(environment.apiHost+'user/details/'+this.getUsername());
   }
 
@@ -50,27 +53,29 @@ export class AuthService {
     return this.http.put<any>(environment.apiHost+"auth/activation/"+code,null);
   }
 
-  logout(): Observable<MessageResponse> {
-    return this.http.get<any>(environment.apiHost + 'auth/logout');
+  async logout()  {
+    this.keycloakService.logout();
   }
 
   getRole(): any {
     if(this.isLoggedIn()){
-      const accessToken: any=localStorage.getItem('user');
+      const accessToken: any=this.keycloakService.keycloak.token;
       const jwtHelper=new JwtHelperService();
-      return jwtHelper.decodeToken(accessToken).role[0].authority;
+      console.log("token::::", jwtHelper.decodeToken(accessToken))
+      return jwtHelper.decodeToken(accessToken).resource_access.account.roles[0];
     }
     return null;
   }
   getUsername(): any {
     if(this.isLoggedIn()){
-      const accessToken: any=localStorage.getItem('user');
+      const accessToken: any=this.keycloakService.keycloak.token;
       const jwtHelper=new JwtHelperService();
-      return jwtHelper.decodeToken(accessToken).sub;
+      console.log("username::::", jwtHelper.decodeToken(accessToken).preferred_username);
+      return jwtHelper.decodeToken(accessToken).preferred_username;
     }
   }
   isLoggedIn(): boolean {
-    return localStorage.getItem('user') != null;
+    return this.keycloakService.keycloak.token != null;
   }
 
   setUser(): void {
