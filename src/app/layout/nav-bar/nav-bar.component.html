@@ -43,7 +43,7 @@
 <mat-menu class="account-menu" #menu="matMenu">
   <button mat-menu-item (click)="openLogin()" *ngIf="role==null">Login</button>
   <button mat-menu-item routerLink="/registration" *ngIf="role==null">Register</button>
-  <button mat-menu-item routerLink="user-profile" *ngIf="role!=null">Account</button>
+  <button mat-menu-item (click)="accountManagement()" *ngIf="role!=null">Account</button>
   <button mat-menu-item [routerLink]="['/accommodation-creation', { pageMode: 'create' }]" *ngIf="role == 'ROLE_Host'">New accommodation</button>
   <button mat-menu-item routerLink="/accommodation-requests" *ngIf="role == 'ROLE_Admin'">View acc requests</button>
   <button mat-menu-item routerLink="/host-accommodations" *ngIf="role== 'ROLE_Host'">Host accommodations</button>

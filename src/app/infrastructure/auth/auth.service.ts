@@ -52,7 +52,9 @@ export class AuthService {
   activate(code:string): Observable<MessageResponse> {
     return this.http.put<any>(environment.apiHost+"auth/activation/"+code,null);
   }
-
+  async accountManagement(){
+    this.keycloakService.accountManagement();
+  }
   async logout()  {
     this.keycloakService.logout();
   }

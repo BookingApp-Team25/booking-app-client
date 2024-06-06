@@ -13,7 +13,7 @@ export class KeycloakService {
   get keycloak(){
     if(!this._keycloak){
       this._keycloak = new Keycloak({
-        url:'http://localhost:8080',
+        url:'http://localhost:9090',
         realm: 'TestRealm1',
         clientId: 'booking-app'
       });
@@ -42,5 +42,8 @@ export class KeycloakService {
   }
   logout(){
     return this.keycloak?.logout();
+  }
+  accountManagement(){
+    return this.keycloak?.accountManagement();
   }
 }

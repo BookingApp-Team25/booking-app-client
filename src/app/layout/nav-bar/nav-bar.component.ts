@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { LoginComponent } from 'src/app/infrastructure/auth/login/login.component';
 import { AccommodationService } from 'src/app/accommodation/accommodation.service';
 import { SearchCriteria } from 'src/app/accommodation/model/SearchCriteria';
+import {KeycloakService} from "../../services/keycloak/keycloak.service";
 
 @Component({
   selector: 'app-nav-bar',
@@ -24,6 +25,7 @@ export class NavBarComponent implements OnInit {
     private router:Router,
     private accommodationService: AccommodationService,
     private fb: FormBuilder,
+    private keycloakService: KeycloakService
   ) {}
 
   role: string='';
@@ -138,7 +140,9 @@ export class NavBarComponent implements OnInit {
       });
     }
   }
-
+  accountManagement(){
+    this.authService.accountManagement();
+  }
   openLogin(): void {
     const dialogRef = this.dialog.open(LoginComponent, {
       width: '500px',
