@@ -23,7 +23,7 @@ export class GuestReservationsViewComponent {
   async getGuestId(): Promise<string> {
     try {
       const result = await this.service.getGuestByUsername(this.authService.getUsername()).toPromise();
-  
+      console.log("Guest id: " + result)
       // Use nullish coalescing operator to provide a default value
       return result?.id ?? "defaultGuestId";
     } catch (error) {
@@ -36,6 +36,7 @@ export class GuestReservationsViewComponent {
 
   async fetchReservations() {
     const guestId = await this.getGuestId();
+    console.log("Guest id: " + guestId)
     // change this to use the correct guestId '123e4567-e89b-12d3-a456-426614174001'
     this.service.getAllGuestReservations(guestId, this.page, this.numberOfElements).subscribe({
       next:(data: HostReservationResponseCollection)=> {

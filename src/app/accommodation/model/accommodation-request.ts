@@ -19,7 +19,6 @@ export interface AccommodationRequest {
   price: number;
   daysBefore: number;
   policy: AccommodationReservationPolicy;
-  hostId : string;
   hostUsername:string;
   rating: number;
   priceCalculationMethod : PriceCalculationMethod;

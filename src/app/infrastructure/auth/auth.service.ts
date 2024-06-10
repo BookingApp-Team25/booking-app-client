@@ -24,10 +24,8 @@ export class AuthService {
     this.setUser();
   }
 
-  login(auth:any): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(environment.apiHost+'auth/login',auth,{
-      headers: this.headers,
-    });
+  login(auth:any){
+    this.keycloakService.login();
   }
 
   register(auth:any): Observable<MessageResponse> {
@@ -63,8 +61,8 @@ export class AuthService {
     if(this.isLoggedIn()){
       const accessToken: any=this.keycloakService.keycloak.token;
       const jwtHelper=new JwtHelperService();
-      console.log("token::::", jwtHelper.decodeToken(accessToken))
-      return jwtHelper.decodeToken(accessToken).resource_access.account.roles[0];
+      console.log("Role::::", jwtHelper.decodeToken(accessToken).UserRole)
+      return "ROLE_" + jwtHelper.decodeToken(accessToken).UserRole;
     }
     return null;
   }

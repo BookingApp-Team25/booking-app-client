@@ -143,12 +143,10 @@ export class NavBarComponent implements OnInit {
   accountManagement(){
     this.authService.accountManagement();
   }
+
   openLogin(): void {
-    const dialogRef = this.dialog.open(LoginComponent, {
-      width: '500px',
-      height: '300px',
-      disableClose: true, // Disables closing by clicking outside the dialog
-    });
+    this.keycloakService.init();
+    this.keycloakService.login();
   }
 
   logOut(): void {

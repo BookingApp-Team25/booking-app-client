@@ -9,7 +9,7 @@
       </div>
       </div>
       <div class="div-6">
-        <a [routerLink]="['/host-details', accommodationDetails.hostId]"><p id="owner">Owner: {{ hostName }}</p></a>
+        <a [routerLink]="['/host-details', accommodationDetails.hostUsername]"><p id="owner">Owner: {{ hostName }}</p></a>
         <p id="rating">{{accommodationDetails.rating.toFixed(1)}}</p>
         <!-- <p id="rating">{{ accommodationDetails.rating }}</p> -->
         <mat-icon style="margin-top: 2%; transform: scale(1.3);">star</mat-icon>

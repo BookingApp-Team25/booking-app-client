@@ -89,16 +89,16 @@ export class AccommodationDetailsComponent implements OnInit {
           console.log('Accommodation details:', this.accommodationDetails);
 
           this.maxGuests = this.accommodationDetails.maxGuests;
-  
-          this.accommodationService.getHostById(this.accommodationDetails.hostId).subscribe(
-            (hostData: Host) => {
-              console.log("Host data:", hostData);
-              this.hostName = hostData.firstName;
-            },
-            (error) => {
-              console.error('Error fetching host details', error);
-            }
-          );
+          this.hostName = "Miroslav";
+          // this.accommodationService.getHostById(this.accommodationDetails.hostUsername).subscribe(
+          //   (hostData: Host) => {
+          //     console.log("Host data:", hostData);
+          //     this.hostName = "Miroslav";
+          //   },
+          //   (error) => {
+          //     console.error('Error fetching host details', error);
+          //   }
+          // );
             
           const initialLocation = `${this.accommodationDetails.location.streetNumber}, ${this.accommodationDetails.location.street}, ${this.accommodationDetails.location.city}, ${this.accommodationDetails.location.country}`;
           this.mapLocation = initialLocation;
@@ -243,15 +243,14 @@ export class AccommodationDetailsComponent implements OnInit {
       const checkoutDate = new Date(checkout);
   
       this.reservation = {
-        guestId: guestId,
-        hostId: this.accommodationDetails.hostId,
+        guestUsername : this.authService.getUsername(),
+        hostUsername: this.accommodationDetails.hostUsername,
         accommodationId: this.accommodationId,
         reservationStatus: ReservationStatus.ONGOING,
         reservedDate: {
           startDate: checkinDate,
           endDate: checkoutDate
         },
-        guestName: this.authService.getUsername(), // Add guest name if available
         accommodationName: this.accommodationDetails.name,
         price: this.totalPrice
       };

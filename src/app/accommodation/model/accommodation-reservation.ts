@@ -2,9 +2,8 @@ import { DatePeriod } from "./date-period";
 import { ReservationStatus } from "./reservation-status";
 
 export interface Reservation {
-    guestId: string;
-    guestName: string;
-    hostId: string;
+    guestUsername: string;
+    hostUsername: string;
     accommodationId: string;
     accommodationName: string;
     reservationStatus: ReservationStatus;

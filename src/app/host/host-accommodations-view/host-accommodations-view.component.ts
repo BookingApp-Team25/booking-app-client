@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AccommodationSummary} from "../../accommodation/model/accommodation-summary";
 import {AccommodationService} from "../../accommodation/accommodation.service";
 import {AccommodationSummaryCollection} from "../../accommodation/model/accommodation-summary-collection";
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'app-host-accommodations-view',
@@ -13,10 +14,10 @@ export class HostAccommodationsViewComponent {
   numberOfElements : number = 10;
   page : number = 0;
   totalNumberOfElements = 0;
-  constructor(private service: AccommodationService){}
+  constructor(private service: AccommodationService, private authService: AuthService){}
 
   fetchAccommodations(){
-    this.service.getAllHostAccommodations("5894d69d-fc8d-4f06-bf0c-dc695b40901b",this.page,this.numberOfElements).subscribe({
+    this.service.getAllHostAccommodations(this.authService.getUsername(),this.page,this.numberOfElements).subscribe({
       next:(data: AccommodationSummaryCollection)=> {
         this.summaries = []
         console.log(data);

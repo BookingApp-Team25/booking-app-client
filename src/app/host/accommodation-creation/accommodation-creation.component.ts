@@ -10,6 +10,7 @@ import {DatePeriod} from "../../accommodation/model/date-period";
 import {ActivatedRoute} from '@angular/router'
 import {PriceCalculationMethod} from "../../accommodation/enum/price-calculation-method";
 import {AccommodationImage} from "../../accommodation/model/accommodation-image";
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'app-accommodation-creation',
@@ -64,7 +65,7 @@ export class AccommodationCreationComponent implements OnInit{
 
 
   periods : DatePair[] = []
-  constructor(private fb: FormBuilder, private service : AccommodationService, private activatedroute:ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private service : AccommodationService, private activatedroute:ActivatedRoute, private authService: AuthService) { }
   initializeFormEdit() : void {
     console.log("Amenities:")
     console.log(this.editedAccommodation.amenities);
@@ -226,7 +227,7 @@ export class AccommodationCreationComponent implements OnInit{
       calculation = PriceCalculationMethod.PER_GUEST;
     }
     const accommodationRequest: AccommodationRequest = {
-      hostId : "5894d69d-fc8d-4f06-bf0c-dc695b40901b",
+    
       name: this.accommodationForm.get("name")?.value,
       description: this.accommodationForm.get("description")?.value,
       location: {
@@ -250,7 +251,7 @@ export class AccommodationCreationComponent implements OnInit{
       daysBefore: this.accommodationForm.get("daysBefore")?.value,
       policy: AccommodationReservationPolicy.MANUAL, // Choose the appropriate policy
       availability: datePeriods,
-      hostUsername:'',
+      hostUsername:this.authService.getUsername(),
       rating: 0,
       priceCalculationMethod: calculation
     };

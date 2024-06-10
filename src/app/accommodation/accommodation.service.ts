@@ -29,7 +29,9 @@ export class AccommodationService {
   filteredAccommodations$ = this.filteredAccommodationsSubject.asObservable();
 
   constructor(private httpClient: HttpClient) { }
-
+  proba():Observable<string>{
+    return this.httpClient.get<string>(environment.apiHost + 'auth/proba');
+  }
 
   getAllApprovedAccommodations(page : number, numberOfElements: number): Observable<AccommodationSummaryCollection> {
     let params = new HttpParams()
